@@ -12,15 +12,20 @@ load_dotenv()
 # Kayıt aralığı (dakika); 5-15 arası ayarlanabilir
 RECORD_INTERVAL_MINUTES: int = int(os.getenv("RECORD_INTERVAL_MINUTES", "5"))
 
-# Takip edilecek maksimum market sayısı
-MAX_MARKETS: int = int(os.getenv("MAX_MARKETS", "100"))
-
 # Order book derinliği (kaç seviye kaydedilecek)
 ORDERBOOK_DEPTH: int = int(os.getenv("ORDERBOOK_DEPTH", "10"))
 
-# --- Veritabanı Ayarları ---
-# SQLite veritabanı dosya yolu
-DB_PATH: str = os.getenv("DB_PATH", "data/polymarket_data.db")
+# --- JSON Depolama Ayarları ---
+# Snapshot JSON dosyalarının kaydedileceği ana klasör
+DATA_DIR: str = os.getenv("DATA_DIR", "data")
+
+# --- BTC Market Filtresi ---
+# Sadece bu anahtar kelimeleri içeren marketler takip edilir (küçük harf, OR mantığı)
+BTC_KEYWORDS: list[str] = ["btc", "bitcoin"]
+
+# Süre anahtar kelimeleri - kısa vadeli (5-15 dk) marketleri seçmek için
+DURATION_KEYWORDS: list[str] = ["5 min", "10 min", "15 min", "5-min", "10-min", "15-min",
+                                 "5min", "10min", "15min", "5 minute", "10 minute", "15 minute"]
 
 # --- API Ayarları ---
 # Polymarket CLOB API temel URL'i

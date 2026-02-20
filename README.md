@@ -1,8 +1,8 @@
-# Polymarket Recorder
+# Polymarket BTC Recorder
 
-**TR:** Polymarket prediction market verilerini 5-15 dakikalık aralıklarla kaydeden, backtest için kullanılabilecek dataset oluşturucu.
+**TR:** Polymarket üzerindeki 5–15 dakikalık BTC up/down prediction market verilerini periyodik olarak JSON dosyalarına kaydeden backtest dataset oluşturucu.
 
-**EN:** A dataset recorder that captures Polymarket prediction market data at 5–15-minute intervals for backtesting purposes.
+**EN:** A dataset recorder that captures Polymarket's 5–15-minute BTC up/down prediction market snapshots into JSON files for backtesting.
 
 ---
 
@@ -23,33 +23,15 @@ cp .env.example .env
 
 ## Kullanım / Usage
 
-### Kayıt Başlatma / Start Recording
-
 ```bash
-# Varsayılan ayarlarla başlat (5 dakika aralık, 100 market)
+# Varsayılan ayarlarla başlat (5 dakika aralık)
 python main.py
 
 # 10 dakika aralıkla kayıt
 python main.py --interval 10
 
-# Özel veritabanı yolu
-python main.py --db-path custom.db
-
-# Maksimum 50 market takip et
-python main.py --max-markets 50
-```
-
-### Veri Export / Data Export
-
-```bash
-# CSV olarak dışa aktar
-python main.py --export csv
-
-# JSON olarak dışa aktar
-python main.py --export json
-
-# Özel export klasörü belirt
-python main.py --export csv --export-dir my_exports
+# Özel veri klasörü
+python main.py --data-dir my_data
 ```
 
 ---
@@ -61,9 +43,8 @@ Ayarlar `.env` dosyası veya ortam değişkenleri ile yapılandırılabilir.
 | Değişken | Varsayılan | Açıklama |
 |---|---|---|
 | `RECORD_INTERVAL_MINUTES` | `5` | Kayıt aralığı (dakika) |
-| `MAX_MARKETS` | `100` | Takip edilecek maks. market sayısı |
 | `ORDERBOOK_DEPTH` | `10` | Order book derinliği (seviye) |
-| `DB_PATH` | `data/polymarket_data.db` | SQLite veritabanı yolu |
+| `DATA_DIR` | `data` | JSON snapshot dosyaları klasörü |
 | `CLOB_API_URL` | `https://clob.polymarket.com` | Polymarket CLOB API URL |
 | `GAMMA_API_URL` | `https://gamma-api.polymarket.com` | Polymarket Gamma API URL |
 | `API_RATE_LIMIT_SLEEP` | `0.5` | İstekler arası bekleme (saniye) |
@@ -75,60 +56,67 @@ Ayarlar `.env` dosyası veya ortam değişkenleri ile yapılandırılabilir.
 
 ---
 
-## Veritabanı Şeması / Database Schema
+## Market Filtresi / Market Filter
 
-### `markets`
-| Sütun | Tür | Açıklama |
-|---|---|---|
-| `id` | TEXT PK | Polymarket condition_id |
-| `question` | TEXT | Market sorusu |
-| `description` | TEXT | Market açıklaması |
-| `category` | TEXT | Kategori |
-| `end_date` | TEXT | Bitiş tarihi |
-| `active` | BOOLEAN | Aktif mi? |
-| `created_at` | TIMESTAMP | Oluşturulma zamanı |
-| `updated_at` | TIMESTAMP | Son güncelleme zamanı |
+Yalnızca sorusunda **BTC veya Bitcoin** ile birlikte aşağıdakilerden birini içeren marketler takip edilir:
 
-### `tokens`
-| Sütun | Tür | Açıklama |
-|---|---|---|
-| `token_id` | TEXT PK | Outcome token ID |
-| `market_id` | TEXT FK | İlişkili market |
-| `outcome` | TEXT | "Yes" veya "No" |
-| `created_at` | TIMESTAMP | Oluşturulma zamanı |
+- Süre belirteci: `5 min`, `10 min`, `15 min` gibi kısa vadeliler
+- Yön belirteci: `up`, `down`, `higher`, `lower`
 
-### `price_snapshots`
-| Sütun | Tür | Açıklama |
-|---|---|---|
-| `id` | INTEGER PK | Otomatik artan ID |
-| `token_id` | TEXT FK | Token referansı |
-| `market_id` | TEXT FK | Market referansı |
-| `price` | REAL | Güncel fiyat (0–1) |
-| `bid_price` | REAL | En iyi alış fiyatı |
-| `ask_price` | REAL | En iyi satış fiyatı |
-| `spread` | REAL | Bid-ask spread |
-| `timestamp` | TIMESTAMP | Snapshot zamanı |
+Örnek: *"Will BTC be higher in 5 minutes?"*, *"BTC up or down in 15 min?"*
 
-### `orderbook_snapshots`
-| Sütun | Tür | Açıklama |
-|---|---|---|
-| `id` | INTEGER PK | Otomatik artan ID |
-| `token_id` | TEXT FK | Token referansı |
-| `market_id` | TEXT FK | Market referansı |
-| `side` | TEXT | "bid" veya "ask" |
-| `level` | INTEGER | Derinlik seviyesi (1–10) |
-| `price` | REAL | Seviye fiyatı |
-| `size` | REAL | Seviye büyüklüğü |
-| `timestamp` | TIMESTAMP | Snapshot zamanı |
+---
 
-### `volume_snapshots`
-| Sütun | Tür | Açıklama |
-|---|---|---|
-| `id` | INTEGER PK | Otomatik artan ID |
-| `market_id` | TEXT FK | Market referansı |
-| `volume_24h` | REAL | 24 saatlik işlem hacmi |
-| `liquidity` | REAL | Toplam likidite |
-| `timestamp` | TIMESTAMP | Snapshot zamanı |
+## Çıktı Yapısı / Output Structure
+
+```
+data/
+├── btc_markets.json          # Anlık BTC market meta verisi (her döngüde güncellenir)
+└── snapshots/
+    ├── 2024-01-01.jsonl      # Günlük snapshot dosyası (JSON Lines)
+    ├── 2024-01-02.jsonl
+    └── ...
+```
+
+### Snapshot formatı (tek satır / one line in `.jsonl`)
+
+```json
+{
+  "timestamp": "2024-01-01T12:00:00",
+  "market_id": "0xabc...",
+  "question": "Will BTC be higher in 5 minutes?",
+  "end_date": "2024-01-01T12:05:00",
+  "volume_24h": 50000.0,
+  "liquidity": 10000.0,
+  "tokens": [
+    {
+      "token_id": "0x123...",
+      "outcome": "Yes",
+      "price": 0.65,
+      "bid_price": 0.64,
+      "ask_price": 0.66,
+      "spread": 0.02,
+      "orderbook_bids": [{"price": 0.64, "size": 100.0}],
+      "orderbook_asks": [{"price": 0.66, "size": 80.0}]
+    },
+    {
+      "token_id": "0x456...",
+      "outcome": "No",
+      "price": 0.35,
+      ...
+    }
+  ]
+}
+```
+
+### Backtest için okuma / Reading for backtesting
+
+```python
+import json
+
+with open("data/snapshots/2024-01-01.jsonl") as f:
+    snapshots = [json.loads(line) for line in f]
+```
 
 ---
 
@@ -142,9 +130,9 @@ polymarket_recorder/
 ├── .gitignore           # Git yoksayma kuralları
 ├── config.py            # Konfigürasyon ayarları
 ├── models.py            # Veri modelleri (dataclass)
-├── database.py          # SQLite veritabanı işlemleri
+├── storage.py           # JSON dosya kayıt işlemleri
 ├── api_client.py        # Polymarket API istemcisi
-├── recorder.py          # Ana kayıt döngüsü
-├── utils.py             # Loglama, hata yönetimi, export
+├── recorder.py          # Ana kayıt döngüsü (BTC filtreli)
+├── utils.py             # Loglama kurulumu
 └── main.py              # Giriş noktası (CLI)
 ```

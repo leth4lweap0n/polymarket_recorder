@@ -1,5 +1,5 @@
 """
-Ana kayıt döngüsü - Marketleri keşfeder, verileri çeker ve veritabanına kaydeder.
+Ana kayıt döngüsü - BTC up/down marketlerini keşfeder, verileri çeker ve JSON olarak kaydeder.
 """
 
 import logging
@@ -7,24 +7,44 @@ import signal
 import time
 from collections.abc import Callable
 from datetime import datetime
-from typing import List
+from typing import Any
 
 import config
-import database
+import storage
 from api_client import PolymarketAPIClient
-from models import Market, OrderbookSnapshot, PriceSnapshot, Token, VolumeSnapshot
 
 logger = logging.getLogger(__name__)
 
 
+def _is_btc_market(question: str) -> bool:
+    """
+    Verilen market sorusunun BTC up/down marketi olup olmadığını kontrol eder.
+    Soru hem BTC/Bitcoin hem de süre (5/10/15 dk) veya yön (up/down) anahtar
+    kelimelerini içermelidir.
+
+    Args:
+        question: Market sorusu metni.
+
+    Returns:
+        BTC up/down marketi ise True, değilse False.
+    """
+    q = question.lower()
+    # BTC veya Bitcoin geçmeli
+    has_btc = any(kw in q for kw in config.BTC_KEYWORDS)
+    # 5-15 dakika süresi veya up/down yönü belirtilmeli
+    has_duration = any(kw in q for kw in config.DURATION_KEYWORDS)
+    has_direction = "up" in q or "down" in q or "higher" in q or "lower" in q
+    return has_btc and (has_duration or has_direction)
+
+
 class Recorder:
     """
-    Polymarket verilerini periyodik olarak kaydeden ana sınıf.
+    Polymarket BTC up/down verilerini periyodik olarak JSON dosyalarına kaydeden sınıf.
     SIGINT/SIGTERM sinyallerini yakalayarak düzgün kapanma sağlar.
     """
 
-    def __init__(self, db_path: str = config.DB_PATH) -> None:
-        self.db_path = db_path
+    def __init__(self, data_dir: str = config.DATA_DIR) -> None:
+        self.data_dir = data_dir
         self.client = PolymarketAPIClient()
         self._running = False
 
@@ -42,161 +62,137 @@ class Recorder:
         self._running = False
 
     # ------------------------------------------------------------------
-    # Market keşfi ve kayıt
+    # Market keşfi
     # ------------------------------------------------------------------
 
-    def discover_and_save_markets(self) -> List[Market]:
+    def discover_btc_markets(self) -> list[dict[str, Any]]:
         """
-        Gamma API'den aktif marketleri çeker, veritabanına kaydeder ve
-        ilişkili token'ları da kaydeder.
+        Gamma API'den tüm aktif marketleri çeker ve yalnızca BTC up/down
+        marketlerini filtreler.
 
         Returns:
-            Keşfedilen Market nesnelerinin listesi.
+            BTC up/down market ham sözlüklerinin listesi.
         """
-        logger.info("Market listesi güncelleniyor...")
-        raw_markets = []
+        logger.info("BTC market listesi güncelleniyor...")
+        all_markets: list[dict] = []
         offset = 0
         limit = 100
 
-        # Sayfalama ile tüm aktif marketleri çek
-        while len(raw_markets) < config.MAX_MARKETS:
+        # Sayfalama ile aktif marketleri çek
+        while True:
             batch = self.client.get_markets(limit=limit, offset=offset)
             if not batch:
                 break
-            raw_markets.extend(batch)
+            all_markets.extend(batch)
             if len(batch) < limit:
                 break
             offset += limit
 
-        # MAX_MARKETS sınırını uygula
-        raw_markets = raw_markets[: config.MAX_MARKETS]
+        # BTC up/down filtresi uygula
+        btc_markets = [m for m in all_markets if _is_btc_market(m.get("question", ""))]
 
-        markets: List[Market] = []
-        now = datetime.utcnow()
+        logger.info(
+            "Toplam %d aktif market içinden %d BTC up/down market bulundu.",
+            len(all_markets),
+            len(btc_markets),
+        )
 
-        for raw in raw_markets:
-            market_id = raw.get("conditionId") or raw.get("condition_id") or raw.get("id", "")
-            if not market_id:
-                continue
+        # Market meta verisini JSON olarak kaydet
+        storage.save_markets(
+            [
+                {
+                    "id": _get_market_id(m),
+                    "question": m.get("question", ""),
+                    "category": m.get("category", ""),
+                    "end_date": m.get("endDate") or m.get("end_date", ""),
+                    "active": m.get("active", True),
+                }
+                for m in btc_markets
+            ],
+            self.data_dir,
+        )
 
-            market = Market(
-                id=market_id,
-                question=raw.get("question", ""),
-                description=raw.get("description", ""),
-                category=raw.get("category", ""),
-                end_date=raw.get("endDate") or raw.get("end_date", ""),
-                active=bool(raw.get("active", True)),
-                created_at=now,
-                updated_at=now,
-            )
-            database.upsert_market(self.db_path, market)
-            markets.append(market)
-
-            # Token'ları kaydet
-            for token_data in raw.get("tokens", []):
-                token_id = token_data.get("token_id", "")
-                outcome = token_data.get("outcome", "")
-                if not token_id:
-                    continue
-                token = Token(
-                    token_id=token_id,
-                    market_id=market_id,
-                    outcome=outcome,
-                    created_at=now,
-                )
-                database.upsert_token(self.db_path, token)
-
-        logger.info("%d market kaydedildi/güncellendi.", len(markets))
-        return markets
+        return btc_markets
 
     # ------------------------------------------------------------------
     # Snapshot alma
     # ------------------------------------------------------------------
 
-    def record_snapshots_for_market(self, market: Market) -> None:
+    def record_snapshot_for_market(self, raw_market: dict[str, Any]) -> None:
         """
-        Belirtilen marketin token'ları için fiyat, order book ve hacim
-        snapshot'larını alır ve veritabanına kaydeder.
+        Belirtilen BTC market için fiyat, order book ve hacim snapshot'ını alır,
+        tek bir sözlük olarak paketler ve JSON Lines dosyasına ekler.
 
         Args:
-            market: Snapshot alınacak Market nesnesi.
+            raw_market: Gamma API'den gelen ham market sözlüğü.
         """
-        tokens = database.get_tokens_for_market(self.db_path, market.id)
-        if not tokens:
-            logger.debug("Token bulunamadı, atlanıyor: %s", market.id)
+        market_id = _get_market_id(raw_market)
+        if not market_id:
             return
 
         now = datetime.utcnow()
+        token_snapshots = []
 
-        # Hacim verisi market bazında bir kez alınır
-        volume_saved = False
+        for token_data in raw_market.get("tokens", []):
+            token_id = token_data.get("token_id", "")
+            outcome = token_data.get("outcome", "")
+            if not token_id:
+                continue
 
-        for token in tokens:
-            # --- Fiyat ve spread ---
-            price = self.client.get_price(token.token_id)
-            spread_data = self.client.get_spread(token.token_id)
+            # --- Fiyat ---
+            price = self.client.get_price(token_id)
 
-            bid_price: float | None = None
-            ask_price: float | None = None
-            spread: float | None = None
-
+            # --- Spread ---
+            bid_price = ask_price = spread = None
+            spread_data = self.client.get_spread(token_id)
             if spread_data:
                 bid_price = _safe_float(spread_data.get("bid"))
                 ask_price = _safe_float(spread_data.get("ask"))
                 spread = _safe_float(spread_data.get("spread"))
 
-            if price is not None:
-                ps = PriceSnapshot(
-                    token_id=token.token_id,
-                    market_id=market.id,
-                    price=price,
-                    bid_price=bid_price,
-                    ask_price=ask_price,
-                    spread=spread,
-                    timestamp=now,
-                )
-                database.insert_price_snapshot(self.db_path, ps)
-
             # --- Order book ---
-            orderbook = self.client.get_orderbook(token.token_id)
-            if orderbook:
-                ob_snapshots: List[OrderbookSnapshot] = []
+            orderbook_bids: list[dict] = []
+            orderbook_asks: list[dict] = []
+            volume_24h = liquidity = None
 
-                for side in ("bids", "asks"):
-                    side_label = "bid" if side == "bids" else "ask"
-                    entries = orderbook.get(side, [])
-                    # En iyi ORDERBOOK_DEPTH seviyeyi kaydet
-                    for level, entry in enumerate(entries[: config.ORDERBOOK_DEPTH], start=1):
-                        p = _safe_float(entry.get("price"))
-                        s = _safe_float(entry.get("size"))
-                        if p is None or s is None:
-                            continue
-                        ob_snapshots.append(
-                            OrderbookSnapshot(
-                                token_id=token.token_id,
-                                market_id=market.id,
-                                side=side_label,
-                                level=level,
-                                price=p,
-                                size=s,
-                                timestamp=now,
-                            )
-                        )
+            ob = self.client.get_orderbook(token_id)
+            if ob:
+                for entry in ob.get("bids", [])[: config.ORDERBOOK_DEPTH]:
+                    p, s = _safe_float(entry.get("price")), _safe_float(entry.get("size"))
+                    if p is not None and s is not None:
+                        orderbook_bids.append({"price": p, "size": s})
 
-                database.insert_orderbook_snapshots(self.db_path, ob_snapshots)
+                for entry in ob.get("asks", [])[: config.ORDERBOOK_DEPTH]:
+                    p, s = _safe_float(entry.get("price")), _safe_float(entry.get("size"))
+                    if p is not None and s is not None:
+                        orderbook_asks.append({"price": p, "size": s})
 
-            # --- Hacim / Likidite (market bazında, ilk token'da kaydet) ---
-            if not volume_saved:
-                volume_24h = _safe_float(orderbook.get("volume") if orderbook else None) or 0.0
-                liquidity = _safe_float(orderbook.get("liquidity") if orderbook else None) or 0.0
-                vs = VolumeSnapshot(
-                    market_id=market.id,
-                    volume_24h=volume_24h,
-                    liquidity=liquidity,
-                    timestamp=now,
-                )
-                database.insert_volume_snapshot(self.db_path, vs)
-                volume_saved = True
+                volume_24h = _safe_float(ob.get("volume"))
+                liquidity = _safe_float(ob.get("liquidity"))
+
+            token_snapshots.append({
+                "token_id": token_id,
+                "outcome": outcome,
+                "price": price,
+                "bid_price": bid_price,
+                "ask_price": ask_price,
+                "spread": spread,
+                "orderbook_bids": orderbook_bids,
+                "orderbook_asks": orderbook_asks,
+            })
+
+        # Tüm token bilgilerini market snapshot'ı altında topla
+        snapshot = {
+            "timestamp": now.isoformat(),
+            "market_id": market_id,
+            "question": raw_market.get("question", ""),
+            "end_date": raw_market.get("endDate") or raw_market.get("end_date", ""),
+            "volume_24h": volume_24h,
+            "liquidity": liquidity,
+            "tokens": token_snapshots,
+        }
+
+        storage.append_snapshot(snapshot, self.data_dir)
 
     # ------------------------------------------------------------------
     # Ana döngü
@@ -205,43 +201,43 @@ class Recorder:
     def run(self) -> None:
         """
         Periyodik kayıt döngüsünü başlatır.
-        Her config.RECORD_INTERVAL_MINUTES dakikada bir snapshot alır.
+        Her config.RECORD_INTERVAL_MINUTES dakikada bir BTC market snapshot'ı alır.
         """
         logger.info(
-            "Kayıt başlatılıyor — aralık: %d dk, maks market: %d, DB: %s",
+            "BTC kayıt başlatılıyor — aralık: %d dk, veri klasörü: %s",
             config.RECORD_INTERVAL_MINUTES,
-            config.MAX_MARKETS,
-            self.db_path,
+            self.data_dir,
         )
 
-        # Veritabanını başlat
-        database.initialize_database(self.db_path)
         self._running = True
-
         interval_seconds = config.RECORD_INTERVAL_MINUTES * 60
 
         try:
             while self._running:
                 cycle_start = time.monotonic()
 
-                # 1. Market listesini güncelle
-                markets = self.discover_and_save_markets()
+                # 1. BTC marketleri güncelle
+                btc_markets = self.discover_btc_markets()
 
-                # 2. Her aktif market için snapshot al
+                # 2. Her BTC market için snapshot al
                 snapshot_count = 0
-                for market in markets:
+                for market in btc_markets:
                     if not self._running:
                         break
                     try:
-                        self.record_snapshots_for_market(market)
+                        self.record_snapshot_for_market(market)
                         snapshot_count += 1
                     except Exception as exc:
-                        logger.error("Snapshot hatası (market=%s): %s", market.id, exc)
+                        logger.error(
+                            "Snapshot hatası (market=%s): %s",
+                            market.get("question", "?"),
+                            exc,
+                        )
 
                 elapsed = time.monotonic() - cycle_start
                 logger.info(
-                    "Döngü tamamlandı — %d market, %d snapshot, %.1fs",
-                    len(markets),
+                    "Döngü tamamlandı — %d BTC market, %d snapshot, %.1fs",
+                    len(btc_markets),
                     snapshot_count,
                     elapsed,
                 )
@@ -260,7 +256,21 @@ class Recorder:
 # Yardımcı fonksiyonlar
 # ------------------------------------------------------------------
 
-def _safe_float(value) -> float | None:
+def _get_market_id(market: dict[str, Any]) -> str:
+    """
+    Ham market sözlüğünden condition ID'yi çıkarır.
+    Gamma API farklı sürümlerinde farklı alan adı kullanabilir.
+
+    Args:
+        market: Gamma API'den gelen ham market sözlüğü.
+
+    Returns:
+        Market condition ID veya boş string.
+    """
+    return market.get("conditionId") or market.get("condition_id") or market.get("id", "")
+
+
+def _safe_float(value: Any) -> float | None:
     """Değeri float'a dönüştürür; başarısız olursa None döner."""
     if value is None:
         return None
