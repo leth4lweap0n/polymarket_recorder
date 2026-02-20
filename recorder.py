@@ -133,6 +133,10 @@ class Recorder:
         now = datetime.utcnow()
         token_snapshots = []
 
+        # Hacim ve likidite market genelinde tek kez tutulur
+        volume_24h: float | None = None
+        liquidity: float | None = None
+
         for token_data in raw_market.get("tokens", []):
             token_id = token_data.get("token_id", "")
             outcome = token_data.get("outcome", "")
@@ -150,10 +154,19 @@ class Recorder:
                 ask_price = _safe_float(spread_data.get("ask"))
                 spread = _safe_float(spread_data.get("spread"))
 
+            logger.debug(
+                "Fiyat kaydedildi — market: %s | outcome: %s | price: %s | bid: %s | ask: %s | spread: %s",
+                raw_market.get("question", market_id),
+                outcome,
+                price,
+                bid_price,
+                ask_price,
+                spread,
+            )
+
             # --- Order book ---
             orderbook_bids: list[dict] = []
             orderbook_asks: list[dict] = []
-            volume_24h = liquidity = None
 
             ob = self.client.get_orderbook(token_id)
             if ob:
@@ -167,8 +180,11 @@ class Recorder:
                     if p is not None and s is not None:
                         orderbook_asks.append({"price": p, "size": s})
 
-                volume_24h = _safe_float(ob.get("volume"))
-                liquidity = _safe_float(ob.get("liquidity"))
+                # Hacim/likidite ilk geçerli orderbook yanıtından alınır
+                if volume_24h is None:
+                    volume_24h = _safe_float(ob.get("volume"))
+                if liquidity is None:
+                    liquidity = _safe_float(ob.get("liquidity"))
 
             token_snapshots.append({
                 "token_id": token_id,
