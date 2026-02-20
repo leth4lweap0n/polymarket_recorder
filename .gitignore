@@ -1,0 +1,28 @@
+# Veri ve veritabanı dosyaları
+data/
+*.db
+
+# Ortam dosyası (gizli bilgiler içerebilir)
+.env
+
+# Log dosyaları
+logs/
+
+# Export çıktıları
+exports/
+
+# Python önbellek
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Sanal ortam
+.venv/
+venv/
+env/
+
+# IDE ayarları
+.idea/
+.vscode/
+*.swp
