@@ -233,10 +233,10 @@ class DataRecorder:
                     pass
             
             self.db_date = now_date
-            db_path = os.path.join(self.db_dir, f"recorder_{self.db_date}.db")
-            self.db = TradingDatabase(db_path)
-            self.db_writer.set_db(self.db, db_path)
-            self.log_event("system", f"Started new log file: {os.path.basename(db_path)}")
+            data_dir = os.path.join(self.db_dir, f"recorder_{self.db_date}")
+            self.db = TradingDatabase(data_dir)
+            self.db_writer.set_db(self.db, data_dir)
+            self.log_event("system", f"Started new data directory: recorder_{self.db_date}")
 
     async def update_market_discovery(self):
         try:
@@ -439,7 +439,7 @@ class DataRecorder:
         self.rtds_client.use_proxy = clients.USE_PROXY
         
         self.running = True
-        print("Starting Data Recorder (15m + 5m markets, with Background DB Writer)...")
+        print("Starting Data Recorder (15m + 5m markets, with Background JSON Writer)...")
         
         # Start DB writer thread
         self.db_writer.start()
@@ -488,7 +488,7 @@ class DataRecorder:
         finally:
             self.running = False
             # Wait for DB writer to finish
-            print("\nWaiting for DB writer to finish...")
+            print("\nWaiting for JSON writer to finish...")
             self.db_writer.stop()
             if self.db:
                 self.db.close()
