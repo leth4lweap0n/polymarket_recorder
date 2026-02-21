@@ -11,7 +11,6 @@ Clients:
 
 import asyncio
 import aiohttp
-from aiohttp_socks import ProxyConnector
 import requests
 import json
 import os
@@ -22,42 +21,6 @@ from collections import deque
 
 # Load environment variables
 load_dotenv()
-
-# Proxy configuration
-PROXY_HOST = os.getenv("PROXY_HOST", "")
-PROXY_PORT = os.getenv("PROXY_PORT", "")
-PROXY_USER = os.getenv("PROXY_USER", "")
-PROXY_PASS = os.getenv("PROXY_PASS", "")
-
-# Assemble PROXY_URL only if host and port are present
-if PROXY_HOST and PROXY_PORT:
-    if PROXY_USER and PROXY_PASS:
-        PROXY_URL = f"http://{PROXY_USER}:{PROXY_PASS}@{PROXY_HOST}:{PROXY_PORT}"
-    else:
-        PROXY_URL = f"http://{PROXY_HOST}:{PROXY_PORT}"
-else:
-    PROXY_URL = None
-
-# Global proxy setting - default to False if host/port are missing or if explicitly False
-USE_PROXY = os.getenv("USE_PROXY", "False").lower() == "true"
-if USE_PROXY and not PROXY_URL:
-    print("[WARNING] Proxy enabled in .env but PROXY_HOST/PORT missing. Disabling proxy.")
-    USE_PROXY = False
-
-def get_proxies():
-    """Get proxy dict based on global setting"""
-    if USE_PROXY:
-        return {
-            "http": PROXY_URL,
-            "https": PROXY_URL
-        }
-    return None
-
-def get_proxy_connector():
-    """Create aiohttp proxy connector if proxy is enabled"""
-    if USE_PROXY and PROXY_URL:
-        return ProxyConnector.from_url(PROXY_URL)
-    return None
 
 
 class BinanceClient:
@@ -192,15 +155,13 @@ class CLOBClient:
                     await asyncio.sleep(1)
                     continue
 
-                connector = get_proxy_connector()
-                async with aiohttp.ClientSession(connector=connector) as session:
+                async with aiohttp.ClientSession() as session:
                     # Use aiohttp built-in heartbeat for protocol-level PING/PONG
                     # Polymarket CLOB requires stable connection, 20s heartbeat is optimal
                     async with session.ws_connect(self.ws_url, heartbeat=20, receive_timeout=60) as ws:
                         self.last_message_time = datetime.now().timestamp()
                         self.connection_healthy = True
-                        conn_type = "via proxy" if USE_PROXY else "direct"
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] CLOB connected ({len(self.markets)} markets) ({conn_type})")
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] CLOB connected ({len(self.markets)} markets) (direct)")
                         
                         subscribe_msg = {
                             "type": "market",
@@ -417,7 +378,7 @@ class CLOBClient:
         # 1. Try CLOB
         url = f"https://clob.polymarket.com/markets/{market_slug}"
         try:
-            resp = requests.get(url, timeout=5, proxies=get_proxies())
+            resp = requests.get(url, timeout=5)
             if resp.status_code == 200:
                 return resp.json()
         except Exception as e:
@@ -427,7 +388,7 @@ class CLOBClient:
         try:
             # Gamma usually returns list for ?slug=...
             g_url = f"https://gamma-api.polymarket.com/markets?slug={market_slug}"
-            g_resp = requests.get(g_url, timeout=5, proxies=get_proxies())
+            g_resp = requests.get(g_url, timeout=5)
             if g_resp.status_code == 200:
                 data = g_resp.json()
                 if isinstance(data, list) and data:
@@ -444,14 +405,12 @@ class CLOBClient:
 class RTDSClient:
     """Polymarket RTDS WebSocket for oracle prices"""
     
-    def __init__(self, on_oracle_update: Callable[[float], None], use_proxy: bool = False):
+    def __init__(self, on_oracle_update: Callable[[float], None]):
         """
         Args:
             on_oracle_update: Callback function(oracle_price: float)
-            use_proxy: Whether to use proxy for connection
         """
         self.on_oracle_update = on_oracle_update
-        self.use_proxy = use_proxy
         self.ws_url = "wss://ws-live-data.polymarket.com"
         self.running = False
         self.last_oracle_price = None
@@ -469,12 +428,11 @@ class RTDSClient:
         
         while self.running:
             try:
-                connector = get_proxy_connector() if self.use_proxy else None
-                async with aiohttp.ClientSession(connector=connector) as session:
+                async with aiohttp.ClientSession() as session:
                     async with session.ws_connect(self.ws_url, heartbeat=20) as ws:
                         self.last_message_time = datetime.now().timestamp()
                         self.connection_healthy = True
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] RTDS connected ({'via proxy' if self.use_proxy else 'direct'})")
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] RTDS connected (direct)")
                         
                         # Subscribe to BTC price (Binance source)
                         subscribe_msg = {
@@ -592,8 +550,7 @@ class MarketDiscovery:
         try:
             response = requests.get(
                 f"https://gamma-api.polymarket.com/series/{series_id}",
-                timeout=10,
-                proxies=get_proxies()
+                timeout=10
             )
             
             if response.status_code == 200:
@@ -642,8 +599,7 @@ class MarketDiscovery:
                 event_id = selected_event.get('id')
                 event_resp = requests.get(
                     f"https://gamma-api.polymarket.com/events/{event_id}",
-                    timeout=10,
-                    proxies=get_proxies()
+                    timeout=10
                 )
                 
                 if event_resp.status_code == 200:
@@ -743,7 +699,7 @@ class MarketDiscovery5m:
             slug = f"btc-updown-5m-{start_ts}"
             try:
                 url = f"https://gamma-api.polymarket.com/events?slug={slug}"
-                response = requests.get(url, timeout=5, proxies=get_proxies())
+                response = requests.get(url, timeout=5)
 
                 if response.status_code == 200:
                     data = response.json()

@@ -135,7 +135,7 @@ class DataRecorder:
         # Clients
         self.binance_client = BinanceClient(self.on_binance_update)
         self.clob_client = CLOBClient(self.on_clob_update, self.on_market_resolved)
-        self.rtds_client = RTDSClient(self.on_rtds_update) # use_proxy will be handled in start()
+        self.rtds_client = RTDSClient(self.on_rtds_update)
         self.polymarket_api = PolymarketTargetPriceAPI()
         
     def on_binance_update(self, price: float):
@@ -416,32 +416,6 @@ class DataRecorder:
 
     async def start(self):
         disable_quick_edit()
-        
-        # Proxy choice (Non-interactive for server usage)
-        import data.clients as clients
-        proxy_env = os.getenv("USE_PROXY", "").lower()
-        if proxy_env:
-            clients.USE_PROXY = proxy_env in ("y", "yes", "true", "1")
-        else:
-            # Fallback to interactive only if in a TTY/interactive shell
-            if sys.stdin.isatty():
-                sys.stdout.write("Use proxy for Polymarket? (y/n, default 'y'): ")
-                sys.stdout.flush()
-                choice = sys.stdin.readline().strip().lower()
-                clients.USE_PROXY = choice != 'n'
-            else:
-                clients.USE_PROXY = True # Default for non-interactive
-        
-        # Validate proxy URL exists when proxy is enabled
-        if clients.USE_PROXY and not clients.PROXY_URL:
-            print("[WARNING] Proxy enabled but PROXY_HOST/PORT not configured in .env. Disabling proxy.")
-            clients.USE_PROXY = False
-        
-        proxy_status = "ENABLED" if clients.USE_PROXY else "DISABLED"
-        print(f"Proxy is {proxy_status}")
-        
-        # Update clients that might need it
-        self.rtds_client.use_proxy = clients.USE_PROXY
         
         self.running = True
         print("Starting Data Recorder (15m + 5m markets, with Background JSON Writer)...")
