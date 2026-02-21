@@ -7,6 +7,7 @@ Analog of the paper trading system but without strategy execution.
 import asyncio
 import sys
 import os
+import json
 import ctypes
 import time
 import threading
@@ -21,7 +22,6 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from data.clients import BinanceClient, CLOBClient, RTDSClient, MarketDiscovery, MarketDiscovery5m
 from data.polymarket_target_api import PolymarketTargetPriceAPI
-from db.database import TradingDatabase
 
 import builtins
 
@@ -51,56 +51,73 @@ def disable_quick_edit():
         except Exception:
             pass
 
-class DBWriter(threading.Thread):
-    """Background thread for non-blocking database writes"""
+class JSONWriter(threading.Thread):
+    """Background thread for non-blocking JSON Lines file writes"""
     def __init__(self):
         super().__init__(daemon=True)
         self.queue = queue.Queue()
         self.running = True
-        self._db = None
-        self._db_path = None
-        
-    def set_db(self, db_instance, path):
-        self._db = db_instance
-        self._db_path = path
+        self._data_dir = None
+        self._files = {}
+
+    def set_data_dir(self, data_dir: str):
+        """Set/change output directory (closes old files)"""
+        self._close_files()
+        self._data_dir = data_dir
+        Path(data_dir).mkdir(parents=True, exist_ok=True)
+
+    def _get_file(self, name: str):
+        if name not in self._files:
+            path = os.path.join(self._data_dir, f"{name}.jsonl")
+            self._files[name] = open(path, 'a', encoding='utf-8')
+        return self._files[name]
+
+    def _write_record(self, file_name: str, record: dict):
+        f = self._get_file(file_name)
+        f.write(json.dumps(record, ensure_ascii=False) + '\n')
+        f.flush()
+
+    def _close_files(self):
+        for f in self._files.values():
+            try:
+                f.close()
+            except OSError:
+                pass
+        self._files.clear()
 
     def run(self):
         while self.running or not self.queue.empty():
             try:
                 task = self.queue.get(timeout=1)
-                func_name, args = task
-                
-                if self._db:
-                    func = getattr(self._db, func_name)
-                    func(*args)
-                
+                file_name, record = task
+                if self._data_dir:
+                    self._write_record(file_name, record)
                 self.queue.task_done()
             except queue.Empty:
                 continue
             except Exception as e:
-                # Use standard print here as it's a background thread
-                sys.stderr.write(f"\n[DB_WRITER_ERROR] {e}\n")
+                sys.stderr.write(f"\n[JSON_WRITER_ERROR] {e}\n")
 
-    def add_task(self, func_name, *args):
-        self.queue.put((func_name, args))
+    def add(self, file_name: str, record: dict):
+        self.queue.put((file_name, record))
 
     def stop(self):
         self.running = False
         self.join(timeout=5)
+        self._close_files()
 
 class DataRecorder:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.db_dir = os.path.join(self.base_dir, "db")
-        os.makedirs(self.db_dir, exist_ok=True)
+        self.snapshots_dir = os.path.join(self.base_dir, "snapshots")
+        os.makedirs(self.snapshots_dir, exist_ok=True)
         self.heartbeat_path = os.path.join(self.base_dir, "recorder_heartbeat.txt")
         
         # State
         self.running = False
         self.start_time = datetime.now(timezone.utc)
-        self.db_date = None
-        self.db = None
-        self.db_writer = DBWriter()
+        self.current_date = None
+        self.json_writer = JSONWriter()
         
         # Market Data - 15m
         self.current_market = None
@@ -135,7 +152,7 @@ class DataRecorder:
         # Clients
         self.binance_client = BinanceClient(self.on_binance_update)
         self.clob_client = CLOBClient(self.on_clob_update, self.on_market_resolved)
-        self.rtds_client = RTDSClient(self.on_rtds_update) # use_proxy will be handled in start()
+        self.rtds_client = RTDSClient(self.on_rtds_update)
         self.polymarket_api = PolymarketTargetPriceAPI()
         
     def on_binance_update(self, price: float):
@@ -208,11 +225,15 @@ class DataRecorder:
         self.log_event("market_outcome", msg)
 
     def log_event(self, event_type: str, message: str):
-        if self.db:
+        if self.current_date:
             try:
-                self.db_writer.add_task("log_event", event_type, message)
+                self.json_writer.add("system_events", {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "event_type": event_type,
+                    "message": message
+                })
             except Exception as e:
-                self.errors.append(f"DB Log Queue Error: {e}")
+                self.errors.append(f"JSON Write Error: {e}")
         
         # Output to console
         curr_time = datetime.now().strftime('%H:%M:%S')
@@ -220,23 +241,13 @@ class DataRecorder:
         sys.stdout.write(f"[{curr_time}] [{event_type.upper()}] {message}\n")
         sys.stdout.flush()
 
-    async def check_db_rotation(self):
+    async def check_date_rotation(self):
         now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-        if now_date != self.db_date:
-            if self.db:
-                try:
-                    # Wait for queue to drain before closing
-                    while not self.db_writer.queue.empty():
-                        await asyncio.sleep(0.1)
-                    self.db.close()
-                except:
-                    pass
-            
-            self.db_date = now_date
-            db_path = os.path.join(self.db_dir, f"recorder_{self.db_date}.db")
-            self.db = TradingDatabase(db_path)
-            self.db_writer.set_db(self.db, db_path)
-            self.log_event("system", f"Started new log file: {os.path.basename(db_path)}")
+        if now_date != self.current_date:
+            self.current_date = now_date
+            data_dir = os.path.join(self.snapshots_dir, now_date)
+            self.json_writer.set_data_dir(data_dir)
+            self.log_event("system", f"Started new data directory: {now_date}")
 
     async def update_market_discovery(self):
         try:
@@ -278,7 +289,7 @@ class DataRecorder:
             self.errors.append(f"Discovery 5m Error: {e}")
 
     async def record_snapshot(self):
-        if not self.db:
+        if not self.current_date:
             return
 
         now_utc = datetime.now(timezone.utc)
@@ -287,16 +298,18 @@ class DataRecorder:
 
         # Record BTC prices (~3Hz, shared for both market types)
         if now_ts - self.last_btc_record_ts >= 0.3 and (self.binance_price or self.oracle_price):
-            self.db_writer.add_task(
-                "insert_btc_price", ts_iso,
-                self.binance_price, self.oracle_price, self.current_lag_ms
-            )
+            self.json_writer.add("btc_prices", {
+                "timestamp": ts_iso,
+                "binance_price": self.binance_price,
+                "oracle_price": self.oracle_price,
+                "lag_ms": self.current_lag_ms
+            })
             self.last_btc_record_ts = now_ts
 
         # Record 15m market snapshot
         if self.current_market:
             try:
-                snapshot = {
+                self.json_writer.add("market_snapshots_15m", {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market['slug'],
                     "oracle_price": self.oracle_price,
@@ -308,20 +321,16 @@ class DataRecorder:
                     "down_ask": self.down_prices.get("ask", 0) if self.down_prices else 0,
                     "down_mid": self.down_prices.get("mid", 0) if self.down_prices else 0,
                     "time_to_expiry": int((self.current_market['end_time'] - now_utc).total_seconds()) if 'end_time' in self.current_market else 0,
-                    "metadata": {
-                        "target_price": self.target_price,
-                        "recorder": True,
-                        "lag_ms": self.current_lag_ms
-                    }
-                }
-                self.db_writer.add_task("insert_market_snapshot", snapshot)
+                    "target_price": self.target_price,
+                    "lag_ms": self.current_lag_ms
+                })
             except Exception as e:
                 self.errors.append(f"15m Snapshot Error: {e}")
 
         # Record 5m market snapshot
         if self.current_market_5m:
             try:
-                snapshot_5m = {
+                self.json_writer.add("market_snapshots_5m", {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market_5m['slug'],
                     "oracle_price": self.oracle_price,
@@ -333,13 +342,9 @@ class DataRecorder:
                     "down_ask": self.down_prices_5m.get("ask", 0) if self.down_prices_5m else 0,
                     "down_mid": self.down_prices_5m.get("mid", 0) if self.down_prices_5m else 0,
                     "time_to_expiry": int((self.current_market_5m['end_time'] - now_utc).total_seconds()) if 'end_time' in self.current_market_5m else 0,
-                    "metadata": {
-                        "target_price": self.target_price_5m,
-                        "recorder": True,
-                        "lag_ms": self.current_lag_ms
-                    }
-                }
-                self.db_writer.add_task("insert_market_snapshot_5m", snapshot_5m)
+                    "target_price": self.target_price_5m,
+                    "lag_ms": self.current_lag_ms
+                })
             except Exception as e:
                 self.errors.append(f"5m Snapshot Error: {e}")
 
@@ -417,32 +422,11 @@ class DataRecorder:
     async def start(self):
         disable_quick_edit()
         
-        # Proxy choice (Non-interactive for server usage)
-        import data.clients as clients
-        proxy_env = os.getenv("USE_PROXY", "").lower()
-        if proxy_env:
-            clients.USE_PROXY = proxy_env in ("y", "yes", "true", "1")
-        else:
-            # Fallback to interactive only if in a TTY/interactive shell
-            if sys.stdin.isatty():
-                sys.stdout.write("Use proxy for Polymarket? (y/n, default 'y'): ")
-                sys.stdout.flush()
-                choice = sys.stdin.readline().strip().lower()
-                clients.USE_PROXY = choice != 'n'
-            else:
-                clients.USE_PROXY = True # Default for non-interactive
-        
-        proxy_status = "ENABLED" if clients.USE_PROXY else "DISABLED"
-        print(f"Proxy is {proxy_status}")
-        
-        # Update clients that might need it
-        self.rtds_client.use_proxy = clients.USE_PROXY
-        
         self.running = True
-        print("Starting Data Recorder (15m + 5m markets, with Background DB Writer)...")
+        print("Starting Data Recorder (15m + 5m markets)...")
         
-        # Start DB writer thread
-        self.db_writer.start()
+        # Start JSON writer thread
+        self.json_writer.start()
         
         # Start clients
         asyncio.create_task(self.binance_client.start())
@@ -458,7 +442,7 @@ class DataRecorder:
         
         try:
             while self.running:
-                await self.check_db_rotation()
+                await self.check_date_rotation()
                 
                 now_ts = time.time()
 
@@ -483,15 +467,12 @@ class DataRecorder:
                 # ~3Hz recording
                 await asyncio.sleep(0.33)
                 
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, asyncio.CancelledError):
             print("\nStopping...")
         finally:
             self.running = False
-            # Wait for DB writer to finish
-            print("\nWaiting for DB writer to finish...")
-            self.db_writer.stop()
-            if self.db:
-                self.db.close()
+            print("\nWaiting for JSON writer to finish...")
+            self.json_writer.stop()
             print("Shutdown complete.")
 
 if __name__ == "__main__":

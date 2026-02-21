@@ -10,7 +10,6 @@ from typing import Optional
 import time
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
-from data.clients import get_proxies
 
 class PolymarketTargetPriceAPI:
     def __init__(self):
@@ -18,7 +17,6 @@ class PolymarketTargetPriceAPI:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
         })
-        self.session.proxies.update(get_proxies() or {})
     
     def get_target_price(self, slug: str, max_retries: int = 3) -> Optional[float]:
         """
