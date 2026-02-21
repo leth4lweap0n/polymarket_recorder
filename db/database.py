@@ -57,26 +57,23 @@ class TradingDatabase:
     
     # ==================== MARKET SNAPSHOTS ====================
     
-    def insert_market_snapshot(self, snapshot: Dict[str, Any]):
-        """Insert 15m market price snapshot"""
+    def _prepare_snapshot(self, snapshot: Dict[str, Any]) -> dict:
+        """Prepare a snapshot record, ensuring metadata is a proper dict"""
         record = dict(snapshot)
-        # Ensure metadata is serializable
         if 'metadata' in record and isinstance(record['metadata'], str):
             try:
                 record['metadata'] = json.loads(record['metadata'])
             except (json.JSONDecodeError, TypeError):
                 pass
-        self._append('market_snapshots', record)
+        return record
+    
+    def insert_market_snapshot(self, snapshot: Dict[str, Any]):
+        """Insert 15m market price snapshot"""
+        self._append('market_snapshots', self._prepare_snapshot(snapshot))
     
     def insert_market_snapshot_5m(self, snapshot: Dict[str, Any]):
         """Insert 5m market price snapshot"""
-        record = dict(snapshot)
-        if 'metadata' in record and isinstance(record['metadata'], str):
-            try:
-                record['metadata'] = json.loads(record['metadata'])
-            except (json.JSONDecodeError, TypeError):
-                pass
-        self._append('market_snapshots_5m', record)
+        self._append('market_snapshots_5m', self._prepare_snapshot(snapshot))
     
     # ==================== SYSTEM EVENTS ====================
     
@@ -98,7 +95,7 @@ class TradingDatabase:
         for f in self._files.values():
             try:
                 f.close()
-            except Exception:
+            except OSError:
                 pass
         self._files.clear()
 
