@@ -1,9 +1,0 @@
-2026-02-21 04:05:39 [INFO] recorder: BTC kayıt başlatılıyor — aralık: 5 dk, veri klasörü: data
-2026-02-21 04:05:39 [INFO] recorder: BTC market listesi güncelleniyor...
-2026-02-21 04:08:39 [INFO] recorder: Toplam 29993 aktif market içinden 457 BTC up/down market bulundu.
-2026-02-21 04:08:39 [INFO] recorder: Döngü tamamlandı — 457 BTC market, 457 snapshot, 180.4s
-2026-02-21 04:10:39 [INFO] recorder: BTC market listesi güncelleniyor...
-2026-02-21 04:11:27 [INFO] recorder: Kapatma sinyali alındı (2), döngü durduruluyor...
-2026-02-21 04:13:39 [INFO] recorder: Toplam 29981 aktif market içinden 459 BTC up/down market bulundu.
-2026-02-21 04:13:39 [INFO] recorder: Döngü tamamlandı — 459 BTC market, 0 snapshot, 180.1s
-2026-02-21 04:13:39 [INFO] recorder: Kayıt durduruldu.
