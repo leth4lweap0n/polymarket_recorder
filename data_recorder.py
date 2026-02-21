@@ -109,7 +109,7 @@ class JSONWriter(threading.Thread):
 class DataRecorder:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.snapshots_dir = os.path.join(self.base_dir, "data", "snapshots")
+        self.snapshots_dir = os.path.join(self.base_dir, "snapshots")
         os.makedirs(self.snapshots_dir, exist_ok=True)
         self.heartbeat_path = os.path.join(self.base_dir, "recorder_heartbeat.txt")
         
