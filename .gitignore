@@ -1,0 +1,7 @@
+__pycache__/
+*.db
+*.db-shm
+*.db-wal
+recorder_heartbeat.txt
+.env
+.vscode/

@@ -1,0 +1,25 @@
+[Unit]
+Description=Polymarket Data Recorder Service
+After=network.target
+
+[Service]
+# User and Group - update these to your actual user
+User=ubuntu
+Group=ubuntu
+
+# Working directory - update to the full path of the project
+WorkingDirectory=/home/ubuntu/Polymarket-recorder
+
+# Path to the virtual environment's python
+ExecStart=/home/ubuntu/Polymarket-recorder/venv/bin/python data_recorder.py
+
+# Automatically restart if the script crashes
+Restart=always
+RestartSec=5
+
+# Ensure stdout/stderr are logged to journald
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3215 @@
+[
+  {
+    "id": "0x33f2f9edc51b2f6f92f2636b6fce7ee468770a581e6951c301b932fd7a3fd127",
+    "question": "Bitcoin Up or Down - December 19, 11:35AM-11:40AM ET",
+    "category": "",
+    "end_date": "2025-12-19T16:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc3b0d555052b3f96a630605ce9a6ef818c3fe641d24f0a0357065b697fe25012",
+    "question": "Bitcoin Up or Down - December 19, 11:40AM-11:45AM ET",
+    "category": "",
+    "end_date": "2025-12-19T16:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4c321361d0092ace62f77ec9083db12ac751cbcbc44cf1a7e8f4aa5151384b65",
+    "question": "Bitcoin Up or Down - December 19, 11:45AM-11:50AM ET",
+    "category": "",
+    "end_date": "2025-12-19T16:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x412c9321be98f28a389e229188e6cb31c58ee854a80428c2ecb0155b9a212e2f",
+    "question": "Bitcoin Up or Down - December 19, 11:50AM-11:55AM ET",
+    "category": "",
+    "end_date": "2025-12-19T16:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xca88986028663011712bc6c6be07ec31a9c0f32ce73a544f4f29225e382d0544",
+    "question": "Bitcoin Up or Down - December 19, 11:55AM-12:00PM ET",
+    "category": "",
+    "end_date": "2025-12-19T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1d7b3511c9492780d3fc4f6fecd539759d28c6b52568a4ee15aba85fe26e5eb8",
+    "question": "Bitcoin Up or Down - December 19, 12:00PM-12:05PM ET",
+    "category": "",
+    "end_date": "2025-12-19T17:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb9be286e2ef5605cf26bd4920ea420a741710723fb62bc583c01c518c2e63677",
+    "question": "Bitcoin Up or Down - December 19, 12:05PM-12:10PM ET",
+    "category": "",
+    "end_date": "2025-12-19T17:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x58f5f9080306f2c946a5fa98e6771fda721e7a95e960c6373d0924a68dc572bd",
+    "question": "Bitcoin Up or Down - January 20, 7:15AM-7:20AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x801f7b67e6285ac24b9de34470d996e2a62942b75fff7628e6914bdd4f60125a",
+    "question": "Bitcoin Up or Down - January 20, 7:20AM-7:25AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdc54f4428af53e7240e71817e6d7716a8b76362ed4c13e62d88323f5d39eba3d",
+    "question": "Bitcoin Up or Down - January 20, 7:25AM-7:30AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc7d46fe0ba6c9905d8fb82bf4619b55a6d5e21b696c3bdd8db73b51b68dedea7",
+    "question": "Bitcoin Up or Down - January 20, 7:30AM-7:35AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x084b09b214bfa51b4c1b2bd40c4a8c3ac91407c2264a3297c678aacba51ab61e",
+    "question": "Bitcoin Up or Down - January 20, 7:40AM-7:45AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb5dfdebff42336d3db4fbce96620d950b11ef504a1dca56576191857e18b4d78",
+    "question": "Bitcoin Up or Down - January 20, 7:45AM-7:50AM ET",
+    "category": "",
+    "end_date": "2026-01-20T12:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0b88b6713c8419c245c5b9838b0519621afc8cd3d1414f622cdc2f0ef0df1c5e",
+    "question": "Bitcoin Up or Down - February 20, 6PM ET",
+    "category": "",
+    "end_date": "2026-02-21T00:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5beb5a747b44106d48fdb50c424cf464766319c605b12f15dd0c742e193c3e00",
+    "question": "Bitcoin Up or Down - February 20, 7PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9f202744b88cbe819489f1387942b355c110a0e99d948d253318194165e6938b",
+    "question": "Bitcoin Up or Down - February 20, 8PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd311c86477e140a2e112bf77ce0f652d74dad56917c02c2e476d86cc63cc3f60",
+    "question": "Bitcoin Up or Down - February 20, 9PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3ff5842ee2d5d128fce931c9154af636b7d7c8d736ae1abef82e548ae56c2d76",
+    "question": "Bitcoin Up or Down - February 20, 10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4bdf2a90266f74f5e33944d70346207fbd597c5c39b57752c964c4e668d6bfe9",
+    "question": "Bitcoin Up or Down - February 20, 11PM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5c7fa3dc97280111a00771dea64890e23474ac5511967e65fb88dbdd0971c71a",
+    "question": "Bitcoin Up or Down - February 21, 12AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6c398e50a675f90264f717f7326c56aa55f8ca45eef60abb8a6c9223afe489a9",
+    "question": "Bitcoin Up or Down - February 21, 1AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0c3484b7fd9d5c5997b7347b3aa1b2c75894bc2f65e94e4ca709dccf77da0d09",
+    "question": "Bitcoin Up or Down - February 21, 2AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe050d3da3490b73f1faf07738602e78a0afd8811c35925dd1c9b500bbb5605b6",
+    "question": "Bitcoin Up or Down - February 21, 3AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8fce19287c5a99417a20627a38942c579a1acd1bd36db26b0af6fc57eb90d3d4",
+    "question": "Bitcoin Up or Down - February 21, 4AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd9be5a520a7a34664f2d41286a7f057090c6e725fe3fa4898173b7d68642ff5a",
+    "question": "Bitcoin Up or Down - February 21, 5AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0e23eaa886beeaf8e4fd227b06bcf2fe45c26658a0d3da11ec942c247241ec27",
+    "question": "Bitcoin Up or Down - February 21, 6AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe1aba281462e62300407678113399f3776cda620db8b8c7e6727e73a13df3f24",
+    "question": "Bitcoin Up or Down - February 21, 7AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd4e4d2e3a5aa0e07043041bc480ba56ddf6c9aeaace1c8a152f9831f037e70d9",
+    "question": "Bitcoin Up or Down - February 21, 8AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xce5a435aaec344391375275726652f69bf2cca8bf6f5ff7f6d3aeabdfb1bfae6",
+    "question": "Bitcoin Up or Down - February 21, 9AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1c76c15fa781e9d54febf5c6fd0fd89bfe7a8736e4b9810005f90d104da59d2e",
+    "question": "Bitcoin Up or Down - February 21, 10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf654f1ed6f987aba5446e2d1414aa26fe3a55b807cc5ae00273863d6eb6a0936",
+    "question": "Bitcoin Up or Down - February 21, 11AM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0696275a7de298214aa374910da752227b3ee3597f012812c4485b2869fc6d5c",
+    "question": "Bitcoin Up or Down on February 21?",
+    "category": "",
+    "end_date": "2026-02-21T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x922acd8509c5c0619d7fc5c9e80340bb18412fe10f849f21ef9e3176a4af1117",
+    "question": "Bitcoin Up or Down - February 21, 12PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb15d0b0e14e1ea76887bc8c7f4ba355beb56704b2f2412bbc648eba75a9191e0",
+    "question": "Bitcoin Up or Down - February 21, 1PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0f76248be0de0a6258b90347ece257d062299ab37243b403e57e774ef265ea7d",
+    "question": "Bitcoin Up or Down - February 21, 2PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2e2bb1f9c7055a7d57ab930d1ffe56d400b0aa06ee88d5d6b4091500c621d6ff",
+    "question": "Bitcoin Up or Down - February 21, 3PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xee7ae9131464350c32234fe14345fb8c28adc11324c6b9cfde7875f02c768040",
+    "question": "Bitcoin Up or Down - February 21, 4PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd30f82420ed495c3b5aca0c874772e8fb1fbef6be4cc4e0dc8128a2e0b09d5d9",
+    "question": "Bitcoin Up or Down - February 21, 5PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4872b36a52160d47c0179ff9ecd7599a2d83498afc7c325b126483af57f61b9a",
+    "question": "Bitcoin Up or Down - February 21, 6PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xac5b2793f59625fcbe0f224edb6468321fac7c46d15a6c23688bbb6c5bc01e1d",
+    "question": "Bitcoin Up or Down - February 21, 7PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a11cbb1821a1f26076bf7f2e42fd82fcd55563947f744582a10d747af96d2f0",
+    "question": "Bitcoin Up or Down - February 21, 8PM ET",
+    "category": "",
+    "end_date": "2026-02-22T02:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1d93e7a965d173752f6f0fbb1cbface807e4971c305889ba785dcae6f4c96bb8",
+    "question": "Bitcoin Up or Down - February 20, 8:00PM-8:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x480e810409435415b7a7a0ca7a8810d5a5a4f04b405280ba848c691d5f9c2ee9",
+    "question": "Bitcoin Up or Down - February 20, 8:00PM-12:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xea0424d6536d411f21d1ccb15939e42ce74e5feb1f0a0e87758843a131999f3b",
+    "question": "Bitcoin Up or Down - February 20, 8:05PM-8:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x205465509fd73157ecb765a3c0bcfc049d75f2bf8bc7284342cc8a107364ad01",
+    "question": "Bitcoin Up or Down - February 20, 8:10PM-8:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd09a75c692b13f95f112201ea297d148ad8eefb6caec028828707acc7706de2c",
+    "question": "Bitcoin Up or Down - February 20, 8:15PM-8:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x06bfb1dbde505e043f38cb1e8f92cc21642fa10b409daf1c2e5db8cf1e0e5d8f",
+    "question": "Bitcoin Up or Down - February 20, 8:15PM-8:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x16a7a1fbeb2ae73798b3afd1a4a44ef82d2c6bdc6df823e8072274e476359312",
+    "question": "Bitcoin Up or Down - February 20, 8:20PM-8:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x01a1069a20250ec6b9c4282d9541b7a74841440e646ce572ca4bc3d2864a00c9",
+    "question": "Bitcoin Up or Down - February 20, 8:25PM-8:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x337dbce76736c31f1c83cdb1f31892df13cab42a03f06a5ad7fd10aab5e5b5ce",
+    "question": "Bitcoin Up or Down - February 20, 8:30PM-8:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xfc3943075fcf3315d016b0af1ac813a0c690ac03c67c19c68b5381c51fcb3506",
+    "question": "Bitcoin Up or Down - February 20, 8:30PM-8:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd96c2c88e68306723bcb006cfab377ee93c2fe13ffbc3a65f38da335cee01a07",
+    "question": "Bitcoin Up or Down - February 20, 8:35PM-8:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb65af06a46f96efeb6cfc43f24650414284e58132375c065b2828afee3967163",
+    "question": "Bitcoin Up or Down - February 20, 8:40PM-8:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb315e24fb0ebe33ef86fd71da4044f18d57e8c3fa62ed0b2535ed05f0d7f932d",
+    "question": "Bitcoin Up or Down - February 20, 8:45PM-9:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa3d7134d01e37c2beffbe7e11c1430166ee88d7432ba0c3d3542917ad11a9fbd",
+    "question": "Bitcoin Up or Down - February 20, 8:45PM-8:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5147fef636109d805b7bfba425498c272dbbe4f87db60a7a1dd49017afceea9f",
+    "question": "Bitcoin Up or Down - February 20, 8:50PM-8:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T01:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf4bc96bdefa9d436dcf4318017b03e90f546dfa03a285979649835b6e546602c",
+    "question": "Bitcoin Up or Down - February 21, 9PM ET",
+    "category": "",
+    "end_date": "2026-02-22T03:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb7b8874b4d4ea80802098bad527015ed7a24b946f4cfbc2bbae52d67a8be5e1c",
+    "question": "Bitcoin Up or Down - February 20, 8:55PM-9:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1641e8063e71969afc661ab42696f0356574e7104e4a19d57906f1a02b95d8b5",
+    "question": "Bitcoin Up or Down - February 20, 9:00PM-9:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf13cda92f2e6c414c09b2236b24f68f74f5a4f2b24e61a6014ef079a0a6ec4ba",
+    "question": "Bitcoin Up or Down - February 20, 9:00PM-9:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd45740665ef849c97a475bd148ffbf024c3f82f15723cb300115a7d244deb9ee",
+    "question": "Bitcoin Up or Down - February 20, 9:05PM-9:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x13aa7a40139e346203e1c3de076ab5a26fff21d69df02c11c7e5f69388c8b375",
+    "question": "Bitcoin Up or Down - February 20, 9:10PM-9:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x21382554b6286517cde85231f4c062900e14a94aabcff9c517a67dcd2bf4d114",
+    "question": "Bitcoin Up or Down - February 20, 9:15PM-9:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3ddd119f42f6bffd0c55540e87b87899ba9bab5f89b23de5ed35c5bfa420cfea",
+    "question": "Bitcoin Up or Down - February 20, 9:15PM-9:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3c1bfbe08c80d3388e9c418b4897038b605e8a9c55ee6c0dda66eb4a442fd2ef",
+    "question": "Bitcoin Up or Down - February 20, 9:20PM-9:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc15918de0fb349f1bb12f7945df3554f48a246c6f5d8bc5bff104a36eff68bdf",
+    "question": "Bitcoin Up or Down - February 20, 9:25PM-9:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8ade56f2c8b7a71297faa060f29defe40df65ea38686adcfc043a73988280b66",
+    "question": "Bitcoin Up or Down - February 20, 9:30PM-9:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaeec9cc89da66a133a1dfdb389249b25871ab42c0f0ba6dc9eaae36b6010e2b8",
+    "question": "Bitcoin Up or Down - February 20, 9:30PM-9:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xecb416e642c20fc7404a84ee5d11ae77c6be636838a97e1a26cc1befce5c51f6",
+    "question": "Bitcoin Up or Down - February 20, 9:35PM-9:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xfbcf14e902683904313692de2745c22030d55dcfecd914b1d624bbfb8dcd72e9",
+    "question": "Bitcoin Up or Down - February 20, 9:40PM-9:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0f4f6d2aec13c2ce97399faac5d1103482cbd4dd5aa8a189189cb373d5971f70",
+    "question": "Bitcoin Up or Down - February 20, 9:45PM-10:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbf7967e1f0ba0728f03f7f12e4069243daa89bbcfa89e37d5932da2ae286bf1c",
+    "question": "Bitcoin Up or Down - February 20, 9:45PM-9:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaf79e65db8b110110a589d80dcf79225a3a64888f1f8ada38ce76eef73f01587",
+    "question": "Bitcoin Up or Down - February 20, 9:50PM-9:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T02:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7c9e8a79bad2fb0d30666a56046f892ccaec3472a192a3013abc9284ddcef8c8",
+    "question": "Bitcoin Up or Down - February 21, 10PM ET",
+    "category": "",
+    "end_date": "2026-02-22T04:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x077b00b9eb43d9022749063b26c6bac9c0f4c2e62b519d7882faf9f5152b7bdb",
+    "question": "Bitcoin Up or Down - February 20, 9:55PM-10:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9fd395fec6a954c83e353bab5ff84a3cba7827981ce6722d9422c3fc81354679",
+    "question": "Bitcoin Up or Down - February 20, 10:00PM-10:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9fd395fec6a954c83e353bab5ff84a3cba7827981ce6722d9422c3fc81354679",
+    "question": "Bitcoin Up or Down - February 20, 10:00PM-10:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc2bbce046dc0e9ea13fda03be540a7e07ab5f377d4e65b7e4d584fcdde735fc9",
+    "question": "Bitcoin Up or Down - February 20, 10:00PM-10:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xffb5e54f857791f53f8c48f8dbb911b6c920910bd83ca1c917f56ee838d01c9b",
+    "question": "Bitcoin Up or Down - February 20, 10:05PM-10:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x249aca483c74b421ad135083b29337a34688e977815b5cac9582a568533ff4df",
+    "question": "Bitcoin Up or Down - February 20, 10:10PM-10:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf909f965855982e93e120e389278e5b8f6cd03e5edd38160b9884093a7207885",
+    "question": "Bitcoin Up or Down - February 20, 10:15PM-10:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x86dbf1cff391c05a0fa3ac841e8c63b22689a9c9aa2267c641187cacb6092c74",
+    "question": "Bitcoin Up or Down - February 20, 10:15PM-10:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5b8add4667560d4e3229ddc969441e3d2cf7ea6d0ea75cc19a2ea0183b72efcc",
+    "question": "Bitcoin Up or Down - February 20, 10:20PM-10:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xddee9aa56c0c732714ab4eadfc6fb68cde056d955728989e7b78ed18cc751820",
+    "question": "Bitcoin Up or Down - February 20, 10:25PM-10:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7b409e5e4e7798b9a38d3c02aad7318855c2647ca0f6628c6068f4cfdb4b0625",
+    "question": "Bitcoin Up or Down - February 20, 10:30PM-10:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf735e27b2e77314fefc4ce22eece74bb86b3f8910a567ea18ccf2fd9525d996c",
+    "question": "Bitcoin Up or Down - February 20, 10:30PM-10:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xda9444deae6066f6e6f6372e788779faa661908d6b277b8ae67a58a6df12ec4b",
+    "question": "Bitcoin Up or Down - February 20, 10:35PM-10:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x394e7707832f7815357f3f01282f0b8b86183f62c9d984878c1308a87725a320",
+    "question": "Bitcoin Up or Down - February 20, 10:40PM-10:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9b7390ce2c2521e6990c977a3dc7d8e02778b27742e24ad38f385cd3e1cb43b1",
+    "question": "Bitcoin Up or Down - February 20, 10:45PM-11:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x72e1659ebdb00e310660f5f0f08be78f1dc28f0c1da4d339d88b070c00682077",
+    "question": "Bitcoin Up or Down - February 20, 10:45PM-10:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3c5029848c4d638d81d12f6dcb0b3f64ec193ace3bae60a4156e38ad604ac2e2",
+    "question": "Bitcoin Up or Down - February 20, 10:50PM-10:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T03:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x03ff1fc0e38dc8543a13959ecfdecbe02804bf42de2057284a0bc2e10d3ce1b7",
+    "question": "Bitcoin Up or Down - February 21, 11PM ET",
+    "category": "",
+    "end_date": "2026-02-22T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7af979871bc21e75d53007107b6543f5e019acd62a11fd24d46c067e5f89bf45",
+    "question": "Bitcoin Up or Down - February 20, 10:55PM-11:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x292b79782c45aa7e5fe59dd7d67680bf6830c679258440bb42c25f4326acf7b5",
+    "question": "Bitcoin Up or Down - February 20, 11:00PM-11:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb87ed5e4de7627a19f299f4b40eda5a240e10e725a19317530ec2fd2cd9642a2",
+    "question": "Bitcoin Up or Down - February 20, 11:00PM-11:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc33713aad14b7060bbe4e97570ea0559caa7dcd97a836c1d43f047c4c21300ca",
+    "question": "Bitcoin Up or Down - February 20, 11:05PM-11:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9146b074197614b943b522171d33da0030a97ee87a774057d15e43f77aedf4f7",
+    "question": "Bitcoin Up or Down - February 20, 11:10PM-11:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8e22629617052f84f110b36eae80bca579143f41ab276c63d12c5d18de9e5683",
+    "question": "Bitcoin Up or Down - February 20, 11:15PM-11:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4faf17a2b218a3f05012b382f8f1744ae2097891680ec53d40433c80f3687831",
+    "question": "Bitcoin Up or Down - February 20, 11:15PM-11:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xcbece7dd350c4f542686b80e437e9998591259ddab7a70fd35bada3ae4172bca",
+    "question": "Bitcoin Up or Down - February 20, 11:20PM-11:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc2ca149d20b5f9df90893d88bec43659182254ac408a405940b629090605e755",
+    "question": "Bitcoin Up or Down - February 20, 11:25PM-11:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8d37fc7097547390440c54d0795a11d67f3303fdb434430b7468eaf05a97a59d",
+    "question": "Bitcoin Up or Down - February 20, 11:30PM-11:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa6f9cd276ffbaaad12fe878665a7f5e48b3e65adcb6ec7689d6b4871eec6e7af",
+    "question": "Bitcoin Up or Down - February 20, 11:30PM-11:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7fffa3c4aa882c572e09b8ca9a252dc4d546b97226b4702d4eee101b0a446694",
+    "question": "Bitcoin Up or Down - February 20, 11:35PM-11:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb167d761718d5a73e3c3781ba3f082045f35a2d55b71563297c595a001f1d7fd",
+    "question": "Bitcoin Up or Down - February 20, 11:40PM-11:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xfa96051743500c0484f3105de7d78d5d21f1a28cc7bf1e136275107286cb00ff",
+    "question": "Bitcoin Up or Down - February 20, 11:45PM-12:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a57ba32ce2f3c69ce7bd58717896a8f9e60426cf3333d9908081f474eed2966",
+    "question": "Bitcoin Up or Down - February 20, 11:45PM-11:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaf3577c2cd6181d7b1071e4246349d6a313cf7489e28ee85e81812ac831f556e",
+    "question": "Bitcoin Up or Down - February 20, 11:50PM-11:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T04:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x62483be89489cf0d1f5dd6e806c227f473badd574b69f7867f1c413c504576b2",
+    "question": "Bitcoin Up or Down - February 22, 12AM ET",
+    "category": "",
+    "end_date": "2026-02-22T06:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9169c6aee6ab4c172a595f462380f1f7c331380ebabcc57d6b446a80ae1be239",
+    "question": "Bitcoin Up or Down - February 20, 11:55PM-12:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xfd3fd644a469632d3bf51716366a00a3bc7132f10cc09b0371065ca4cc007054",
+    "question": "Bitcoin Up or Down - February 21, 12:00AM-4:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8e9ee956b31c4a82f2ce70cf7310186ceba63036ab28c1e12744bf56cd6ed424",
+    "question": "Bitcoin Up or Down - February 21, 12:00AM-12:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x60a2ee6617d6269e62b87d7f0b336f2a9450576809b2d8b25cf2713d18f8a434",
+    "question": "Bitcoin Up or Down - February 21, 12:00AM-12:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xcd1f25613bd2a3f21b1728025ed223335c94858987037438d878b75c4cb3ca65",
+    "question": "Bitcoin Up or Down - February 21, 12:05AM-12:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6e34fc6a11c0744e0849bb3681fc9ca034a623857bf7f17f7678bec2b12d9a2e",
+    "question": "Bitcoin Up or Down - February 21, 12:10AM-12:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5ec8e8b099910ce1835d5928b6db6c058655538d8b99f94d9a1d67994ad51cbf",
+    "question": "Bitcoin Up or Down - February 21, 12:15AM-12:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x01002fe7ef2d19c22660ce91d261aab3e795aa27d1bf9d8cdb929aca8c8b7d7d",
+    "question": "Bitcoin Up or Down - February 21, 12:15AM-12:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0b4f9f449e160d4d32543635b739976bf0fb97eb7f2d77ff0dfe119fcccdea1b",
+    "question": "Bitcoin Up or Down - February 21, 12:20AM-12:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xfc005595f10542ab5abe2b7e348b6f7c5feec65d23ef13a1c477c602d3242839",
+    "question": "Bitcoin Up or Down - February 21, 12:25AM-12:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x14154b9a3ae1411cea0b1bc5ac9f1e2ba75524f19d482b57e30d411971c2274c",
+    "question": "Bitcoin Up or Down - February 21, 12:30AM-12:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8fda036403afa67f555490e113243349f62b238a389f740c5d6911ec0a9164cf",
+    "question": "Bitcoin Up or Down - February 21, 12:30AM-12:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x63495364ab544416cba5bd5fba1c013397124eece22d80217ab14684fca5bc7a",
+    "question": "Bitcoin Up or Down - February 21, 12:35AM-12:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd9bbc0f0e98832d8db18f40d820e5583a8a771c7193229177637902f40e15a23",
+    "question": "Bitcoin Up or Down - February 21, 12:40AM-12:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0e22ad1870a4f718d93ad7fe4cd0766074961facbe234f2747f2891dbc51cab1",
+    "question": "Bitcoin Up or Down - February 21, 12:45AM-12:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb004792a0a8223af745600c88e033d1ecbbf800f11315a13bac47058454eeed5",
+    "question": "Bitcoin Up or Down - February 21, 12:45AM-1:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xcf5b5af70ffa193b944ce139faeb0c7ca3899481dee2d662751be0fcb432d784",
+    "question": "Bitcoin Up or Down - February 21, 12:50AM-12:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T05:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6c731b337a164b360a234b4b636c82b70573baddd926ba6a3080f5184706099c",
+    "question": "Bitcoin Up or Down - February 22, 1AM ET",
+    "category": "",
+    "end_date": "2026-02-22T07:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x68fc72993d78c397939e3f1cf759e304225a1dfc85607ab10e49b2a31b4b9d75",
+    "question": "Bitcoin Up or Down - February 21, 12:55AM-1:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x814b5faa1296f7add04fba068b0a1e67dde278872a9c0efa292ffe1b0b8d6782",
+    "question": "Bitcoin Up or Down - February 21, 1:00AM-1:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x070e3bc002fab210933a03b9302c5ec4859269ecee9fcd759db35cb02c317add",
+    "question": "Bitcoin Up or Down - February 21, 1:00AM-1:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x14522a78f8d36bb5abbba085caa4690aa500cc639926c4d62ae03c4dc013995a",
+    "question": "Bitcoin Up or Down - February 21, 1:05AM-1:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x87ac3f7e5e4d2a522bb4fa872ec2fda7f22b56fd0b529b32e55d9f6e57902e5d",
+    "question": "Bitcoin Up or Down - February 21, 1:10AM-1:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x99b07ae7647bc3c186d3c5f151269b792c810b66bad7b6ae9286dd2565df4fc0",
+    "question": "Bitcoin Up or Down - February 21, 1:15AM-1:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x855a2fe91c0a058d03b48dd2a10e16bd9692b9b05add5492a0b0559e1f54b040",
+    "question": "Bitcoin Up or Down - February 21, 1:15AM-1:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3235fdd4ddfadae21af82e5045606f6540f6a6bddb16a62966b032681e425764",
+    "question": "Bitcoin Up or Down - February 21, 1:20AM-1:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd3c891cfb6c63342c198ec0e8c8f343e27773e71b44d6be3144a7b47fa70ab80",
+    "question": "Bitcoin Up or Down - February 21, 1:25AM-1:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf640c662f9cb3dc1eaba1310d5f3580e0394fe31f875cbc9ff32b951e60e7002",
+    "question": "Bitcoin Up or Down - February 21, 1:30AM-1:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x64bab721a00decbecdce334a58020a0fa7b4f4a593198e1feb8f70f27c912cb7",
+    "question": "Bitcoin Up or Down - February 21, 1:30AM-1:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6b57a508ce66614d31dbc9f0767de7c36a38e0cbecfa2b4467d8ea33edc5ef09",
+    "question": "Bitcoin Up or Down - February 21, 1:35AM-1:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaaddd298d3b3619a33479e7831d5def9a7e9353fef0e28f519808109c3a7515c",
+    "question": "Bitcoin Up or Down - February 21, 1:40AM-1:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd5ed9186e7b618eeb84271cdcde66aab49adac4fa35062ce8d7ab6752aa6b9c6",
+    "question": "Bitcoin Up or Down - February 21, 1:45AM-2:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf6873dd427eb2a7bcad8562362eddd837330aa9f358d6f72c10d20dcadc3b22f",
+    "question": "Bitcoin Up or Down - February 21, 1:45AM-1:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9e6681e7d2936f602d77337555fcf4af35afb712d5818b0baaed20f00044e7d8",
+    "question": "Bitcoin Up or Down - February 21, 1:50AM-1:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T06:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc257a903d740ce9247ca9f0eadd05789e6867f2b317787aced47d5ffae466209",
+    "question": "Bitcoin Up or Down - February 22, 2AM ET",
+    "category": "",
+    "end_date": "2026-02-22T08:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0c647936a3f84983e74905872e8d6caa77160e58657ee4542e36a8edc87c9865",
+    "question": "Bitcoin Up or Down - February 21, 1:55AM-2:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x34228092ff11c3bb680e148b138baa63bc9090a0b9f916be8e68bb29cdfc8bd4",
+    "question": "Bitcoin Up or Down - February 21, 2:00AM-2:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x58a536deb976cfe34b8b1b9e7e43d75433c538d21c386a8626be3a93fa64360e",
+    "question": "Bitcoin Up or Down - February 21, 2:00AM-2:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd00a104def6826eeb13ed60e7b342110d89d1d6dcbd851765a0a93441b73293e",
+    "question": "Bitcoin Up or Down - February 21, 2:05AM-2:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe7d525c38f14a548437c5796464ea03f238d5f878a4a51f6fa63abe507c00caa",
+    "question": "Bitcoin Up or Down - February 21, 2:10AM-2:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x53009948f6a29fc1b43ae9134dc660dd4fbd154a8c6450a416769dca8bf56943",
+    "question": "Bitcoin Up or Down - February 21, 2:15AM-2:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbfd23505d090e51a053c4b8b2d1d71b1097639c297736bb8e25a660a53a97b8d",
+    "question": "Bitcoin Up or Down - February 21, 2:15AM-2:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd77256dd242c5519e61ca2905bb47493425517dee30bd779944a4cf8ae5bfa02",
+    "question": "Bitcoin Up or Down - February 21, 2:20AM-2:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x79de351e6623a7fdb9fa312036980c7428c1702b1869faf8bb43c2ffb0faf9f8",
+    "question": "Bitcoin Up or Down - February 21, 2:25AM-2:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8d75b62b830afa223b4223b6ff7ba3b939afb13f76455bb57fe3f7a13525c339",
+    "question": "Bitcoin Up or Down - February 21, 2:30AM-2:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x452d39b83868c4f61ccd661e055e2a7325062449233a8cce9add86a597d4ea3d",
+    "question": "Bitcoin Up or Down - February 21, 2:30AM-2:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1ec67d4cd4781033898219d6803094830b8dd822ca9fb1a28da75db66068901e",
+    "question": "Bitcoin Up or Down - February 21, 2:35AM-2:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x091cf8637cebdc128647c226f1a10dd6191c8febe5349931e824ccc63fa6ef16",
+    "question": "Bitcoin Up or Down - February 21, 2:40AM-2:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4d817649c5b2f51bb7a6207a9c040bf8c91544479e0cdb27109bee95efd45ba9",
+    "question": "Bitcoin Up or Down - February 21, 2:45AM-3:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1b96768a7fc47a835ca068940f4800cd71ab1ffad1a760560d6c2b779f7c5fad",
+    "question": "Bitcoin Up or Down - February 21, 2:45AM-2:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2d07ed5002ff824fbb3c6a71c8e9fddf53b7ff7eed2782abcc2f46ab737245d2",
+    "question": "Bitcoin Up or Down - February 21, 2:50AM-2:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T07:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x19f0f5cd13683d3b6b8a480073c9c7e63df6d84d3178a8b0281e91ff6ec18c95",
+    "question": "Bitcoin Up or Down - February 22, 3AM ET",
+    "category": "",
+    "end_date": "2026-02-22T09:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x76925547410f0aae3eee950f381f0f27d36b0a228824333812a5df2717099544",
+    "question": "Bitcoin Up or Down - February 21, 2:55AM-3:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4137b1bf090d977c790a7cca105d65b8aad0caef48a0d7c403acfdf27d11660d",
+    "question": "Bitcoin Up or Down - February 21, 3:00AM-3:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x726c1805cceb4b348df419d9d1f15eb12678b8aa08608ca2271d34ee15df37d8",
+    "question": "Bitcoin Up or Down - February 21, 3:00AM-3:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1dc310e910646e025e811ad1a9b14cbf4a3bdcf4e5d206ffa1597ac894b8474e",
+    "question": "Bitcoin Up or Down - February 21, 3:05AM-3:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd8d2a8bdd0c9447165350f5a886220da7e33f1b6754442e2cc9f140049a7deb6",
+    "question": "Bitcoin Up or Down - February 21, 3:10AM-3:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x27ba908a3c66cd2058bbca6e0d79e13e42a3b9728b462030915720268de8918b",
+    "question": "Bitcoin Up or Down - February 21, 3:15AM-3:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf426f65f459d24cdc9cd93619b1c03d0a18e095709a1b96fe0d6b0eb156ce56b",
+    "question": "Bitcoin Up or Down - February 21, 3:15AM-3:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2ee64a621c8b03de2869834fcd9bcb9b7233b50528eca8bfb94f96d243059274",
+    "question": "Bitcoin Up or Down - February 21, 3:20AM-3:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xed28e347fb50fa1f70964be6397cc4326815c173c68da4b518580d5c438d66fa",
+    "question": "Bitcoin Up or Down - February 21, 3:25AM-3:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8ef234b5834010d8a99e6ac21a69a70ee6c574a5bc224cd709dec6d09cb40dbf",
+    "question": "Bitcoin Up or Down - February 21, 3:30AM-3:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xeb1bb93b6ff7807eb075bf56a8736bc2b1906d9ad4a1d004dffdca539116deda",
+    "question": "Bitcoin Up or Down - February 21, 3:30AM-3:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaece6763c547169de404d7874844848af583c60d04611d143f849995ff6ad68e",
+    "question": "Bitcoin Up or Down - February 21, 3:35AM-3:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2dc3e2f8a914192edbf8cad41cf08c2b894671cf6de2b3493e7df89059ff0f48",
+    "question": "Bitcoin Up or Down - February 21, 3:40AM-3:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4f319deb69374e1b07a89bf0491196084254e7bff1656eac0f09546bc0b7fb90",
+    "question": "Bitcoin Up or Down - February 21, 3:45AM-4:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe2e8b9df5e5dd3b0462387466ca4d989d09400158e5830cb6638cdf0ab48e647",
+    "question": "Bitcoin Up or Down - February 21, 3:45AM-3:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf0664ecea704378e6925486ec0ff4cca5fea9c36932020cfdf2ec726f8215cf2",
+    "question": "Bitcoin Up or Down - February 21, 3:50AM-3:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T08:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x92950238cea6dadc9a917d3fccd6889fec3ddee075ab5fdfe936bd34e9f171a8",
+    "question": "Bitcoin Up or Down - February 22, 4AM ET",
+    "category": "",
+    "end_date": "2026-02-22T10:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe455d28e914e63e79c189b01c62b8ab4aae935975bb31b214b6ec2a10cfcb57d",
+    "question": "Bitcoin Up or Down - February 21, 3:55AM-4:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x863e448e770a52a4bc4e970c6d2c473f80b809d520b443e196cb9e768c05a5f7",
+    "question": "Bitcoin Up or Down - February 21, 4:00AM-4:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0e43d824fa7ab5f5e87c49be3a721058cb3e9a6e9d68dd7d2600a60408ced9bf",
+    "question": "Bitcoin Up or Down - February 21, 4:00AM-4:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x36e50665a12d2c92eb6e7a5297d9c38ca66ada813d62a2b760ec9c2d0ae32409",
+    "question": "Bitcoin Up or Down - February 21, 4:00AM-8:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x36e50665a12d2c92eb6e7a5297d9c38ca66ada813d62a2b760ec9c2d0ae32409",
+    "question": "Bitcoin Up or Down - February 21, 4:00AM-8:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc4ab8316110824cb8ba8aaa6ee4128758a9c905bb3df5b4d4dd1bad21235e282",
+    "question": "Bitcoin Up or Down - February 21, 4:05AM-4:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2d6d77d8b042a3f84d821a238c071d32dbaa0500a2c08ea0a0abb81db2651248",
+    "question": "Bitcoin Up or Down - February 21, 4:10AM-4:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x52e698a28c49ec89c68d267b409cff2d3d9c01acfeb1b63acf8b3986af80b0d3",
+    "question": "Bitcoin Up or Down - February 21, 4:15AM-4:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x679a515525e4bcaffd6f3f56cfe584275778a537034338a8c0136368480f7be4",
+    "question": "Bitcoin Up or Down - February 21, 4:15AM-4:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xce352eadb2750f9ed1a0d5ee2a9daa7f93e18599b161e6c78b65bcb761e0cd92",
+    "question": "Bitcoin Up or Down - February 21, 4:20AM-4:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xca668d259102e7eeac1a4eef628f3ae1ceb9c72d0e28cd9ad85d3e2d95cc5e4d",
+    "question": "Bitcoin Up or Down - February 21, 4:25AM-4:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd266d7df99480387aa4892a68a7eace5f31240ec002a30b9286435dd374267dc",
+    "question": "Bitcoin Up or Down - February 21, 4:30AM-4:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4d48413a99b7dc700f7033625d1caf5438ceaf61a5ac42f91f1fa505158000e3",
+    "question": "Bitcoin Up or Down - February 21, 4:30AM-4:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6ed6c89cfb7c18e4c43209fd2ab1cbd1e2252ca990d2d27200aaa1b815fb74ef",
+    "question": "Bitcoin Up or Down - February 21, 4:35AM-4:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x486dbbdd7f0337da53bd742cb2d84ce428d8f57d88f3ba3d5e38ef713b20b440",
+    "question": "Bitcoin Up or Down - February 21, 4:40AM-4:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x24e081b836cc35cea7534a04683a1cfda798e7590a198ca2e9615cc161240152",
+    "question": "Bitcoin Up or Down - February 21, 4:45AM-5:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4752e95197799a2c3ad5451519a2aa4cdd9444ce4685e8887e26df9865a908d7",
+    "question": "Bitcoin Up or Down - February 21, 4:45AM-4:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x297775aba1170c696c6cf35f61430e0af546f4da2f974e511e0bfa054dd36443",
+    "question": "Bitcoin Up or Down - February 21, 4:50AM-4:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T09:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x50264ae26c3485040789e4a3bcca5dd0c90668c63f7a0741c688c589ba164293",
+    "question": "Bitcoin Up or Down - February 22, 5AM ET",
+    "category": "",
+    "end_date": "2026-02-22T11:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x959a372a71095b146a70335e693e9a2c5da8572df526a2248a4855942a18405d",
+    "question": "Bitcoin Up or Down - February 21, 4:55AM-5:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3587f0efc01b899ce93ca742c581fcafd4514be147edc6002acfc4d7c4be6242",
+    "question": "Bitcoin Up or Down - February 21, 5:00AM-5:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x18a89ebae68cde8a8de664b1b0015be512a098c645b045cf1dd7501e1d37e9db",
+    "question": "Bitcoin Up or Down - February 21, 5:00AM-5:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x80320ce8ca558126cf0cf7a5c97710654fbfe8c770ece554e146969b3348cb4f",
+    "question": "Bitcoin Up or Down - February 21, 5:05AM-5:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4a882ca5fe613501fe9b62136d3080da77154b2437689b47a7677021378416fa",
+    "question": "Bitcoin Up or Down - February 21, 5:10AM-5:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xef652478833e667ed7d34ec916f120edc536a9ebfb1f606630d8538ab9b43194",
+    "question": "Bitcoin Up or Down - February 21, 5:25AM-5:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2f0fc8326c59d459b09accb0421c2ccd41161e61285a1fecf808c0c72cda005f",
+    "question": "Bitcoin Up or Down - February 21, 5:30AM-5:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xeb9f10bc771dd2789d013fa979e206eb7a46098eea929c004499253c5f004c1f",
+    "question": "Bitcoin Up or Down - February 21, 5:30AM-5:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x93c69228c53390be208b6c16b1ec23048c60f5544cff37361229f0f129175a84",
+    "question": "Bitcoin Up or Down - February 21, 5:35AM-5:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf0d338b4b229a7916b315c238de08e3cf433dd278fecfc80fe4166a60c6801eb",
+    "question": "Bitcoin Up or Down - February 21, 5:40AM-5:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xef9cd4e8aa4282daed72a73ef4692288b8e9fdb87d01ec08be7a7e45bebce935",
+    "question": "Bitcoin Up or Down - February 21, 5:45AM-5:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x60decd6630cd30290b252e8eb4742f342149a53fe01b5edffbd92d50a724361d",
+    "question": "Bitcoin Up or Down - February 21, 5:45AM-6:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4cffff9bf6fcfd4b09d5743c693ef44b27a8761d27f70ae36773dbde82ff3744",
+    "question": "Bitcoin Up or Down - February 21, 5:50AM-5:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T10:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc270036f6492f179b3c766ade553ed9c31dff60c694cc19227f7cc2910e63c9a",
+    "question": "Bitcoin Up or Down - February 22, 6AM ET",
+    "category": "",
+    "end_date": "2026-02-22T12:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x997004875a963a2b01f3f1ce842a6083badc78079d7c4163bc8a93146851a1c5",
+    "question": "Bitcoin Up or Down - February 21, 5:55AM-6:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xffaeb3342405b0bebbd04f319f446f6bf6a59055270c4dd90898fa503805b473",
+    "question": "Bitcoin Up or Down - February 21, 6:00AM-6:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xad39c291134fbb4e8777530ea740bc3a1564c0b4aea768fd85516b3b55cbb514",
+    "question": "Bitcoin Up or Down - February 21, 6:00AM-6:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x490b697c13b797ff2be1e354833385b0f8abda9e48ee5fab6b4e5e440723c476",
+    "question": "Bitcoin Up or Down - February 21, 6:05AM-6:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa4e2e5319d63f401d2b9cad4a99ebc86d02c35c6a2e896f0c25030e3c3f0bb9f",
+    "question": "Bitcoin Up or Down - February 21, 6:10AM-6:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x488afa92edc091951c295d9c719221cb25c52d98207d8789da0f6c5b2449497c",
+    "question": "Bitcoin Up or Down - February 21, 6:15AM-6:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x95a9fa9ef6ec2cb64b28cf9e573659801b822adc757a7cc8346a23452757d340",
+    "question": "Bitcoin Up or Down - February 21, 6:15AM-6:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd19d75823fb73cd3a46517694fc23f37c4309a2df0b946821312ced0975aa45b",
+    "question": "Bitcoin Up or Down - February 21, 6:20AM-6:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3fb68fad88a4c2144c78ddbdc473ce0ac9958304ecc3b9ad09b2137f7fcd8539",
+    "question": "Bitcoin Up or Down - February 21, 6:25AM-6:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc2822bb67a44f9378a44834f95b74f66ae04b7fd09dc8d5304dfccbc367c9359",
+    "question": "Bitcoin Up or Down - February 21, 6:30AM-6:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa8a908cb8551473b08184cf81dd76dd4f50bbb4070f1e348b212021358a605da",
+    "question": "Bitcoin Up or Down - February 21, 6:30AM-6:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa32dc4da64f9329afb1b9d10f3ea3171bdc9d3e3cf7b937a895c04cbd8ab33da",
+    "question": "Bitcoin Up or Down - February 21, 6:35AM-6:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x414a5f907b20203901a595b12e10bd65924041c04682a7595e54d9968f02ac00",
+    "question": "Bitcoin Up or Down - February 21, 6:40AM-6:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xad473ef71ec400b6f5cb83a62caf942e0e502d043db105a37f4539fadb440adc",
+    "question": "Bitcoin Up or Down - February 21, 6:45AM-7:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x00661d5e9d84f3683a84ad9235b399cbb32aa7fe07e24e7f58541827e6101c0d",
+    "question": "Bitcoin Up or Down - February 21, 6:45AM-6:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe049702db7250e0269df738b69dd7f99eab732670709411661634b4ec2aea55c",
+    "question": "Bitcoin Up or Down - February 21, 6:50AM-6:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T11:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9ea518f16b8c243cd3f6639730e4c3fd8b802cdbd1390a408e4128d5f4a7f922",
+    "question": "Bitcoin Up or Down - February 22, 7AM ET",
+    "category": "",
+    "end_date": "2026-02-22T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x34026143f6406534fc402c51e315e0adcae16b7c74a90131f940709304be0cd9",
+    "question": "Bitcoin Up or Down - February 21, 6:55AM-7:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x80c7c90512a4ccf63d8d5529c6b2c6dadb8178763740c47f07ce760d51e13c4d",
+    "question": "Bitcoin Up or Down - February 21, 7:00AM-7:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb4318223c4ff0d50468c1b7c833bebc6d73af0a4b3fff7ba20083c1eca762839",
+    "question": "Bitcoin Up or Down - February 21, 7:00AM-7:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x85bda585efc5f870fb02dc4326e6824e8e0d69da6685d96519ae5215c9ff80c0",
+    "question": "Bitcoin Up or Down - February 21, 7:05AM-7:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xec6a34d843d77369c455ff77d596e85b9ed882ab9b82e232ccd91ab4e1b27768",
+    "question": "Bitcoin Up or Down - February 21, 7:10AM-7:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x18552543cb799c05ff2dbad3fcd99f98c2b038268e50783fdab3a759ad12db87",
+    "question": "Bitcoin Up or Down - February 21, 7:15AM-7:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x60722e27c1069901a23289ba80055bf26cc91ed373ee3b7024e80385e245c066",
+    "question": "Bitcoin Up or Down - February 21, 7:15AM-7:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb1bdf7125b55f44efd53fdd05e23031212e64ded6ea6dede565cc1d8e1c8e450",
+    "question": "Bitcoin Up or Down - February 21, 7:20AM-7:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x98c0a21d024c8c7c71ae556e9a8e20755731900fb356bb1b9033f8b34076803a",
+    "question": "Bitcoin Up or Down - February 21, 7:25AM-7:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2c2ff01ab7926c4b3432e85f9a74c43add30eef317122f40af0df459165d1af9",
+    "question": "Bitcoin Up or Down - February 21, 7:30AM-7:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb073dd55b44992b30a8f8bfba31dc21b13b0ce1590e1b78cdf53d6102e0d9bbe",
+    "question": "Bitcoin Up or Down - February 21, 7:30AM-7:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc8f534b4cea81757bed77bc2c9fc08f07707f34aa18bd8fc6356495908724097",
+    "question": "Bitcoin Up or Down - February 21, 7:35AM-7:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5137c5304dd997f8a2742d40dce85dfcf44d53e454beb6f5a647358b7ac4a841",
+    "question": "Bitcoin Up or Down - February 21, 7:40AM-7:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4f50c3bef454bab6c091ebf7e57b40d3adb57055f991dd29d02a824cb4249925",
+    "question": "Bitcoin Up or Down - February 21, 7:45AM-7:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3504d99e12c960833acd46b493e448f410d9d3a30194a966933465424988af2d",
+    "question": "Bitcoin Up or Down - February 21, 7:45AM-8:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3547dc57a9c374222b4fd4f89bb8d0719e3b6b858410b02d953062cadf0bf85b",
+    "question": "Bitcoin Up or Down - February 21, 7:50AM-7:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T12:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x82f4ac8fe9bd96f1d6976a3d5d468e84f8d9ca1545e812dbf05447d66bf56e49",
+    "question": "Bitcoin Up or Down - February 22, 8AM ET",
+    "category": "",
+    "end_date": "2026-02-22T14:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x56f007fd88f535bf976d335540e31e24577a3aa2a6cf605f8004bed62e65b9e1",
+    "question": "Bitcoin Up or Down - February 21, 7:55AM-8:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x533902d2db3331584b1f78d141e1106209f388a63798e61c4093699848367a4e",
+    "question": "Bitcoin Up or Down - February 21, 8:00AM-8:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xaadb05f1b1b4d94f99b477a75197919ff8971bcf9a9af6438af5962c5069837f",
+    "question": "Bitcoin Up or Down - February 21, 8:00AM-12:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x701cb5bd701698669154eade01b2078c8263d43e9186942c748b12689e97bcb2",
+    "question": "Bitcoin Up or Down - February 21, 8:00AM-8:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a10e4d446609316111230545c4d390582162a2ab3893b6c4a5c4c0b3b7d71b6",
+    "question": "Bitcoin Up or Down - February 21, 8:05AM-8:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x96ae330e260c586830b519d337e44c291c361c38b10bd8621225ab7135878a25",
+    "question": "Bitcoin Up or Down - February 21, 8:10AM-8:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8f82d79b5c745c1f44299a2be6730685d6e2c5f00c96456a52258c787e061f37",
+    "question": "Bitcoin Up or Down - February 21, 8:15AM-8:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x20a0403459f6b85b93ae06cc6521bb97f551ea43b6fd2c3c0a821adba9a793a4",
+    "question": "Bitcoin Up or Down - February 21, 8:15AM-8:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf814ca0d1cfdfdc5932970cd01bc45aed8fdec65a04f93b2a64bca76abbcdd78",
+    "question": "Bitcoin Up or Down - February 21, 8:20AM-8:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x91cb220cacf058d15d0f177068fc8709693a36ec5f32a325e0b8419fe5a4ae9b",
+    "question": "Bitcoin Up or Down - February 21, 8:25AM-8:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa0a8239349542d8b6f9278fd48a9b17e94d728c1630739016ba962243f5ed235",
+    "question": "Bitcoin Up or Down - February 21, 8:30AM-8:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x653fa058c6640912c276f9c7ef34646456e2b0912e34f57585582c63997310ae",
+    "question": "Bitcoin Up or Down - February 21, 8:30AM-8:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc82978af71ab26b4745aaa70a28b5aa4f9d344171ecb968ac046b6ef6c178a66",
+    "question": "Bitcoin Up or Down - February 21, 8:35AM-8:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc852ff8892d9ee1b4f502ac5cee92dfefdea86d4aad6eb287626f4b495d4feea",
+    "question": "Bitcoin Up or Down - February 21, 8:40AM-8:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x05b3e49ae1d7b780ab49d788d659a2be6b5ca76b9f4587646ff8c21f09a460f6",
+    "question": "Bitcoin Up or Down - February 21, 8:50AM-8:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T13:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x182d4854a3fd02c1cada2045b2a64d51452f2584c640f2cf007ccc4c89f7e757",
+    "question": "Bitcoin Up or Down - February 22, 9AM ET",
+    "category": "",
+    "end_date": "2026-02-22T15:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x25735e50a61dfb29712847a82988b0b9910de03f0ccd2ceb0ead2277a171dec3",
+    "question": "Bitcoin Up or Down - February 21, 8:55AM-9:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9242842b4b6d03532f17d3dbde442b2f9dbc7f79af9d0edbe8222d3fe6cf199d",
+    "question": "Bitcoin Up or Down - February 21, 9:00AM-9:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb3d3465874c5761784f446c7b095dab8a3f0bbcf69b1080fea1ae15406e7bd53",
+    "question": "Bitcoin Up or Down - February 21, 9:00AM-9:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe1455cd5b5669882baa15cc8f4b7a28246857581a3ff9ba8060ca624c116bd4c",
+    "question": "Bitcoin Up or Down - February 21, 9:05AM-9:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe1455cd5b5669882baa15cc8f4b7a28246857581a3ff9ba8060ca624c116bd4c",
+    "question": "Bitcoin Up or Down - February 21, 9:05AM-9:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a5cb1c6b49f4a7d9b45cbed3ffb5a5202caae7b1285260dbcd0d0dc43d55123",
+    "question": "Bitcoin Up or Down - February 21, 9:10AM-9:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf039f655a6e6a644df9ebfdd105c1baa61e6c673f4382166d4f6b438b0edd2aa",
+    "question": "Bitcoin Up or Down - February 21, 9:15AM-9:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x003de342b9b43a57e99f32bba25b08385c94e7b86d2640800b4a0daa44a6d9fe",
+    "question": "Bitcoin Up or Down - February 21, 9:15AM-9:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdc51527605a70efcf4a6f39b386288f26e36738f85859b14212b2d07193bbdb2",
+    "question": "Bitcoin Up or Down - February 21, 9:20AM-9:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6228e1c32311c9b9eca920f85b90c02c7929f2c41f69202a76cedd009a49043a",
+    "question": "Bitcoin Up or Down - February 21, 9:25AM-9:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6786a5168b3e40cc559afe03ebf56f04f7986fd813db818c2427a5349f5e19ae",
+    "question": "Bitcoin Up or Down - February 21, 9:30AM-9:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4d1ad8866da96b7c3eb35730ba0689bcac1995061e506cbc60d5757c1f54e395",
+    "question": "Bitcoin Up or Down - February 21, 9:30AM-9:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x46a08711997507ca1193286fe04246a347f2595abb9ec658437fa32c0ca34532",
+    "question": "Bitcoin Up or Down - February 21, 9:35AM-9:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x095364bce316f296cc0db7909d36753d9e6096546ff836b595d68cac9e1582f8",
+    "question": "Bitcoin Up or Down - February 21, 9:40AM-9:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5f6fb817b1a8e0ead3fbd0f5f73b6471d603b2b6ec09d30a762b28392f89b760",
+    "question": "Bitcoin Up or Down - February 21, 9:45AM-9:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9225ae2f853ce91c9e507953470437497b4260313ccb7c902e647ea261e42abe",
+    "question": "Bitcoin Up or Down - February 21, 9:45AM-10:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xabda452e5e003375c04d97c269ddd4161753526e4166607b7af8da6863d043a2",
+    "question": "Bitcoin Up or Down - February 21, 9:50AM-9:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T14:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x04842fa195f044e4b26737c00141eccfc14f7f13a55f5387b0504accd41e2104",
+    "question": "Bitcoin Up or Down - February 22, 10AM ET",
+    "category": "",
+    "end_date": "2026-02-22T16:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd16e7d4ef579b909c4a07581b8aa8d924d1f741239ea198fdcc5bf193cfa659c",
+    "question": "Bitcoin Up or Down - February 21, 9:55AM-10:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf3c7f11860ca8681f5e1ad5b627df8f2d3352db9f468feeb040ff041a94063b2",
+    "question": "Bitcoin Up or Down - February 21, 10:00AM-10:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb34489591a4e431479034dee873aacc2ab38d9a9aa291f8ca995f0430d56f569",
+    "question": "Bitcoin Up or Down - February 21, 10:00AM-10:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8b1960298d3abea3fc952434fec3b2260a5d12bb437b08d8f67ccfe29d11ce10",
+    "question": "Bitcoin Up or Down - February 21, 10:05AM-10:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb7a9faf4b148d190381756a4dd3c3dd062ff35a8dcd32c4b8013d8e5bfb71ebf",
+    "question": "Bitcoin Up or Down - February 21, 10:10AM-10:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdb06f22eabf2578a60f5d1ca26caa2b6b3188988a50d7a79ad3fef9e1d4d7229",
+    "question": "Bitcoin Up or Down - February 21, 10:15AM-10:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x98547b1561c7b7c1a9f3b0bfd493a110cd05b176b7bdc93fbc624ac12347c891",
+    "question": "Bitcoin Up or Down - February 21, 10:15AM-10:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6ab1bb0011e597bc34e1f09dd36fd1d86279001bab0f53ea51a6ec386fb2a0b7",
+    "question": "Bitcoin Up or Down - February 21, 10:20AM-10:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5fbbcac5c5c3b89a148bfb1c69ecf3356864fb1eeb7c8faf7051ff8d7fcd94ee",
+    "question": "Bitcoin Up or Down - February 21, 10:25AM-10:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4e037de7818f942b47dc5b58c4919663949c7c83879fc2a1d6ea91602401e68d",
+    "question": "Bitcoin Up or Down - February 21, 10:30AM-10:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5fa91035318e5a30cf4c9d6f7ad2c573c960b7b52539da09823766b638630e42",
+    "question": "Bitcoin Up or Down - February 21, 10:30AM-10:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1d2665543f860c00b2c0efc78d4e6f8c129bd7746971119816fc5b738b5be0d5",
+    "question": "Bitcoin Up or Down - February 21, 10:35AM-10:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x317b9fef8bb36a504ab662a93791635db270ff1ae512f50426f4c115a9bc4cdb",
+    "question": "Bitcoin Up or Down - February 21, 10:40AM-10:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4141744c18722cdf85e5a5b6e62e70e8bee64987455fffc26f079b0fa51cd156",
+    "question": "Bitcoin Up or Down - February 21, 10:45AM-11:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc5c07699e3f5ab5a9a82e3fafd88a280d040a840d55688d0322104df29f2f78a",
+    "question": "Bitcoin Up or Down - February 21, 10:45AM-10:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3769b18251cf4f4c632e181f07ef5e9a521b8a7c154673e03d9f9af3628b8a2b",
+    "question": "Bitcoin Up or Down - February 21, 10:50AM-10:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T15:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x50973ecac8aee77bdd312c2a3c966b8967a5985a305616d4758d1634ea606504",
+    "question": "Bitcoin Up or Down - February 22, 11AM ET",
+    "category": "",
+    "end_date": "2026-02-22T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x55d502a793dcbd41d231590476263d30d2505ea5ebc29b1ef649c6e64e92b283",
+    "question": "Bitcoin Up or Down - February 21, 10:55AM-11:00AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa8c0fb0fb484c13ecaa4862c2617e8e176fffd70c6c652446af9ccc94ade75b8",
+    "question": "Bitcoin Up or Down - February 21, 11:00AM-11:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2843682dcfaf3eb3e79a8bf69276307585323ca919350296241211c81b283c61",
+    "question": "Bitcoin Up or Down - February 21, 11:00AM-11:05AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xacfc7ff73aa93b2abff9ac9562311fde55c4436294d925f67cfddf8a56ab4e4b",
+    "question": "Bitcoin Up or Down - February 21, 11:05AM-11:10AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4678fac7c83aeb5fe4262df7a0944007634e777b3348a88d656144e9342cd1e5",
+    "question": "Bitcoin Up or Down - February 21, 11:10AM-11:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4678fac7c83aeb5fe4262df7a0944007634e777b3348a88d656144e9342cd1e5",
+    "question": "Bitcoin Up or Down - February 21, 11:10AM-11:15AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3c2730afaf999a7159cb75e2c28735737e97a0e5f9bc0bf9fa6d21b7bfa5558d",
+    "question": "Bitcoin Up or Down - February 21, 11:15AM-11:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x895a4aa10baab001acbf638d8771f9715d5545c83b48a5f9ff2739bca61a39ca",
+    "question": "Bitcoin Up or Down - February 21, 11:15AM-11:20AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x61a657c21e42aaaf1ca423644a580e346764551c76ed3928c63f7774d51dab06",
+    "question": "Bitcoin Up or Down - February 21, 11:20AM-11:25AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb5ca80aa19638ac87f886dcfe27089d555980ce3ec6938054e98d0c41abd0000",
+    "question": "Bitcoin Up or Down - February 21, 11:25AM-11:30AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb7a864f47da1ee420f38b298f17dd0d74db8b559c7558fc0a262e472d8d9cf99",
+    "question": "Bitcoin Up or Down - February 21, 11:30AM-11:35AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x06ba54f58e5bdb8dbc0c49c706241c12a81db5d30a03b18f731a36387c930318",
+    "question": "Bitcoin Up or Down - February 21, 11:30AM-11:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x79638301a76df9ecb4c88c8d478926d043355eeb0be322872b3fb812f16995f9",
+    "question": "Bitcoin Up or Down - February 21, 11:35AM-11:40AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8eec2aef85855466808f518b6664e46040285b84b9434454b8cf2246b2a60ffb",
+    "question": "Bitcoin Up or Down - February 21, 11:40AM-11:45AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x43246c12eca1918d5d677d21ea9913ff86e08a2694017bdd74b2f1b5afdaaf91",
+    "question": "Bitcoin Up or Down - February 21, 11:45AM-11:50AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x16088412bdeda3cf5c5b8fa0174d7880bd6f728af231bbe36c6c6f66878dd144",
+    "question": "Bitcoin Up or Down - February 21, 11:45AM-12:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8fc1ffe869b09a5a92d78150c1d52c5be490cf4ded49e34a81a3ecb1336fefeb",
+    "question": "Bitcoin Up or Down - February 21, 11:50AM-11:55AM ET",
+    "category": "",
+    "end_date": "2026-02-21T16:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1ef866c2581d6a3552c5a89a918b45fbef40fc73b478bdf3fa1dfdf5f81e0032",
+    "question": "Bitcoin Up or Down on February 22?",
+    "category": "",
+    "end_date": "2026-02-22T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a5018befc2c5214e6122904e49f492ad0be8130578d12cccceb2091922b34f9",
+    "question": "Bitcoin Up or Down - February 22, 12PM ET",
+    "category": "",
+    "end_date": "2026-02-22T18:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0f72308c792d036bcd93c1497e468d3e3e6b48cf376e642f50e1f66f75bdfe35",
+    "question": "Bitcoin Up or Down - February 21, 11:55AM-12:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdcdd2aae8603335ddfb55cc00571769666bfbcce6e12b53799d972449ca17c7c",
+    "question": "Bitcoin Up or Down - February 21, 12:00PM-12:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb91477f801d4b027cd6911c4a5843778a77d2afad6f68bb6e82ea9adf5c10fe7",
+    "question": "Bitcoin Up or Down - February 21, 12:00PM-12:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3a926a59b73fdcdb1e07098431ff9e1f97ed1531d639142c5c1195ca472b1da9",
+    "question": "Bitcoin Up or Down - February 21, 12:00PM-4:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa2ff130770298c4c468ab5b0c81d0463f545f24e9fc855b7df41fd7a5d4a887f",
+    "question": "Bitcoin Up or Down - February 21, 12:05PM-12:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd5c6fd5e5e33c4da3bce48834ed9a3abd94c0ce949a8b41683065d2dedb2b7d8",
+    "question": "Bitcoin Up or Down - February 21, 12:10PM-12:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x99a463d4d6516c15fda07cc05d5d8f6795fddb2f9a92424b6d58b90c314bd4b4",
+    "question": "Bitcoin Up or Down - February 21, 12:15PM-12:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8a0e494d40eb28647c03609ef928a0e049e8b1e56f7f6b31bfa78039b96a0b6e",
+    "question": "Bitcoin Up or Down - February 21, 12:15PM-12:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x230dea6b55063fa3621640b4cedd15ac8f42b8e93d803fd39c2d77ca13a58ab2",
+    "question": "Bitcoin Up or Down - February 21, 12:20PM-12:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd9a366096c74e5dee49c3bc67ffd66448a28bc739854186bafcfb185573e6403",
+    "question": "Bitcoin Up or Down - February 21, 12:25PM-12:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x43df3260f8763703126df935524f765d1e620d6723208fd12af42fc59c7b20f4",
+    "question": "Bitcoin Up or Down - February 21, 12:30PM-12:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbcea6b7fb61c92ad3f100b1066a00bbd840a56fdd607c0f1bf15a78992f72a58",
+    "question": "Bitcoin Up or Down - February 21, 12:30PM-12:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xddb2b2cd6d6e64bfdfb7541e4f4e86afaf1e062bb9cb9345af6fdbba1e22994d",
+    "question": "Bitcoin Up or Down - February 21, 12:35PM-12:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x632083b8e0083b9f0001d972e2c867b2aa61c4e9de3390c41d3ae3f4eb3d3afa",
+    "question": "Bitcoin Up or Down - February 21, 12:40PM-12:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe594a9bd1b60016136100665bcb8364b74f2cd8a011c0b73bffd1c529b1dd092",
+    "question": "Bitcoin Up or Down - February 21, 12:45PM-12:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2a84e9b774fad72ecf1dd2561b9d91feaa60ea32b8f1fa6c7acc8c8969c74ea1",
+    "question": "Bitcoin Up or Down - February 21, 12:45PM-1:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd4650b3c64557c88f87c8a7a50e8dfa5636c461e6d00f2b55d19e80f27bca81a",
+    "question": "Bitcoin Up or Down - February 21, 12:50PM-12:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T17:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x460e7eff222806f867f8cdcd0fb24760a7eea6af187b97ecd81ab6ac6ea800f8",
+    "question": "Bitcoin Up or Down - February 22, 1PM ET",
+    "category": "",
+    "end_date": "2026-02-22T19:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x63ee3a45c461fb6774d8ef6cfc8d7760f27f3d6b56987e386c0704e827c69d19",
+    "question": "Bitcoin Up or Down - February 21, 12:55PM-1:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x807e69fad323625ed03ea7331bcf2958fd943f90f52ddc5cb910ede68a2d4f8a",
+    "question": "Bitcoin Up or Down - February 21, 1:00PM-1:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa539ceaaffc55df5de91d3e2b2c8e66c7919bf4eea7fe904856a6b4008fe928f",
+    "question": "Bitcoin Up or Down - February 21, 1:00PM-1:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc5790a6170e702836d93f8bcefa80531ed578c5e49e4502b4c0a43fc136c2d31",
+    "question": "Bitcoin Up or Down - February 21, 1:05PM-1:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x65d1d3fc3af4731fbcbf9cf89338a2fdd83eeca48ffc96b992ea3379c1f4858f",
+    "question": "Bitcoin Up or Down - February 21, 1:10PM-1:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf69f737e9bb377db121b374230034d770061b18b5702d30d65945b6bd29cd445",
+    "question": "Bitcoin Up or Down - February 21, 1:15PM-1:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf251da4db42447674fffd1210be9192fec08f5f8b1d24799873a37ccd673cd7d",
+    "question": "Bitcoin Up or Down - February 21, 1:15PM-1:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf7cebea2255e9e190d6059202f52fce5654c55c1fecf4694caa189469570c99e",
+    "question": "Bitcoin Up or Down - February 21, 1:20PM-1:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1d8b209b3e16454405f2c19fedb51769d6b9dbab4ada8996d6645d4deb851de8",
+    "question": "Bitcoin Up or Down - February 21, 1:25PM-1:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x0bcc43891ed73b80bb872f74aa1aca217bc4603a4c5527906f735cf85c6270b8",
+    "question": "Bitcoin Up or Down - February 21, 1:30PM-1:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3d258b05317b3c81ab26fe2b17dc848f3fba76ea55b655bc27315a657e5a8517",
+    "question": "Bitcoin Up or Down - February 21, 1:30PM-1:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x16a9b201e8ebb0c6cd95e9a390c137c5e7a644e6e7f64f1ad914554b03e10408",
+    "question": "Bitcoin Up or Down - February 21, 1:35PM-1:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8564e4929fb398f4d84fe03bf96b042034c6c7b3da7b5351fe00c553ee6c576e",
+    "question": "Bitcoin Up or Down - February 21, 1:40PM-1:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4763c3dbbdb7802f4726dbf260c598d769383ee761ace29272f048b2edb347da",
+    "question": "Bitcoin Up or Down - February 21, 1:45PM-1:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2c186f5fa8cda2f5017e088dbe9543eca8df7fa89eb8de9f774077a24859d73e",
+    "question": "Bitcoin Up or Down - February 21, 1:45PM-2:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd01f7aced6eb15dffd5e17e1c1774e35528d52fd7404cd72f948da0d6e4ac3dc",
+    "question": "Bitcoin Up or Down - February 21, 1:50PM-1:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T18:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x50cf08c15c0baecad904bb84bfa8ccffab68a6c10de373830d1349f74c9ef5b7",
+    "question": "Bitcoin Up or Down - February 22, 2PM ET",
+    "category": "",
+    "end_date": "2026-02-22T20:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe7e6d5a164e8c86aa44150454b053a487d997bfc0bf1c590df6104208912373b",
+    "question": "Bitcoin Up or Down - February 21, 1:55PM-2:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x9da0f5f62739cc4d709b95800b71408ec7dec1b881f2f02eb73d511d532571df",
+    "question": "Bitcoin Up or Down - February 21, 2:00PM-2:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x37baa2e543492bdd9d7506525564cb42b82dca478849d8f4138547c426adcd07",
+    "question": "Bitcoin Up or Down - February 21, 2:00PM-2:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbd0aa6ce606a46ccea2d2a2aba56938e8f3bc29deb442d120a578707e8fe5dd6",
+    "question": "Bitcoin Up or Down - February 21, 2:05PM-2:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc5e96c81e67caf947a4df8f6a791262f973a58bb61fc6a7b0bd5f0e71f21e78d",
+    "question": "Bitcoin Up or Down - February 21, 2:10PM-2:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3a200af380bb35d461c7abb154b7e9a19b4b407322e4a24c5f625c31fe3aac0e",
+    "question": "Bitcoin Up or Down - February 21, 2:15PM-2:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4b6d83f3285b52ac933176a4c30f5e9f9b28c42baebc91c5f2cdb26e54284133",
+    "question": "Bitcoin Up or Down - February 21, 2:15PM-2:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x62f1f3032064326b866560a11da9c4b9094c981bfe8ff297cd3fa08ad0430b5a",
+    "question": "Bitcoin Up or Down - February 21, 2:20PM-2:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x83c5cdc83245501d97d2e94d28abfac081d83959020b098d280e50237c7fc21a",
+    "question": "Bitcoin Up or Down - February 21, 2:25PM-2:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x510214f0c60fcd29c9719b5380a9f1cdcc9d2b81315d0bc7c52f1c236e108b71",
+    "question": "Bitcoin Up or Down - February 21, 2:30PM-2:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x401c32652f117fa8a58674b5c4a2a8ff6d8cb13819b31adbc2c09cb56dd0b883",
+    "question": "Bitcoin Up or Down - February 21, 2:35PM-2:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x597448f6451e1411a5316f54544e31017c8c14b68c4e9c31b43e3b90b21bd3ab",
+    "question": "Bitcoin Up or Down - February 21, 2:40PM-2:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x631b75ac7dbf3e7db8cc6fee1ad53c6839a89dfcb1f108146e49d5cf3045ae55",
+    "question": "Bitcoin Up or Down - February 21, 2:45PM-3:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xcb3aba453bf9c9a732f1cb596fa537f35c5164d487a43001f0b68c4bec94fc28",
+    "question": "Bitcoin Up or Down - February 21, 2:45PM-2:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3a834f1e0031d68a0ff9a5535632b52b3684963a3e8349c77c153678cbd5a237",
+    "question": "Bitcoin Up or Down - February 21, 2:50PM-2:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T19:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa258fb1c43d0faeefdba16609d4b9cf3c9b8e637ec82c2e6280135a4533dcf80",
+    "question": "Bitcoin Up or Down - February 22, 3PM ET",
+    "category": "",
+    "end_date": "2026-02-22T21:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x078d66abe252ddbf9603d2f497fccbecae83c0fe4a7fb3a6f7ccacd7dbea80df",
+    "question": "Bitcoin Up or Down - February 21, 2:55PM-3:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa514fb001235cc82a1d941f741d2cfe94180570516021cb1f617ec9861d68a8f",
+    "question": "Bitcoin Up or Down - February 21, 3:00PM-3:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7e40e570e931c725f171e653c69ce8f2f5852068b2d0ae1087277cf3c0a63297",
+    "question": "Bitcoin Up or Down - February 21, 3:00PM-3:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x031d2efe6d7c74fc7b9bcdb7913ff5229774417a7ecccffd191ed2bbe07df862",
+    "question": "Bitcoin Up or Down - February 21, 3:05PM-3:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x551681a31c0ee8ae77ff864f915ae6edd380402c69741b511f68c6d86c118a25",
+    "question": "Bitcoin Up or Down - February 21, 3:10PM-3:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7effdfb9fd32be263d73a2d55f7e331a072e5d941fdb3e61a009c60c9cef06d4",
+    "question": "Bitcoin Up or Down - February 21, 3:15PM-3:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xceedf90362f8750357781718e99172792f8ce7f785a8905a7deb350a3eb227f0",
+    "question": "Bitcoin Up or Down - February 21, 3:15PM-3:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3b13ad19ed0d63c16abafc1a5fc6c5603a71b32329e2db9690f4156177bbce72",
+    "question": "Bitcoin Up or Down - February 21, 3:20PM-3:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf49283d326c07e04a960000711012f0dc2d4b1a6e6f6a77b98e8769ed9f40ecd",
+    "question": "Bitcoin Up or Down - February 21, 3:25PM-3:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x94c8519238a69840ee32260f6a409d84504bbeee7d9f7ded0a2c8742c7e507f3",
+    "question": "Bitcoin Up or Down - February 21, 3:30PM-3:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7c5963b269ed5af9852118072e40a54ded781b533c96880e11629a8c3810c3a2",
+    "question": "Bitcoin Up or Down - February 21, 3:30PM-3:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa670cf2447f194d9cf06ae4757be4f3c6c8aee638d3e060f472ebfe4467903b5",
+    "question": "Bitcoin Up or Down - February 21, 3:35PM-3:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa670cf2447f194d9cf06ae4757be4f3c6c8aee638d3e060f472ebfe4467903b5",
+    "question": "Bitcoin Up or Down - February 21, 3:35PM-3:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5b05a88b73b703b087bc01df9d6e049bc628fe901bee576e7ddc7684016266e2",
+    "question": "Bitcoin Up or Down - February 21, 3:40PM-3:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x730b4bf423fcfd357190a54c7e76d781f9565069208374a9ba560fdf44245403",
+    "question": "Bitcoin Up or Down - February 21, 3:45PM-4:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x05c67162ff68ac3e21596cf67c2a948e68bfe26f958048b9081745c3bc05315c",
+    "question": "Bitcoin Up or Down - February 21, 3:45PM-3:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x16d679f3b71bbbc39cd7b0b0492b15d762eb852a9d53c301e55f4d8f6722b35d",
+    "question": "Bitcoin Up or Down - February 21, 3:50PM-3:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T20:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5038b3e8d9c07c8fcf43cc10230fa6d568ae2fdefc194580a75ea12cf318ddbc",
+    "question": "Bitcoin Up or Down - February 22, 4PM ET",
+    "category": "",
+    "end_date": "2026-02-22T22:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xba4f6e062f4f28ac9f528b1a7b77a883dec6d605760f11c81a2772ed7475696a",
+    "question": "Bitcoin Up or Down - February 21, 3:55PM-4:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4e1e88c413e38748176db89e543ae00e1fa6ef2abec8909b62d704bcfba9cec7",
+    "question": "Bitcoin Up or Down - February 21, 4:00PM-4:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd01959f8bba9ced45ec4a7c2dc9b1da2823363e102e0914ef6249b6164894103",
+    "question": "Bitcoin Up or Down - February 21, 4:00PM-8:00PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x34097bcd7339493e403d9548da9b2e885a6be4cb52b711411efa71346c30a2c3",
+    "question": "Bitcoin Up or Down - February 21, 4:00PM-4:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa0b471d7227ed96d5beed295985157ee39d0d039ad61b34e3754845c81588026",
+    "question": "Bitcoin Up or Down - February 21, 4:05PM-4:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4375e947b2f1b84ef38e63f761f294cc3e938f0115d7e96c533e1a2ddef26b27",
+    "question": "Bitcoin Up or Down - February 21, 4:10PM-4:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe3198469193a27eb1e08a7f0ba74eefab15177e2ff4b928a7cf6caf633c05869",
+    "question": "Bitcoin Up or Down - February 21, 4:15PM-4:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x775431ab85f53832cd70297e95b98a5d2e112122feec7d3fa6fe2df26ebbab43",
+    "question": "Bitcoin Up or Down - February 21, 4:15PM-4:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1a10014e128ddc83ac4d49cb234e5e62e36edf8d62bd24fc5e818e47030b02dc",
+    "question": "Bitcoin Up or Down - February 21, 4:25PM-4:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4c0a17b1a5099907ae3946312656584182850d3f495f6e74147e38e17e733a66",
+    "question": "Bitcoin Up or Down - February 21, 4:30PM-4:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc4dfb9d98d27bb4a018cce3f24c3875d70911c83a404bc2ba380f80655afa69a",
+    "question": "Bitcoin Up or Down - February 21, 4:30PM-4:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xec61a3407fe96e2fd77e6d99d736d252166fc9f82fb24f43ce64f7a0704ca555",
+    "question": "Bitcoin Up or Down - February 21, 4:35PM-4:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4c204f94011d0c5d366448c572fe57cea18f0a4915555e92080226d92d6b0e1f",
+    "question": "Bitcoin Up or Down - February 21, 4:40PM-4:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x88b512ff3dcc42f0414717dc6b3305e3e27e2f4026a35230f69473a3161e8736",
+    "question": "Bitcoin Up or Down - February 21, 4:45PM-4:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x67ac92b23bf20382bff35cf4519403d3aab4b2015dd2e3943b6a511e32f1687e",
+    "question": "Bitcoin Up or Down - February 21, 4:45PM-5:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x23e435a43d5304be68ddeffc53a1ad57163407672e37456c3a29df4c6c8dbe5b",
+    "question": "Bitcoin Up or Down - February 21, 4:50PM-4:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T21:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4b1e013d8c1e9ca4e57f379b611ce32f64fcaa905539eacdb8b793ee29f43946",
+    "question": "Bitcoin Up or Down - February 22, 5PM ET",
+    "category": "",
+    "end_date": "2026-02-22T23:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd7954e2c3755809293c8c0c53598a16cad7e02aace64759054dbf0ec37be083c",
+    "question": "Bitcoin Up or Down - February 21, 4:55PM-5:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x119514e93150207baa387fd943122ff64f85f19d8c960cea0d00994ffdf5fb77",
+    "question": "Bitcoin Up or Down - February 21, 5:00PM-5:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe83aab3dc937183ca3e91f11bddf0a3b954d37f50fb76971e11f25ef040eeb0c",
+    "question": "Bitcoin Up or Down - February 21, 5:00PM-5:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xc85b17b194f2d05598634ccdd36d224ad695e6e6d38d17b4246d8db0503cce40",
+    "question": "Bitcoin Up or Down - February 21, 5:05PM-5:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdac957e90aa20fbd8896c341f90889aa0716bacd4e5d7480f2dddf517401cadc",
+    "question": "Bitcoin Up or Down - February 21, 5:10PM-5:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe60329a57bc9d388f3c86ebc99676bd04f9eb3c722abcb53062c8312eff5181f",
+    "question": "Bitcoin Up or Down - February 21, 5:15PM-5:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6eff7625fd38c3829818b0382b747f7c4b7ef447958765f99cd750175695bc53",
+    "question": "Bitcoin Up or Down - February 21, 5:15PM-5:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xab0b57500425f19c85dff3048656fbbfcc598d78ed1db57801b94c5de2a7f127",
+    "question": "Bitcoin Up or Down - February 21, 5:20PM-5:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6eff7625fd38c3829818b0382b747f7c4b7ef447958765f99cd750175695bc53",
+    "question": "Bitcoin Up or Down - February 21, 5:15PM-5:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xab0b57500425f19c85dff3048656fbbfcc598d78ed1db57801b94c5de2a7f127",
+    "question": "Bitcoin Up or Down - February 21, 5:20PM-5:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbe5d3d4f383548b6a1cd6b1a44c4a8f2fc9fbf9c05b8fa1f3ce9ff6ca1c4bf29",
+    "question": "Bitcoin Up or Down - February 21, 5:25PM-5:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x7c8fa9cf61bfdd21e1bc7bc084c6dce243e7364f6e5e80aae3e9125a6d55ca73",
+    "question": "Bitcoin Up or Down - February 21, 5:30PM-5:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x34fb78842428e743b7c9e2648bb054a5f24bc7d7e2f80c21c46eec2907366c8e",
+    "question": "Bitcoin Up or Down - February 21, 5:30PM-5:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe06c475d67a4350e97d592eea6ac15487d1ec0a9173988413cd98093f889f719",
+    "question": "Bitcoin Up or Down - February 21, 5:35PM-5:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb615d99999c6e9c0b229351a7b40f1b3040317e17b3bbfe19c6847942dff419d",
+    "question": "Bitcoin Up or Down - February 21, 5:40PM-5:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xed95a169f231aeeaa597a029ff1a2f769c0ea83911a99920306a33cb69ce9518",
+    "question": "Bitcoin Up or Down - February 21, 5:45PM-6:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb7311d764a894d34d1fd392f1943723b8c162ff966bac12f964fc79fde70941d",
+    "question": "Bitcoin Up or Down - February 21, 5:45PM-5:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf65a40a3e70510e0f0027eedc4b39b1cdd5ba9700b39493ad6982cd0a83583bd",
+    "question": "Bitcoin Up or Down - February 21, 5:50PM-5:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T22:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf06e65d1202979fbb6a5913997961c3192fab83091d48d2778620b4e9241c2eb",
+    "question": "Bitcoin Up or Down - February 22, 6PM ET",
+    "category": "",
+    "end_date": "2026-02-23T00:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa4304701b7b138d13a3e52c296f5025490e44e05343c92a8a8c65c9a0f6fd048",
+    "question": "Bitcoin Up or Down - February 21, 5:55PM-6:00PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5bebc48e6b45be0f58308b68952d0a139357345bc24b722eca0d4fe71929f5b1",
+    "question": "Bitcoin Up or Down - February 21, 6:00PM-6:05PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb0ff785b6076b1b15c35359dde74181fd22f670374c1b961f81b40fd27ea7161",
+    "question": "Bitcoin Up or Down - February 21, 6:00PM-6:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x6bd5938b8ac19c003994a2638e7a6dbeac89d2df976a6c8f9123b386e593cb29",
+    "question": "Bitcoin Up or Down - February 21, 6:05PM-6:10PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1fdfe96a574a94f290a359a6f253780395303db3bce36819ea1e00e4ef37038b",
+    "question": "Bitcoin Up or Down - February 21, 6:10PM-6:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1fdfe96a574a94f290a359a6f253780395303db3bce36819ea1e00e4ef37038b",
+    "question": "Bitcoin Up or Down - February 21, 6:10PM-6:15PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x4a980ae00c4faf6da59ea016fad1c24e0f899e2ca6803a66d688f966080aa736",
+    "question": "Bitcoin Up or Down - February 21, 6:15PM-6:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x167a638a983973aa9ad459872a316c5f198befdec2a3bed70a3c98fe63982d51",
+    "question": "Bitcoin Up or Down - February 21, 6:15PM-6:20PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0x49db007abb2d643b6dacee119703f05ef401ac508db61183c68188d9d2fb2eb2",
+    "question": "Bitcoin Up or Down - February 21, 6:20PM-6:25PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0x5d466bbd93b363cb6771ccc256912527e9a0849fff411b8ad2f3e9f8544230bd",
+    "question": "Bitcoin Up or Down - February 21, 6:25PM-6:30PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0xbc3f286f87c7a556ee2ba6e712224c402580e8a5cbba7422737f30f7833a3ae9",
+    "question": "Bitcoin Up or Down - February 21, 6:30PM-6:35PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd234de728ecb0575553f49b7b8ecceea9844dd4d8092559434c300e0635511fe",
+    "question": "Bitcoin Up or Down - February 21, 6:30PM-6:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x1d7dd3a8dd23d504f960b56a3fe2af5e5423c089d5bc10cac830c365c3267f6b",
+    "question": "Bitcoin Up or Down - February 21, 6:35PM-6:40PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa7755d0b49c6b5028422e636034bc9fe987a20ab327d28976cafeb4ab4526458",
+    "question": "Bitcoin Up or Down - February 21, 6:40PM-6:45PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x894a5caaf6470f3f353953777fd73a82013a10488401d0c5f6382533a18d3d10",
+    "question": "Bitcoin Up or Down - February 21, 6:45PM-6:50PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0xab045ff2e1acb871caf212c16f072278c6ccca661df1bb2b6fece4c1a48bae14",
+    "question": "Bitcoin Up or Down - February 21, 6:45PM-7:00PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x17e44afd4f0c8a32a94441f76e7fef1b1337d03bdcdc7d692d3c11c2e97eb92e",
+    "question": "Bitcoin Up or Down - February 21, 6:50PM-6:55PM ET",
+    "category": "",
+    "end_date": "2026-02-21T23:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xdda4a67c6afde69a2aa66fd9be5bc41a98ccee696e820b8bdc2d5bdd65414d65",
+    "question": "Bitcoin Up or Down - February 22, 7PM ET",
+    "category": "",
+    "end_date": "2026-02-23T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xac6e558095545584d9de432b0a5ca826e2f18aeb74de9903f913934dacf5b1f8",
+    "question": "Bitcoin Up or Down - February 21, 6:55PM-7:00PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x333ec36adda905dc7fec3d89bec9993e38cfc3faa8d8efb2efa2f97e545b788e",
+    "question": "Bitcoin Up or Down - February 21, 7:00PM-7:15PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x73731bbefc547ad5412479a59772147b826e3274201f2c79b85e7f8fefd35dd3",
+    "question": "Bitcoin Up or Down - February 21, 7:00PM-7:05PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe2fd8855e864be647b8035a3b75c73848da80b5c5b9603ffddd85216478625eb",
+    "question": "Bitcoin Up or Down - February 21, 7:05PM-7:10PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:10:00Z",
+    "active": true
+  },
+  {
+    "id": "0x41d0c303bf851c23acb1286160caabd8328ee1e06d8a0baaefc6b0348e0ac8c5",
+    "question": "Bitcoin Up or Down - February 21, 7:10PM-7:15PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:15:00Z",
+    "active": true
+  },
+  {
+    "id": "0x817015287c2e0df0bc942f6cf450689c396532ac77bbc87f2deba27dae43df71",
+    "question": "Bitcoin Up or Down - February 21, 7:15PM-7:30PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x353c87c6e0356d17cee60992ebbaeae1f7826bba3730cf736906db69ce762896",
+    "question": "Bitcoin Up or Down - February 21, 7:15PM-7:20PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:20:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe7d2cf0f8d7cc53ae1b16644b93be82c747da6102d142d7f1d25cb971dd747e3",
+    "question": "Bitcoin Up or Down - February 21, 7:20PM-7:25PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:25:00Z",
+    "active": true
+  },
+  {
+    "id": "0xf34fc5535dd454f6d996b9c1e245e8e35b0eb910f940e1f48e30283d4bbd53e1",
+    "question": "Bitcoin Up or Down - February 21, 7:25PM-7:30PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:30:00Z",
+    "active": true
+  },
+  {
+    "id": "0x8489de396e0d040e9505a6aa9fd799843e3303ee839c95286cb95de7bbaf7e98",
+    "question": "Bitcoin Up or Down - February 21, 7:30PM-7:35PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:35:00Z",
+    "active": true
+  },
+  {
+    "id": "0x449dbe658dc1bf9184aaf4b0fb3721e36fc0962cb5b7a19f0e74c4d26c39d6e4",
+    "question": "Bitcoin Up or Down - February 21, 7:30PM-7:45PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0xa52b629ba5840973daf4ad6e9d2390dfc6adae70c1600af1ed3543728218070b",
+    "question": "Bitcoin Up or Down - February 21, 7:35PM-7:40PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:40:00Z",
+    "active": true
+  },
+  {
+    "id": "0x40cc5b53ccf2c1f304af72aa345bc9971c2c9f1112df71841d679fa5ee8ede2a",
+    "question": "Bitcoin Up or Down - February 21, 7:40PM-7:45PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:45:00Z",
+    "active": true
+  },
+  {
+    "id": "0x2a68804363edcca0591dbd6018a562f34c01f37492a48ca6492ee4abf98e0d20",
+    "question": "Bitcoin Up or Down - February 21, 7:45PM-7:50PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:50:00Z",
+    "active": true
+  },
+  {
+    "id": "0x23695c01311d852c21c295d2a9b4fb825b70341a0c30a46a142f23753a1b743d",
+    "question": "Bitcoin Up or Down - February 21, 7:45PM-8:00PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xd05b0fbad94c59f04f754051a105671c485d019648c7cda082302f942a92cd84",
+    "question": "Bitcoin Up or Down - February 21, 7:50PM-7:55PM ET",
+    "category": "",
+    "end_date": "2026-02-22T00:55:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe565df8b59e1f47b50aa19c7728d43450bf26771dc9dc57dad561db19514b0d9",
+    "question": "Bitcoin Up or Down - February 22, 8PM ET",
+    "category": "",
+    "end_date": "2026-02-23T02:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xb56a4347317498dfd71844b9ccfaf4e3d52c8adf54445a2b70e827343ec8491a",
+    "question": "Bitcoin Up or Down - February 21, 7:55PM-8:00PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0xe193d50b5caaa20c2bce3bd33a2a14a7e3c545ba9e42754f423c553632f57dd3",
+    "question": "Bitcoin Up or Down - February 21, 8:00PM-8:05PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:05:00Z",
+    "active": true
+  },
+  {
+    "id": "0xef6e08f7ebcd7344cd93efa876664f9245e29cd0490868b9c19bc0682b97942f",
+    "question": "Bitcoin Up or Down - February 21, 8:00PM-12:00AM ET",
+    "category": "",
+    "end_date": "2026-02-22T05:00:00Z",
+    "active": true
+  },
+  {
+    "id": "0x3c3ac31dc4aa4236115833668e467ee20214ee4e47a18e41fcfc7ff748a4cbca",
+    "question": "Bitcoin Up or Down - February 21, 8:00PM-8:15PM ET",
+    "category": "",
+    "end_date": "2026-02-22T01:15:00Z",
+    "active": true
+  }
+]
