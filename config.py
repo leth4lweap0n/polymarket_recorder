@@ -27,7 +27,9 @@ BTC_KEYWORDS: list[str] = ["btc", "bitcoin"]
 DURATION_KEYWORDS: list[str] = ["5 min", "10 min", "15 min", "5-min", "10-min", "15-min",
                                  "5min", "10min", "15min", "5 minute", "10 minute", "15 minute"]
 
-# --- API Ayarları ---
+# Kayıt döngüsü başına alınacak maksimum tick (işlem) sayısı
+TICK_FETCH_LIMIT: int = int(os.getenv("TICK_FETCH_LIMIT", "100"))
+
 # Polymarket CLOB API temel URL'i
 CLOB_API_URL: str = os.getenv("CLOB_API_URL", "https://clob.polymarket.com")
 

@@ -44,7 +44,8 @@ Ayarlar `.env` dosyası veya ortam değişkenleri ile yapılandırılabilir.
 |---|---|---|
 | `RECORD_INTERVAL_MINUTES` | `5` | Kayıt aralığı (dakika) |
 | `ORDERBOOK_DEPTH` | `10` | Order book derinliği (seviye) |
-| `DATA_DIR` | `data` | JSON snapshot dosyaları klasörü |
+| `TICK_FETCH_LIMIT` | `100` | Döngü başına çekilecek maks. tick sayısı |
+| `DATA_DIR` | `data` | JSON snapshot/tick dosyaları klasörü |
 | `CLOB_API_URL` | `https://clob.polymarket.com` | Polymarket CLOB API URL |
 | `GAMMA_API_URL` | `https://gamma-api.polymarket.com` | Polymarket Gamma API URL |
 | `API_RATE_LIMIT_SLEEP` | `0.5` | İstekler arası bekleme (saniye) |
@@ -72,13 +73,15 @@ Yalnızca sorusunda **BTC veya Bitcoin** ile birlikte aşağıdakilerden birini 
 ```
 data/
 ├── btc_markets.json          # Anlık BTC market meta verisi (her döngüde güncellenir)
-└── snapshots/
-    ├── 2024-01-01.jsonl      # Günlük snapshot dosyası (JSON Lines)
-    ├── 2024-01-02.jsonl
+├── snapshots/
+│   ├── 2024-01-01.jsonl      # Günlük periyodik snapshot dosyası (JSON Lines)
+│   └── ...
+└── ticks/
+    ├── 2024-01-01.jsonl      # Günlük tick (bireysel işlem) dosyası (JSON Lines)
     └── ...
 ```
 
-### Snapshot formatı (tek satır / one line in `.jsonl`)
+### Snapshot formatı (her döngüde bir satır / one line per cycle)
 
 ```json
 {
@@ -98,14 +101,23 @@ data/
       "spread": 0.02,
       "orderbook_bids": [{"price": 0.64, "size": 100.0}],
       "orderbook_asks": [{"price": 0.66, "size": 80.0}]
-    },
-    {
-      "token_id": "0x456...",
-      "outcome": "No",
-      "price": 0.35,
-      ...
     }
   ]
+}
+```
+
+### Tick formatı (her işlem için bir satır / one line per trade)
+
+```json
+{
+  "trade_id": "abc123",
+  "token_id": "0x123...",
+  "market_id": "0xabc...",
+  "outcome": "Yes",
+  "price": 0.65,
+  "size": 150.0,
+  "side": "BUY",
+  "timestamp": "2024-01-01T12:00:01"
 }
 ```
 
@@ -114,8 +126,13 @@ data/
 ```python
 import json
 
+# Periyodik snapshot'lar
 with open("data/snapshots/2024-01-01.jsonl") as f:
     snapshots = [json.loads(line) for line in f]
+
+# Tick verisi (bireysel işlemler)
+with open("data/ticks/2024-01-01.jsonl") as f:
+    ticks = [json.loads(line) for line in f]
 ```
 
 ---

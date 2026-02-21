@@ -40,6 +40,7 @@ def _is_btc_market(question: str) -> bool:
 class Recorder:
     """
     Polymarket BTC up/down verilerini periyodik olarak JSON dosyalarına kaydeden sınıf.
+    Periyodik snapshot'lara ek olarak tick (bireysel işlem) verisi de kaydeder.
     SIGINT/SIGTERM sinyallerini yakalayarak düzgün kapanma sağlar.
     """
 
@@ -47,6 +48,8 @@ class Recorder:
         self.data_dir = data_dir
         self.client = PolymarketAPIClient()
         self._running = False
+        # Token başına son görülen trade ID'si (tekrar kaydetmemek için)
+        self._last_trade_id: dict[str, str] = {}
 
         # Sinyal handler'larını kaydet (graceful shutdown)
         signal.signal(signal.SIGINT, self._handle_shutdown)
@@ -197,6 +200,37 @@ class Recorder:
                 "orderbook_asks": orderbook_asks,
             })
 
+            # --- Tick (bireysel işlem) verisi ---
+            last_id = self._last_trade_id.get(token_id)
+            raw_trades = self.client.get_trades(token_id, after_id=last_id)
+
+            if raw_trades:
+                # CLOB API en yeni işlemi listeyin başında döndürür; son ID'yi sakla
+                newest_id = _extract_trade_id(raw_trades[0])
+                if newest_id:
+                    self._last_trade_id[token_id] = newest_id
+
+                # Her tick'e market/token bağlamı ekle ve kaydet
+                ticks = [
+                    {
+                        "trade_id": _extract_trade_id(t),
+                        "token_id": token_id,
+                        "market_id": market_id,
+                        "outcome": outcome,
+                        "price": _safe_float(t.get("price")),
+                        "size": _safe_float(t.get("size")),
+                        "side": t.get("side"),
+                        "timestamp": t.get("timestamp") or t.get("created_at"),
+                    }
+                    for t in raw_trades
+                ]
+                storage.append_ticks(ticks, self.data_dir)
+                logger.debug(
+                    "Tick kaydedildi — outcome: %s | %d yeni işlem",
+                    outcome,
+                    len(ticks),
+                )
+
         # Tüm token bilgilerini market snapshot'ı altında topla
         snapshot = {
             "timestamp": now.isoformat(),
@@ -284,6 +318,21 @@ def _get_market_id(market: dict[str, Any]) -> str:
         Market condition ID veya boş string.
     """
     return market.get("conditionId") or market.get("condition_id") or market.get("id", "")
+
+
+def _extract_trade_id(trade: dict[str, Any]) -> str | None:
+    """
+    Ham işlem sözlüğünden trade ID'yi çıkarır.
+    CLOB API "id" veya "trade_id" alanını kullanabilir.
+
+    Args:
+        trade: CLOB API'den gelen ham işlem sözlüğü.
+
+    Returns:
+        Trade ID string'i veya None.
+    """
+    tid = trade.get("id") or trade.get("trade_id")
+    return str(tid) if tid is not None else None
 
 
 def _safe_float(value: Any) -> float | None:

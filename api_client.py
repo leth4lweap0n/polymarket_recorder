@@ -155,6 +155,37 @@ class PolymarketAPIClient:
             logger.warning("Spread alınamadı (token=%s): %s", token_id, exc)
             return None
 
+    def get_trades(self, token_id: str, after_id: Optional[str] = None) -> list[dict]:
+        """
+        CLOB API'den belirtilen token için son işlem (tick) listesini çeker.
+        `after_id` verilirse yalnızca o ID'den sonraki işlemler döner;
+        verilmezse en yeni `config.TICK_FETCH_LIMIT` kadar işlem döner.
+
+        CLOB API yanıt formatı:
+          - Eski sürüm: doğrudan list döner.
+          - Yeni sürüm: {"data": [...], "next_cursor": "..."} şeklinde döner.
+        Her iki format da desteklenir.
+
+        Args:
+            token_id: Token ID (outcome token).
+            after_id: Son görülen işlem ID'si — yalnızca bundan yeni olanlar çekilir.
+
+        Returns:
+            İşlem (tick) sözlüklerinden oluşan liste; hata durumunda boş liste.
+        """
+        url = f"{config.CLOB_API_URL}/trades"
+        params: dict = {"token_id": token_id, "limit": config.TICK_FETCH_LIMIT}
+        if after_id:
+            params["after"] = after_id
+        try:
+            data = self._request(url, params=params)
+            if isinstance(data, list):
+                return data
+            return data.get("data", [])
+        except Exception as exc:
+            logger.warning("Tick verisi alınamadı (token=%s): %s", token_id, exc)
+            return []
+
     def close(self) -> None:
         """HTTP session'ı kapatır."""
         self.session.close()
