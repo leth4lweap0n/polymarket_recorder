@@ -1,7 +1,5 @@
 __pycache__/
-*.db
-*.db-shm
-*.db-wal
+*.jsonl
 recorder_heartbeat.txt
 .env
 .vscode/
