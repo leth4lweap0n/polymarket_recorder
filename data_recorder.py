@@ -309,7 +309,7 @@ class DataRecorder:
         # Record 15m market snapshot
         if self.current_market:
             try:
-                self.json_writer.add("market_snapshots", {
+                self.json_writer.add("market_snapshots_15m", {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market['slug'],
                     "oracle_price": self.oracle_price,
