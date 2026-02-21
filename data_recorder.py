@@ -432,6 +432,11 @@ class DataRecorder:
             else:
                 clients.USE_PROXY = True # Default for non-interactive
         
+        # Validate proxy URL exists when proxy is enabled
+        if clients.USE_PROXY and not clients.PROXY_URL:
+            print("[WARNING] Proxy enabled but PROXY_HOST/PORT not configured in .env. Disabling proxy.")
+            clients.USE_PROXY = False
+        
         proxy_status = "ENABLED" if clients.USE_PROXY else "DISABLED"
         print(f"Proxy is {proxy_status}")
         
@@ -483,7 +488,7 @@ class DataRecorder:
                 # ~3Hz recording
                 await asyncio.sleep(0.33)
                 
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, asyncio.CancelledError):
             print("\nStopping...")
         finally:
             self.running = False

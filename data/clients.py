@@ -55,7 +55,7 @@ def get_proxies():
 
 def get_proxy_connector():
     """Create aiohttp proxy connector if proxy is enabled"""
-    if USE_PROXY:
+    if USE_PROXY and PROXY_URL:
         return ProxyConnector.from_url(PROXY_URL)
     return None
 
