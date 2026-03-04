@@ -17,6 +17,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 select,button{background:var(--bg);color:var(--text);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:13px;cursor:pointer}
 select:hover,button:hover{border-color:var(--accent)}
 button.active{background:var(--accent);border-color:var(--accent)}
+
+/* ── Global Time Slider Bar ── */
+.time-bar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 24px;position:sticky;top:0;z-index:100;display:none}
+.time-bar-inner{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.time-bar .tb-play{background:var(--bg);color:var(--text);border:1px solid var(--border);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;padding:0;flex-shrink:0;transition:all .15s}
+.time-bar .tb-play:hover{border-color:var(--accent);color:var(--accent)}
+.time-bar .tb-play.playing{background:var(--accent);border-color:var(--accent);color:#fff}
+.time-bar .tb-slider{flex:1;min-width:150px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
+.time-bar .tb-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card);box-shadow:0 0 6px #6366f180}
+.time-bar .tb-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
+.time-bar .tb-info{display:flex;align-items:center;gap:16px;flex-wrap:wrap;flex-shrink:0}
+.tb-val{display:flex;flex-direction:column;align-items:center;min-width:60px}
+.tb-val .tb-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.tb-val .tb-num{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.tb-val .tb-num.green{color:var(--green)}
+.tb-val .tb-num.red{color:var(--red)}
+.tb-val .tb-num.blue{color:var(--blue)}
+.tb-val .tb-num.accent{color:var(--accent)}
+.tb-val .tb-num.orange{color:var(--orange)}
+.tb-divider{width:1px;height:28px;background:var(--border);flex-shrink:0}
+
 .summary-bar{display:flex;gap:12px;padding:12px 24px;flex-wrap:wrap}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 16px;min-width:140px}
 .stat .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
@@ -40,15 +61,6 @@ button.active{background:var(--accent);border-color:var(--accent)}
 .tag-health{background:#f59e0b20;color:var(--orange)}
 .ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:700px){.ob-grid{grid-template-columns:1fr}}
-.ob-controls{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.ob-slider{flex:1;min-width:120px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
-.ob-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
-.ob-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
-.ob-time{font-size:12px;color:var(--accent);font-weight:600;min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
-.ob-idx{font-size:11px;color:var(--muted);min-width:60px;text-align:center}
-.ob-play{background:var(--bg);color:var(--text);border:1px solid var(--border);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;padding:0;flex-shrink:0}
-.ob-play:hover{border-color:var(--accent);color:var(--accent)}
-.ob-play.playing{background:var(--accent);border-color:var(--accent);color:#fff}
 .ob-side h3{font-size:12px;font-weight:600;margin-bottom:8px}
 .ob-bar-wrap{margin-bottom:3px;display:flex;align-items:center;gap:6px;font-size:11px}
 .ob-bar{height:18px;border-radius:3px;min-width:2px;transition:width .3s}
@@ -70,6 +82,24 @@ button.active{background:var(--accent);border-color:var(--accent)}
     <div class="tabs" id="marketTabs">
       <button class="active" data-type="15m">15m Markets</button>
       <button data-type="5m">5m Markets</button>
+    </div>
+  </div>
+</div>
+
+<!-- Global Time Slider -->
+<div class="time-bar" id="timeBar">
+  <div class="time-bar-inner">
+    <button class="tb-play" id="tbPlay" title="Play / Pause" aria-label="Play timeline">▶</button>
+    <input type="range" class="tb-slider" id="tbSlider" min="0" max="0" value="0" aria-label="Global timeline slider">
+    <div class="tb-info" id="tbInfo">
+      <div class="tb-val"><span class="tb-lbl">Time</span><span class="tb-num accent" id="tbTime">--:--:--</span></div>
+      <div class="tb-divider"></div>
+      <div class="tb-val"><span class="tb-lbl">BTC</span><span class="tb-num blue" id="tbBtc">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">UP</span><span class="tb-num green" id="tbUp">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">DOWN</span><span class="tb-num red" id="tbDown">-</span></div>
+      <div class="tb-divider"></div>
+      <div class="tb-val"><span class="tb-lbl">Remaining</span><span class="tb-num orange" id="tbTTE">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">Snap</span><span class="tb-num" id="tbIdx" style="color:var(--muted);font-size:11px">- / -</span></div>
     </div>
   </div>
 </div>
@@ -96,13 +126,7 @@ button.active{background:var(--accent);border-color:var(--accent)}
   </div>
 
   <div class="card">
-    <h2>Order Book Depth <span class="badge" id="obDepthCount">-</span></h2>
-    <div class="ob-controls" id="obControls" style="display:none">
-      <button class="ob-play" id="obPlay" title="Play/Pause" aria-label="Play order book snapshots">▶</button>
-      <input type="range" class="ob-slider" id="obSlider" min="0" max="0" value="0" aria-label="Order book snapshot timeline">
-      <span class="ob-time" id="obTime">--:--:--</span>
-      <span class="ob-idx" id="obIdx">0 / 0</span>
-    </div>
+    <h2>Order Book Depth</h2>
     <div class="ob-grid" id="obContent">
       <div class="empty">No order book data</div>
     </div>
@@ -131,13 +155,48 @@ const $$ = s => document.querySelectorAll(s);
 let currentDate = '';
 let marketType = '15m';
 let charts = {};
-let obData = [];       // all orderbook snapshots
-let obPlayTimer = null; // play interval
+
+// Global data stores
+let btcData = [];
+let marketData = [];
+let obData = [];
+let masterTimeline = [];   // sorted unique timestamps across all data
+let cursorTimestamp = null; // currently selected timestamp
+let playTimer = null;
 
 // Chart defaults
 Chart.defaults.color = '#8b8fa3';
 Chart.defaults.borderColor = '#2a2d3a';
 Chart.defaults.font.size = 11;
+
+// ── Chart.js plugin: vertical cursor line ──
+const cursorLinePlugin = {
+  id: 'cursorLine',
+  afterDraw(chart) {
+    if (!cursorTimestamp) return;
+    const xScale = chart.scales.x;
+    if (!xScale) return;
+    const ts = new Date(cursorTimestamp).getTime();
+    const pixel = xScale.getPixelForValue(ts);
+    if (pixel < xScale.left || pixel > xScale.right) return;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(pixel, chart.chartArea.top);
+    ctx.lineTo(pixel, chart.chartArea.bottom);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#6366f1cc';
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    // Draw small circle at top
+    ctx.beginPath();
+    ctx.arc(pixel, chart.chartArea.top, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#6366f1';
+    ctx.fill();
+    ctx.restore();
+  }
+};
+Chart.register(cursorLinePlugin);
 
 function timeLabel(ts) {
   if (!ts) return '';
@@ -145,7 +204,129 @@ function timeLabel(ts) {
   return d.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
+function formatTTE(seconds) {
+  if (seconds == null || seconds < 0) return '-';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  if (m >= 60) return `${Math.floor(m/60)}h ${m%60}m`;
+  return `${m}m ${s}s`;
+}
+
 function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ── Binary search: find closest index by timestamp ──
+function findClosest(arr, ts, key) {
+  if (!arr.length) return -1;
+  const target = new Date(ts).getTime();
+  let lo = 0, hi = arr.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (new Date(arr[mid][key]).getTime() < target) lo = mid + 1;
+    else hi = mid;
+  }
+  // Check lo-1 and lo for closest
+  if (lo > 0) {
+    const d0 = Math.abs(new Date(arr[lo-1][key]).getTime() - target);
+    const d1 = Math.abs(new Date(arr[lo][key]).getTime() - target);
+    return d0 < d1 ? lo - 1 : lo;
+  }
+  return lo;
+}
+
+// ── Build master timeline from all datasets ──
+function buildTimeline() {
+  const tsSet = new Set();
+  btcData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  marketData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  obData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  masterTimeline = Array.from(tsSet).sort();
+
+  const slider = $('#tbSlider');
+  const bar = $('#timeBar');
+  if (masterTimeline.length > 0) {
+    bar.style.display = 'block';
+    slider.max = masterTimeline.length - 1;
+    slider.value = masterTimeline.length - 1;
+    setCursor(masterTimeline.length - 1);
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+// ── Set cursor to timeline index ──
+function setCursor(idx) {
+  if (idx < 0 || idx >= masterTimeline.length) return;
+  cursorTimestamp = masterTimeline[idx];
+  const slider = $('#tbSlider');
+  slider.value = idx;
+
+  // Update time display
+  $('#tbTime').textContent = timeLabel(cursorTimestamp);
+  $('#tbIdx').textContent = `${idx + 1} / ${masterTimeline.length}`;
+
+  // Find closest BTC data
+  const btcIdx = findClosest(btcData, cursorTimestamp, 'timestamp');
+  if (btcIdx >= 0 && btcData[btcIdx]) {
+    const b = btcData[btcIdx];
+    $('#tbBtc').textContent = '$' + (b.binance_price != null ? b.binance_price.toLocaleString(undefined, {maximumFractionDigits:1}) : '-');
+  } else {
+    $('#tbBtc').textContent = '-';
+  }
+
+  // Find closest market data
+  const mktIdx = findClosest(marketData, cursorTimestamp, 'timestamp');
+  if (mktIdx >= 0 && marketData[mktIdx]) {
+    const m = marketData[mktIdx];
+    $('#tbUp').textContent = m.up_bid != null ? m.up_bid.toFixed(3) : '-';
+    $('#tbDown').textContent = m.down_bid != null ? m.down_bid.toFixed(3) : '-';
+    $('#tbTTE').textContent = formatTTE(m.time_to_expiry);
+  } else {
+    $('#tbUp').textContent = '-';
+    $('#tbDown').textContent = '-';
+    $('#tbTTE').textContent = '-';
+  }
+
+  // Update OB depth
+  const obIdx = findClosest(obData, cursorTimestamp, 'timestamp');
+  if (obIdx >= 0 && obData[obIdx]) {
+    renderObDepth(obData[obIdx]);
+  } else {
+    renderObDepth(null);
+  }
+
+  // Redraw all charts to move cursor line
+  for (const key of Object.keys(charts)) {
+    if (charts[key]) charts[key].update('none');
+  }
+}
+
+// ── Slider events ──
+$('#tbSlider').addEventListener('input', e => {
+  setCursor(parseInt(e.target.value));
+});
+
+// ── Play / Pause ──
+function stopPlay() {
+  if (playTimer) { clearInterval(playTimer); playTimer = null; }
+  $('#tbPlay').classList.remove('playing');
+  $('#tbPlay').textContent = '▶';
+}
+
+$('#tbPlay').addEventListener('click', () => {
+  if (playTimer) {
+    stopPlay();
+  } else {
+    const slider = $('#tbSlider');
+    if (parseInt(slider.value) >= masterTimeline.length - 1) slider.value = 0;
+    $('#tbPlay').classList.add('playing');
+    $('#tbPlay').textContent = '⏸';
+    playTimer = setInterval(() => {
+      const v = parseInt(slider.value);
+      if (v >= masterTimeline.length - 1) { stopPlay(); return; }
+      setCursor(v + 1);
+    }, 200);
+  }
+});
 
 // ── Date Loading ──
 async function loadDates() {
@@ -174,6 +355,7 @@ async function loadDates() {
 
 $('#dateSelect').addEventListener('change', e => {
   currentDate = e.target.value;
+  stopPlay();
   if (currentDate) loadAll();
 });
 
@@ -182,6 +364,7 @@ $$('#marketTabs button').forEach(btn => {
     $$('#marketTabs button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     marketType = btn.dataset.type;
+    stopPlay();
     loadMarket();
     loadOrderbook();
   });
@@ -189,9 +372,9 @@ $$('#marketTabs button').forEach(btn => {
 
 async function loadAll() {
   loadSummary();
-  loadBTC();
-  loadMarket();
-  loadOrderbook();
+  // Load all data, then build timeline
+  await Promise.all([loadBTC(), loadMarket(), loadOrderbook()]);
+  buildTimeline();
   loadEvents();
 }
 
@@ -223,21 +406,20 @@ async function loadSummary() {
 async function loadBTC() {
   try {
     const res = await fetch(`/api/btc_prices?date=${currentDate}&limit=3000`);
-    const data = await res.json();
-    $('#btcCount').textContent = data.length;
+    btcData = await res.json();
+    $('#btcCount').textContent = btcData.length;
 
     if (charts.btc) charts.btc.destroy();
+    if (!btcData.length) return;
 
-    if (!data.length) return;
-
-    const labels = data.map(r => r.timestamp);
+    const labels = btcData.map(r => r.timestamp);
     charts.btc = new Chart($('#btcChart'), {
       type: 'line',
       data: {
         labels,
         datasets: [
-          {label:'Binance', data: data.map(r=>r.binance_price), borderColor:'#3b82f6', borderWidth:1.5, pointRadius:0, tension:0.1},
-          {label:'Oracle', data: data.map(r=>r.oracle_price), borderColor:'#f59e0b', borderWidth:1.5, pointRadius:0, tension:0.1}
+          {label:'Binance', data: btcData.map(r=>r.binance_price), borderColor:'#3b82f6', borderWidth:1.5, pointRadius:0, tension:0.1},
+          {label:'Oracle', data: btcData.map(r=>r.oracle_price), borderColor:'#f59e0b', borderWidth:1.5, pointRadius:0, tension:0.1}
         ]
       },
       options: {
@@ -257,15 +439,15 @@ async function loadBTC() {
 async function loadMarket() {
   try {
     const res = await fetch(`/api/market_snapshots?date=${currentDate}&type=${marketType}&limit=3000`);
-    const data = await res.json();
-    $('#mktCount').textContent = data.length;
+    marketData = await res.json();
+    $('#mktCount').textContent = marketData.length;
 
     if (charts.market) charts.market.destroy();
     if (charts.spread) charts.spread.destroy();
 
-    if (!data.length) return;
+    if (!marketData.length) return;
 
-    const labels = data.map(r => r.timestamp);
+    const labels = marketData.map(r => r.timestamp);
 
     // Market price chart
     charts.market = new Chart($('#marketChart'), {
@@ -273,10 +455,10 @@ async function loadMarket() {
       data: {
         labels,
         datasets: [
-          {label:'UP Bid', data: data.map(r=>r.up_bid), borderColor:'#22c55e', borderWidth:1.2, pointRadius:0, tension:0.1},
-          {label:'UP Ask', data: data.map(r=>r.up_ask), borderColor:'#86efac', borderWidth:1.2, pointRadius:0, tension:0.1},
-          {label:'DOWN Bid', data: data.map(r=>r.down_bid), borderColor:'#ef4444', borderWidth:1.2, pointRadius:0, tension:0.1},
-          {label:'DOWN Ask', data: data.map(r=>r.down_ask), borderColor:'#fca5a5', borderWidth:1.2, pointRadius:0, tension:0.1}
+          {label:'UP Bid', data: marketData.map(r=>r.up_bid), borderColor:'#22c55e', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'UP Ask', data: marketData.map(r=>r.up_ask), borderColor:'#86efac', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'DOWN Bid', data: marketData.map(r=>r.down_bid), borderColor:'#ef4444', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'DOWN Ask', data: marketData.map(r=>r.down_ask), borderColor:'#fca5a5', borderWidth:1.2, pointRadius:0, tension:0.1}
         ]
       },
       options: {
@@ -291,9 +473,9 @@ async function loadMarket() {
     });
 
     // Spread + lag chart
-    const upSpreads = data.map(r => r.up_ask && r.up_bid ? ((r.up_ask - r.up_bid)*100).toFixed(2) : null);
-    const lags = data.map(r => r.lag_ms);
-    const tte = data.map(r => r.time_to_expiry);
+    const upSpreads = marketData.map(r => r.up_ask && r.up_bid ? ((r.up_ask - r.up_bid)*100).toFixed(2) : null);
+    const lags = marketData.map(r => r.lag_ms);
+    const tte = marketData.map(r => r.time_to_expiry);
 
     charts.spread = new Chart($('#spreadChart'), {
       type: 'line',
@@ -324,40 +506,23 @@ async function loadMarket() {
 async function loadOrderbook() {
   try {
     const res = await fetch(`/api/orderbook?date=${currentDate}&type=${marketType}&limit=1500`);
-    const data = await res.json();
-    $('#obCount').textContent = data.length;
-    obData = data;
-    stopObPlay();
-
-    // Slider setup
-    const controls = $('#obControls');
-    const slider = $('#obSlider');
-    if (data.length > 0) {
-      controls.style.display = 'flex';
-      slider.max = data.length - 1;
-      slider.value = data.length - 1;
-      $('#obDepthCount').textContent = data.length;
-      renderObAt(data.length - 1);
-    } else {
-      controls.style.display = 'none';
-      $('#obDepthCount').textContent = '-';
-      renderObDepth(null);
-    }
+    obData = await res.json();
+    $('#obCount').textContent = obData.length;
 
     // Volume over time chart
     if (charts.ob) charts.ob.destroy();
-    if (!data.length) return;
+    if (!obData.length) { renderObDepth(null); return; }
 
-    const labels = data.map(r => r.timestamp);
+    const labels = obData.map(r => r.timestamp);
     charts.ob = new Chart($('#obChart'), {
       type: 'line',
       data: {
         labels,
         datasets: [
-          {label:'UP Bid Vol', data: data.map(r=>r.up_bid_total), borderColor:'#22c55e', backgroundColor:'#22c55e20', borderWidth:1.5, pointRadius:0, fill:true},
-          {label:'UP Ask Vol', data: data.map(r=>r.up_ask_total), borderColor:'#86efac', backgroundColor:'#86efac20', borderWidth:1.5, pointRadius:0, fill:true},
-          {label:'DOWN Bid Vol', data: data.map(r=>r.down_bid_total), borderColor:'#ef4444', backgroundColor:'#ef444420', borderWidth:1.5, pointRadius:0, fill:true},
-          {label:'DOWN Ask Vol', data: data.map(r=>r.down_ask_total), borderColor:'#fca5a5', backgroundColor:'#fca5a520', borderWidth:1.5, pointRadius:0, fill:true}
+          {label:'UP Bid Vol', data: obData.map(r=>r.up_bid_total), borderColor:'#22c55e', backgroundColor:'#22c55e20', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'UP Ask Vol', data: obData.map(r=>r.up_ask_total), borderColor:'#86efac', backgroundColor:'#86efac20', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'DOWN Bid Vol', data: obData.map(r=>r.down_bid_total), borderColor:'#ef4444', backgroundColor:'#ef444420', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'DOWN Ask Vol', data: obData.map(r=>r.down_ask_total), borderColor:'#fca5a5', backgroundColor:'#fca5a520', borderWidth:1.5, pointRadius:0, fill:true}
         ]
       },
       options: {
@@ -372,43 +537,6 @@ async function loadOrderbook() {
     });
   } catch(e) { console.error(e); }
 }
-
-function renderObAt(idx) {
-  if (idx < 0 || idx >= obData.length) return;
-  const ob = obData[idx];
-  $('#obTime').textContent = timeLabel(ob.timestamp);
-  $('#obIdx').textContent = `${idx + 1} / ${obData.length}`;
-  renderObDepth(ob);
-}
-
-// Slider events
-$('#obSlider').addEventListener('input', e => {
-  renderObAt(parseInt(e.target.value));
-});
-
-// Play/Pause
-function stopObPlay() {
-  if (obPlayTimer) { clearInterval(obPlayTimer); obPlayTimer = null; }
-  $('#obPlay').classList.remove('playing');
-  $('#obPlay').textContent = '▶';
-}
-
-$('#obPlay').addEventListener('click', () => {
-  if (obPlayTimer) {
-    stopObPlay();
-  } else {
-    const slider = $('#obSlider');
-    if (parseInt(slider.value) >= obData.length - 1) slider.value = 0;
-    $('#obPlay').classList.add('playing');
-    $('#obPlay').textContent = '⏸';
-    obPlayTimer = setInterval(() => {
-      const v = parseInt(slider.value);
-      if (v >= obData.length - 1) { stopObPlay(); return; }
-      slider.value = v + 1;
-      renderObAt(v + 1);
-    }, 250);
-  }
-});
 
 function renderObDepth(ob) {
   const el = $('#obContent');
