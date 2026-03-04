@@ -360,13 +360,13 @@ $('#dateSelect').addEventListener('change', e => {
 });
 
 $$('#marketTabs button').forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', async () => {
     $$('#marketTabs button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     marketType = btn.dataset.type;
     stopPlay();
-    loadMarket();
-    loadOrderbook();
+    await Promise.all([loadMarket(), loadOrderbook()]);
+    buildTimeline();
   });
 });
 
