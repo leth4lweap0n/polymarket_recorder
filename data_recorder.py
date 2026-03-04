@@ -139,6 +139,15 @@ class DataRecorder:
         self.orderbook_15m = None
         self.orderbook_5m = None
         
+        # Maximum age (seconds) of a market to start recording.
+        # Markets already open longer than this are skipped.
+        self.max_market_age_15m = 120   # 2 minutes for 15-minute markets
+        self.max_market_age_5m = 60     # 1 minute for 5-minute markets
+        
+        # Track skipped (non-fresh) market slugs so we don't record them
+        self.skipped_market_15m = False
+        self.skipped_market_5m = False
+        
         # BTC price recording throttle (record ~3Hz, not every tick)
         self.last_btc_record_ts = 0
         
@@ -273,8 +282,25 @@ class DataRecorder:
         try:
             market = await asyncio.to_thread(MarketDiscovery.get_current_market)
             if market and (not self.current_market or market['slug'] != self.current_market['slug']):
-                self.current_market = market
                 slug = market['slug']
+
+                # Only record markets that were recently opened
+                now = datetime.now(timezone.utc)
+                start = market.get('event_start_time')
+                if start:
+                    age = (now - start).total_seconds()
+                    if age > self.max_market_age_15m:
+                        self.log_event("market_skip", f"[15m] Skipped (already {int(age)}s old): {slug}")
+                        # Track this slug so discovery won't re-process it
+                        self.current_market = market
+                        self.skipped_market_15m = True
+                        self.up_prices = None
+                        self.down_prices = None
+                        self.orderbook_15m = None
+                        return
+
+                self.current_market = market
+                self.skipped_market_15m = False
                 token_ids = market['token_ids']
                 
                 # Save to history for resolution matching
@@ -293,8 +319,24 @@ class DataRecorder:
         try:
             market = await asyncio.to_thread(MarketDiscovery5m.get_current_market)
             if market and (not self.current_market_5m or market['slug'] != self.current_market_5m['slug']):
-                self.current_market_5m = market
                 slug = market['slug']
+
+                # Only record markets that were recently opened
+                now = datetime.now(timezone.utc)
+                start = market.get('event_start_time')
+                if start:
+                    age = (now - start).total_seconds()
+                    if age > self.max_market_age_5m:
+                        self.log_event("market_skip", f"[5m] Skipped (already {int(age)}s old): {slug}")
+                        self.current_market_5m = market
+                        self.skipped_market_5m = True
+                        self.up_prices_5m = None
+                        self.down_prices_5m = None
+                        self.orderbook_5m = None
+                        return
+
+                self.current_market_5m = market
+                self.skipped_market_5m = False
                 token_ids = market['token_ids']
                 
                 self.market_history_5m[slug] = token_ids
@@ -327,7 +369,7 @@ class DataRecorder:
             self.last_btc_record_ts = now_ts
 
         # Record 15m market snapshot
-        if self.current_market:
+        if self.current_market and not self.skipped_market_15m:
             try:
                 self.json_writer.add("market_snapshots_15m", {
                     "timestamp": ts_iso,
@@ -348,7 +390,7 @@ class DataRecorder:
                 self.errors.append(f"15m Snapshot Error: {e}")
 
         # Record 15m order book distribution
-        if self.current_market and self.orderbook_15m:
+        if self.current_market and not self.skipped_market_15m and self.orderbook_15m:
             try:
                 ob = self.orderbook_15m
                 record = {
@@ -365,7 +407,7 @@ class DataRecorder:
                 self.errors.append(f"15m Orderbook Error: {e}")
 
         # Record 5m market snapshot
-        if self.current_market_5m:
+        if self.current_market_5m and not self.skipped_market_5m:
             try:
                 self.json_writer.add("market_snapshots_5m", {
                     "timestamp": ts_iso,
@@ -386,7 +428,7 @@ class DataRecorder:
                 self.errors.append(f"5m Snapshot Error: {e}")
 
         # Record 5m order book distribution
-        if self.current_market_5m and self.orderbook_5m:
+        if self.current_market_5m and not self.skipped_market_5m and self.orderbook_5m:
             try:
                 ob = self.orderbook_5m
                 record = {
