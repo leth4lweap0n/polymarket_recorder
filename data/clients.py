@@ -95,9 +95,11 @@ class CLOBClient:
     """Polymarket CLOB WebSocket for orderbook"""
     
     def __init__(self, on_price_update: Callable[[str, Dict, Dict], None], 
-                 on_market_resolved: Callable[[str, str], None] = None):
+                 on_market_resolved: Callable[[str, str], None] = None,
+                 on_orderbook_update: Callable[[str, Dict], None] = None):
         self.on_price_update = on_price_update
         self.on_market_resolved = on_market_resolved
+        self.on_orderbook_update = on_orderbook_update
         self.ws_url = "wss://ws-subscriptions-clob.polymarket.com/ws/market"
         self.running = False
         
@@ -123,7 +125,9 @@ class CLOBClient:
         self.markets[market_slug] = {
             'tokens': token_ids,
             'up_bid': None, 'up_ask': None,
-            'down_bid': None, 'down_ask': None
+            'down_bid': None, 'down_ask': None,
+            'up_bids': [], 'up_asks': [],
+            'down_bids': [], 'down_asks': []
         }
         
         # Update map
@@ -303,21 +307,52 @@ class CLOBClient:
                 price_updated = True
 
         # PRIORITY 4: Full Orderbook (snapshot or update)
-        if not price_updated and 'bids' in data and 'asks' in data:
+        if 'bids' in data and 'asks' in data:
             bids = data.get('bids', [])
             asks = data.get('asks', [])
             
-            best_bid = float(bids[-1]['price']) if bids and isinstance(bids[-1], dict) else (float(bids[-1][0]) if bids else None)
-            best_ask = float(asks[-1]['price']) if asks and isinstance(asks[-1], dict) else (float(asks[-1][0]) if asks else None)
+            # Normalize bids/asks to list of {"price": float, "size": float}
+            def normalize_levels(levels):
+                result = []
+                for lvl in levels:
+                    if isinstance(lvl, dict):
+                        result.append({"price": float(lvl.get('price', 0)), "size": float(lvl.get('size', 0))})
+                    elif isinstance(lvl, (list, tuple)) and len(lvl) >= 2:
+                        result.append({"price": float(lvl[0]), "size": float(lvl[1])})
+                return result
             
-            if best_bid or best_ask:
-                if asset_id == m_data['tokens'][0]:
-                    if best_bid: m_data['up_bid'] = best_bid
-                    if best_ask: m_data['up_ask'] = best_ask
-                elif len(m_data['tokens']) > 1 and asset_id == m_data['tokens'][1]:
-                    if best_bid: m_data['down_bid'] = best_bid
-                    if best_ask: m_data['down_ask'] = best_ask
-                price_updated = True
+            norm_bids = normalize_levels(bids)
+            norm_asks = normalize_levels(asks)
+            
+            # Store full order book by side
+            if asset_id == m_data['tokens'][0]:  # UP
+                m_data['up_bids'] = norm_bids
+                m_data['up_asks'] = norm_asks
+            elif len(m_data['tokens']) > 1 and asset_id == m_data['tokens'][1]:  # DOWN
+                m_data['down_bids'] = norm_bids
+                m_data['down_asks'] = norm_asks
+            
+            # Send orderbook update
+            if self.on_orderbook_update:
+                self.on_orderbook_update(slug, {
+                    "up_bids": m_data['up_bids'],
+                    "up_asks": m_data['up_asks'],
+                    "down_bids": m_data['down_bids'],
+                    "down_asks": m_data['down_asks']
+                })
+            
+            if not price_updated:
+                best_bid = norm_bids[-1]['price'] if norm_bids else None
+                best_ask = norm_asks[-1]['price'] if norm_asks else None
+                
+                if best_bid or best_ask:
+                    if asset_id == m_data['tokens'][0]:
+                        if best_bid: m_data['up_bid'] = best_bid
+                        if best_ask: m_data['up_ask'] = best_ask
+                    elif len(m_data['tokens']) > 1 and asset_id == m_data['tokens'][1]:
+                        if best_bid: m_data['down_bid'] = best_bid
+                        if best_ask: m_data['down_ask'] = best_ask
+                    price_updated = True
 
         if price_updated:
             self._send_update(slug)

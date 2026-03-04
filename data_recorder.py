@@ -135,6 +135,19 @@ class DataRecorder:
         self.up_prices_5m = None
         self.down_prices_5m = None
         
+        # Order book data
+        self.orderbook_15m = None
+        self.orderbook_5m = None
+        
+        # Maximum age (seconds) of a market to start recording.
+        # Markets already open longer than this are skipped.
+        self.max_market_age_15m = 120   # 2 minutes for 15-minute markets
+        self.max_market_age_5m = 60     # 1 minute for 5-minute markets
+        
+        # Track skipped (non-fresh) market slugs so we don't record them
+        self.skipped_market_15m = False
+        self.skipped_market_5m = False
+        
         # BTC price recording throttle (record ~3Hz, not every tick)
         self.last_btc_record_ts = 0
         
@@ -151,7 +164,7 @@ class DataRecorder:
         
         # Clients
         self.binance_client = BinanceClient(self.on_binance_update)
-        self.clob_client = CLOBClient(self.on_clob_update, self.on_market_resolved)
+        self.clob_client = CLOBClient(self.on_clob_update, self.on_market_resolved, self.on_orderbook_update)
         self.rtds_client = RTDSClient(self.on_rtds_update)
         self.polymarket_api = PolymarketTargetPriceAPI()
         
@@ -170,6 +183,22 @@ class DataRecorder:
             self.up_prices_5m = up_prices
             self.down_prices_5m = down_prices
             self.last_update_ts['clob_5m'] = time.time()
+    
+    def on_orderbook_update(self, market_slug: str, orderbook: Dict):
+        if self.current_market and market_slug == self.current_market['slug']:
+            self.orderbook_15m = orderbook
+        if self.current_market_5m and market_slug == self.current_market_5m['slug']:
+            self.orderbook_5m = orderbook
+
+    @staticmethod
+    def _orderbook_totals(ob: Dict) -> Dict:
+        """Calculate volume totals for an order book snapshot"""
+        return {
+            "up_bid_total": round(sum(l["size"] for l in ob.get("up_bids", [])), 2),
+            "up_ask_total": round(sum(l["size"] for l in ob.get("up_asks", [])), 2),
+            "down_bid_total": round(sum(l["size"] for l in ob.get("down_bids", [])), 2),
+            "down_ask_total": round(sum(l["size"] for l in ob.get("down_asks", [])), 2)
+        }
             
     def on_rtds_update(self, oracle_price: float):
         self.oracle_price = oracle_price
@@ -253,8 +282,25 @@ class DataRecorder:
         try:
             market = await asyncio.to_thread(MarketDiscovery.get_current_market)
             if market and (not self.current_market or market['slug'] != self.current_market['slug']):
-                self.current_market = market
                 slug = market['slug']
+
+                # Only record markets that were recently opened
+                now = datetime.now(timezone.utc)
+                start = market.get('event_start_time')
+                if start:
+                    age = (now - start).total_seconds()
+                    if age > self.max_market_age_15m:
+                        self.log_event("market_skip", f"[15m] Skipped (already {int(age)}s old): {slug}")
+                        # Track this slug so discovery won't re-process it
+                        self.current_market = market
+                        self.skipped_market_15m = True
+                        self.up_prices = None
+                        self.down_prices = None
+                        self.orderbook_15m = None
+                        return
+
+                self.current_market = market
+                self.skipped_market_15m = False
                 token_ids = market['token_ids']
                 
                 # Save to history for resolution matching
@@ -273,8 +319,24 @@ class DataRecorder:
         try:
             market = await asyncio.to_thread(MarketDiscovery5m.get_current_market)
             if market and (not self.current_market_5m or market['slug'] != self.current_market_5m['slug']):
-                self.current_market_5m = market
                 slug = market['slug']
+
+                # Only record markets that were recently opened
+                now = datetime.now(timezone.utc)
+                start = market.get('event_start_time')
+                if start:
+                    age = (now - start).total_seconds()
+                    if age > self.max_market_age_5m:
+                        self.log_event("market_skip", f"[5m] Skipped (already {int(age)}s old): {slug}")
+                        self.current_market_5m = market
+                        self.skipped_market_5m = True
+                        self.up_prices_5m = None
+                        self.down_prices_5m = None
+                        self.orderbook_5m = None
+                        return
+
+                self.current_market_5m = market
+                self.skipped_market_5m = False
                 token_ids = market['token_ids']
                 
                 self.market_history_5m[slug] = token_ids
@@ -307,7 +369,7 @@ class DataRecorder:
             self.last_btc_record_ts = now_ts
 
         # Record 15m market snapshot
-        if self.current_market:
+        if self.current_market and not self.skipped_market_15m:
             try:
                 self.json_writer.add("market_snapshots_15m", {
                     "timestamp": ts_iso,
@@ -327,8 +389,25 @@ class DataRecorder:
             except Exception as e:
                 self.errors.append(f"15m Snapshot Error: {e}")
 
+        # Record 15m order book distribution
+        if self.current_market and not self.skipped_market_15m and self.orderbook_15m:
+            try:
+                ob = self.orderbook_15m
+                record = {
+                    "timestamp": ts_iso,
+                    "market_slug": self.current_market['slug'],
+                    "up_bids": ob.get("up_bids", []),
+                    "up_asks": ob.get("up_asks", []),
+                    "down_bids": ob.get("down_bids", []),
+                    "down_asks": ob.get("down_asks", []),
+                }
+                record.update(self._orderbook_totals(ob))
+                self.json_writer.add("orderbook_15m", record)
+            except Exception as e:
+                self.errors.append(f"15m Orderbook Error: {e}")
+
         # Record 5m market snapshot
-        if self.current_market_5m:
+        if self.current_market_5m and not self.skipped_market_5m:
             try:
                 self.json_writer.add("market_snapshots_5m", {
                     "timestamp": ts_iso,
@@ -347,6 +426,23 @@ class DataRecorder:
                 })
             except Exception as e:
                 self.errors.append(f"5m Snapshot Error: {e}")
+
+        # Record 5m order book distribution
+        if self.current_market_5m and not self.skipped_market_5m and self.orderbook_5m:
+            try:
+                ob = self.orderbook_5m
+                record = {
+                    "timestamp": ts_iso,
+                    "market_slug": self.current_market_5m['slug'],
+                    "up_bids": ob.get("up_bids", []),
+                    "up_asks": ob.get("up_asks", []),
+                    "down_bids": ob.get("down_bids", []),
+                    "down_asks": ob.get("down_asks", []),
+                }
+                record.update(self._orderbook_totals(ob))
+                self.json_writer.add("orderbook_5m", record)
+            except Exception as e:
+                self.errors.append(f"5m Orderbook Error: {e}")
 
     async def update_heartbeat(self):
         """Update heartbeat file to show we're alive even if console is frozen"""
@@ -372,19 +468,31 @@ class DataRecorder:
         down_str = f"D:{self.down_prices['bid']:.3f}/{self.down_prices['ask']:.3f}" if self.down_prices else "D:---"
         mkt_15m = self.current_market['slug'][-15:] if self.current_market else 'None'
         
+        # 15m order book depth
+        ob15_str = ""
+        if self.orderbook_15m:
+            totals = self._orderbook_totals(self.orderbook_15m)
+            ob15_str = f" OB[B:{totals['up_bid_total']:.0f}/A:{totals['up_ask_total']:.0f}]"
+        
         # 5m market info
         up5_str = f"U:{self.up_prices_5m['bid']:.3f}/{self.up_prices_5m['ask']:.3f}" if self.up_prices_5m else "U:---"
         down5_str = f"D:{self.down_prices_5m['bid']:.3f}/{self.down_prices_5m['ask']:.3f}" if self.down_prices_5m else "D:---"
         mkt_5m = self.current_market_5m['slug'][-14:] if self.current_market_5m else 'None'
         
+        # 5m order book depth
+        ob5_str = ""
+        if self.orderbook_5m:
+            totals = self._orderbook_totals(self.orderbook_5m)
+            ob5_str = f" OB[B:{totals['up_bid_total']:.0f}/A:{totals['up_ask_total']:.0f}]"
+        
         status_line = (
             f"[{curr_time}] {hours}h{minutes}m | "
             f"BNC:{self.binance_price or 0:>8.1f} ORC:{self.oracle_price or 0:>8.1f} LAG:{self.current_lag_ms:>4}ms | "
-            f"15m:{mkt_15m} {up_str} {down_str} | "
-            f"5m:{mkt_5m} {up5_str} {down5_str}"
+            f"15m:{mkt_15m} {up_str} {down_str}{ob15_str} | "
+            f"5m:{mkt_5m} {up5_str} {down5_str}{ob5_str}"
         )
         
-        sys.stdout.write(f"\r{status_line:<160}")
+        sys.stdout.write(f"\r{status_line:<200}")
         sys.stdout.flush()
         
         if self.errors:

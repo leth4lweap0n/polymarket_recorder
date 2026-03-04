@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymarket Data Analysis</title>
+<script src="/static/chart.umd.min.js"></script>
+<script src="/static/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+:root{--bg:#0f1117;--card:#1a1d28;--border:#2a2d3a;--text:#e1e4ed;--muted:#8b8fa3;--accent:#6366f1;--green:#22c55e;--red:#ef4444;--blue:#3b82f6;--orange:#f59e0b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header h1{font-size:18px;font-weight:600;white-space:nowrap}
+.header h1 span{color:var(--accent)}
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+select,button{background:var(--bg);color:var(--text);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:13px;cursor:pointer}
+select:hover,button:hover{border-color:var(--accent)}
+button.active{background:var(--accent);border-color:var(--accent)}
+
+/* ── Global Time Slider Bar ── */
+.time-bar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 24px;position:sticky;top:0;z-index:100;display:none}
+.time-bar-inner{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.time-bar .tb-play{background:var(--bg);color:var(--text);border:1px solid var(--border);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;padding:0;flex-shrink:0;transition:all .15s}
+.time-bar .tb-play:hover{border-color:var(--accent);color:var(--accent)}
+.time-bar .tb-play.playing{background:var(--accent);border-color:var(--accent);color:#fff}
+.time-bar .tb-slider{flex:1;min-width:150px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
+.time-bar .tb-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card);box-shadow:0 0 6px #6366f180}
+.time-bar .tb-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
+.time-bar .tb-info{display:flex;align-items:center;gap:16px;flex-wrap:wrap;flex-shrink:0}
+.tb-val{display:flex;flex-direction:column;align-items:center;min-width:60px}
+.tb-val .tb-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.tb-val .tb-num{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.tb-val .tb-num.green{color:var(--green)}
+.tb-val .tb-num.red{color:var(--red)}
+.tb-val .tb-num.blue{color:var(--blue)}
+.tb-val .tb-num.accent{color:var(--accent)}
+.tb-val .tb-num.orange{color:var(--orange)}
+.tb-divider{width:1px;height:28px;background:var(--border);flex-shrink:0}
+
+.summary-bar{display:flex;gap:12px;padding:12px 24px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 16px;min-width:140px}
+.stat .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.stat .value{font-size:20px;font-weight:700;margin-top:2px}
+.stat .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 24px 24px}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative}
+.card.full{grid-column:1/-1}
+.card h2{font-size:14px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card h2 .badge{font-size:11px;background:var(--accent);padding:2px 8px;border-radius:10px;font-weight:500}
+.chart-wrap{position:relative;height:300px}
+.events-table{width:100%;border-collapse:collapse;font-size:12px}
+.events-table th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);color:var(--muted);font-weight:500;text-transform:uppercase;font-size:10px;letter-spacing:.5px}
+.events-table td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.events-table tr:last-child td{border:none}
+.tag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600}
+.tag-switch{background:#6366f120;color:var(--accent)}
+.tag-skip{background:#f59e0b20;color:var(--orange)}
+.tag-outcome{background:#22c55e20;color:var(--green)}
+.tag-system{background:#3b82f620;color:var(--blue)}
+.tag-health{background:#f59e0b20;color:var(--orange)}
+.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.ob-grid{grid-template-columns:1fr}}
+.ob-side h3{font-size:12px;font-weight:600;margin-bottom:8px}
+.ob-bar-wrap{margin-bottom:3px;display:flex;align-items:center;gap:6px;font-size:11px}
+.ob-bar{height:18px;border-radius:3px;min-width:2px;transition:width .3s}
+.ob-price{width:50px;text-align:right;color:var(--muted)}
+.ob-size{width:60px;color:var(--text)}
+.loading{text-align:center;color:var(--muted);padding:40px;font-size:13px}
+.empty{text-align:center;color:var(--muted);padding:30px;font-size:13px}
+.tabs{display:flex;gap:4px;margin-bottom:12px}
+.tabs button{background:transparent;border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:12px;color:var(--muted)}
+.tabs button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 <span>Polymarket</span> Data Analysis</h1>
+  <div class="controls">
+    <select id="dateSelect"><option value="">Loading dates...</option></select>
+    <div class="tabs" id="marketTabs">
+      <button class="active" data-type="15m">15m Markets</button>
+      <button data-type="5m">5m Markets</button>
+    </div>
+  </div>
+</div>
+
+<!-- Global Time Slider -->
+<div class="time-bar" id="timeBar">
+  <div class="time-bar-inner">
+    <button class="tb-play" id="tbPlay" title="Play / Pause" aria-label="Play timeline">▶</button>
+    <input type="range" class="tb-slider" id="tbSlider" min="0" max="0" value="0" aria-label="Global timeline slider">
+    <div class="tb-info" id="tbInfo">
+      <div class="tb-val"><span class="tb-lbl">Time</span><span class="tb-num accent" id="tbTime">--:--:--</span></div>
+      <div class="tb-divider"></div>
+      <div class="tb-val"><span class="tb-lbl">BTC</span><span class="tb-num blue" id="tbBtc">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">UP</span><span class="tb-num green" id="tbUp">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">DOWN</span><span class="tb-num red" id="tbDown">-</span></div>
+      <div class="tb-divider"></div>
+      <div class="tb-val"><span class="tb-lbl">Remaining</span><span class="tb-num orange" id="tbTTE">-</span></div>
+      <div class="tb-val"><span class="tb-lbl">Snap</span><span class="tb-num" id="tbIdx" style="color:var(--muted);font-size:11px">- / -</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="summary-bar" id="summaryBar">
+  <div class="stat"><div class="label">Status</div><div class="value" style="font-size:14px;color:var(--muted)">Select a date</div></div>
+</div>
+
+<div class="grid" id="mainGrid">
+
+  <div class="card full">
+    <h2>BTC Price <span class="badge" id="btcCount">-</span></h2>
+    <div class="chart-wrap"><canvas id="btcChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>Market Prices (UP/DOWN) <span class="badge" id="mktCount">-</span></h2>
+    <div class="chart-wrap"><canvas id="marketChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>Spread &amp; Lag</h2>
+    <div class="chart-wrap"><canvas id="spreadChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>Order Book Depth</h2>
+    <div class="ob-grid" id="obContent">
+      <div class="empty">No order book data</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Order Book Volume Over Time <span class="badge" id="obCount">-</span></h2>
+    <div class="chart-wrap"><canvas id="obChart"></canvas></div>
+  </div>
+
+  <div class="card full">
+    <h2>System Events <span class="badge" id="evtCount">-</span></h2>
+    <div style="max-height:350px;overflow-y:auto">
+      <table class="events-table" id="eventsTable">
+        <thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead>
+        <tbody id="eventsBody"><tr><td colspan="3" class="empty">No events</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+let currentDate = '';
+let marketType = '15m';
+let charts = {};
+
+// Global data stores
+let btcData = [];
+let marketData = [];
+let obData = [];
+let masterTimeline = [];   // sorted unique timestamps across all data
+let cursorTimestamp = null; // currently selected timestamp
+let playTimer = null;
+
+// Chart defaults
+Chart.defaults.color = '#8b8fa3';
+Chart.defaults.borderColor = '#2a2d3a';
+Chart.defaults.font.size = 11;
+
+// ── Chart.js plugin: vertical cursor line ──
+const cursorLinePlugin = {
+  id: 'cursorLine',
+  afterDraw(chart) {
+    if (!cursorTimestamp) return;
+    const xScale = chart.scales.x;
+    if (!xScale) return;
+    const ts = new Date(cursorTimestamp).getTime();
+    const pixel = xScale.getPixelForValue(ts);
+    if (pixel < xScale.left || pixel > xScale.right) return;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(pixel, chart.chartArea.top);
+    ctx.lineTo(pixel, chart.chartArea.bottom);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#6366f1cc';
+    ctx.setLineDash([4, 3]);
+    ctx.stroke();
+    // Draw small circle at top
+    ctx.beginPath();
+    ctx.arc(pixel, chart.chartArea.top, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#6366f1';
+    ctx.fill();
+    ctx.restore();
+  }
+};
+Chart.register(cursorLinePlugin);
+
+function timeLabel(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+function formatTTE(seconds) {
+  if (seconds == null || seconds < 0) return '-';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  if (m >= 60) return `${Math.floor(m/60)}h ${m%60}m`;
+  return `${m}m ${s}s`;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ── Binary search: find closest index by timestamp ──
+function findClosest(arr, ts, key) {
+  if (!arr.length) return -1;
+  const target = new Date(ts).getTime();
+  let lo = 0, hi = arr.length - 1;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (new Date(arr[mid][key]).getTime() < target) lo = mid + 1;
+    else hi = mid;
+  }
+  // Check lo-1 and lo for closest
+  if (lo > 0) {
+    const d0 = Math.abs(new Date(arr[lo-1][key]).getTime() - target);
+    const d1 = Math.abs(new Date(arr[lo][key]).getTime() - target);
+    return d0 < d1 ? lo - 1 : lo;
+  }
+  return lo;
+}
+
+// ── Build master timeline from all datasets ──
+function buildTimeline() {
+  const tsSet = new Set();
+  btcData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  marketData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  obData.forEach(r => { if (r.timestamp) tsSet.add(r.timestamp); });
+  masterTimeline = Array.from(tsSet).sort();
+
+  const slider = $('#tbSlider');
+  const bar = $('#timeBar');
+  if (masterTimeline.length > 0) {
+    bar.style.display = 'block';
+    slider.max = masterTimeline.length - 1;
+    slider.value = masterTimeline.length - 1;
+    setCursor(masterTimeline.length - 1);
+  } else {
+    bar.style.display = 'none';
+  }
+}
+
+// ── Set cursor to timeline index ──
+function setCursor(idx) {
+  if (idx < 0 || idx >= masterTimeline.length) return;
+  cursorTimestamp = masterTimeline[idx];
+  const slider = $('#tbSlider');
+  slider.value = idx;
+
+  // Update time display
+  $('#tbTime').textContent = timeLabel(cursorTimestamp);
+  $('#tbIdx').textContent = `${idx + 1} / ${masterTimeline.length}`;
+
+  // Find closest BTC data
+  const btcIdx = findClosest(btcData, cursorTimestamp, 'timestamp');
+  if (btcIdx >= 0 && btcData[btcIdx]) {
+    const b = btcData[btcIdx];
+    $('#tbBtc').textContent = '$' + (b.binance_price != null ? b.binance_price.toLocaleString(undefined, {maximumFractionDigits:1}) : '-');
+  } else {
+    $('#tbBtc').textContent = '-';
+  }
+
+  // Find closest market data
+  const mktIdx = findClosest(marketData, cursorTimestamp, 'timestamp');
+  if (mktIdx >= 0 && marketData[mktIdx]) {
+    const m = marketData[mktIdx];
+    $('#tbUp').textContent = m.up_bid != null ? m.up_bid.toFixed(3) : '-';
+    $('#tbDown').textContent = m.down_bid != null ? m.down_bid.toFixed(3) : '-';
+    $('#tbTTE').textContent = formatTTE(m.time_to_expiry);
+  } else {
+    $('#tbUp').textContent = '-';
+    $('#tbDown').textContent = '-';
+    $('#tbTTE').textContent = '-';
+  }
+
+  // Update OB depth
+  const obIdx = findClosest(obData, cursorTimestamp, 'timestamp');
+  if (obIdx >= 0 && obData[obIdx]) {
+    renderObDepth(obData[obIdx]);
+  } else {
+    renderObDepth(null);
+  }
+
+  // Redraw all charts to move cursor line
+  for (const key of Object.keys(charts)) {
+    if (charts[key]) charts[key].update('none');
+  }
+}
+
+// ── Slider events ──
+$('#tbSlider').addEventListener('input', e => {
+  setCursor(parseInt(e.target.value));
+});
+
+// ── Play / Pause ──
+function stopPlay() {
+  if (playTimer) { clearInterval(playTimer); playTimer = null; }
+  $('#tbPlay').classList.remove('playing');
+  $('#tbPlay').textContent = '▶';
+}
+
+$('#tbPlay').addEventListener('click', () => {
+  if (playTimer) {
+    stopPlay();
+  } else {
+    const slider = $('#tbSlider');
+    if (parseInt(slider.value) >= masterTimeline.length - 1) slider.value = 0;
+    $('#tbPlay').classList.add('playing');
+    $('#tbPlay').textContent = '⏸';
+    playTimer = setInterval(() => {
+      const v = parseInt(slider.value);
+      if (v >= masterTimeline.length - 1) { stopPlay(); return; }
+      setCursor(v + 1);
+    }, 200);
+  }
+});
+
+// ── Date Loading ──
+async function loadDates() {
+  try {
+    const res = await fetch('/api/dates');
+    const dates = await res.json();
+    const sel = $('#dateSelect');
+    sel.innerHTML = '';
+    if (dates.length) {
+      dates.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.date;
+        opt.textContent = `${d.date} (${d.files.length} files)`;
+        sel.appendChild(opt);
+      });
+      currentDate = dates[0].date;
+      loadAll();
+    } else {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'No data available';
+      sel.appendChild(opt);
+    }
+  } catch(e) { console.error('Failed to load dates', e); }
+}
+
+$('#dateSelect').addEventListener('change', e => {
+  currentDate = e.target.value;
+  stopPlay();
+  if (currentDate) loadAll();
+});
+
+$$('#marketTabs button').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    $$('#marketTabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    marketType = btn.dataset.type;
+    stopPlay();
+    await Promise.all([loadMarket(), loadOrderbook()]);
+    buildTimeline();
+  });
+});
+
+async function loadAll() {
+  loadSummary();
+  // Load all data, then build timeline
+  await Promise.all([loadBTC(), loadMarket(), loadOrderbook()]);
+  buildTimeline();
+  loadEvents();
+}
+
+// ── Summary ──
+async function loadSummary() {
+  try {
+    const res = await fetch(`/api/summary?date=${currentDate}`);
+    const s = await res.json();
+    let html = '';
+    if (s.btc) {
+      html += `<div class="stat"><div class="label">BTC Range</div><div class="value">$${s.btc.min?.toLocaleString()} - $${s.btc.max?.toLocaleString()}</div><div class="sub">${s.btc.count?.toLocaleString()} records</div></div>`;
+      html += `<div class="stat"><div class="label">BTC Last</div><div class="value">$${s.btc.last?.toLocaleString()}</div><div class="sub">Avg lag: ${s.btc.avg_lag_ms}ms</div></div>`;
+    }
+    if (s.markets_15m) {
+      html += `<div class="stat"><div class="label">15m Markets</div><div class="value">${s.markets_15m.unique_markets}</div><div class="sub">${s.markets_15m.snapshot_count?.toLocaleString()} snapshots</div></div>`;
+    }
+    if (s.markets_5m) {
+      html += `<div class="stat"><div class="label">5m Markets</div><div class="value">${s.markets_5m.unique_markets}</div><div class="sub">${s.markets_5m.snapshot_count?.toLocaleString()} snapshots</div></div>`;
+    }
+    if (s.events !== undefined) {
+      html += `<div class="stat"><div class="label">Events</div><div class="value">${s.events}</div></div>`;
+    }
+    if (!html) html = '<div class="stat"><div class="label">Date</div><div class="value">' + currentDate + '</div><div class="sub">No data yet</div></div>';
+    $('#summaryBar').innerHTML = html;
+  } catch(e) { console.error(e); }
+}
+
+// ── BTC Price Chart ──
+async function loadBTC() {
+  try {
+    const res = await fetch(`/api/btc_prices?date=${currentDate}&limit=3000`);
+    btcData = await res.json();
+    $('#btcCount').textContent = btcData.length;
+
+    if (charts.btc) charts.btc.destroy();
+    if (!btcData.length) return;
+
+    const labels = btcData.map(r => r.timestamp);
+    charts.btc = new Chart($('#btcChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {label:'Binance', data: btcData.map(r=>r.binance_price), borderColor:'#3b82f6', borderWidth:1.5, pointRadius:0, tension:0.1},
+          {label:'Oracle', data: btcData.map(r=>r.oracle_price), borderColor:'#f59e0b', borderWidth:1.5, pointRadius:0, tension:0.1}
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:false,
+        interaction:{mode:'index',intersect:false},
+        scales:{
+          x:{type:'time',time:{tooltipFormat:'HH:mm:ss'},ticks:{maxTicksLimit:12}},
+          y:{ticks:{callback:v=>'$'+v.toLocaleString()}}
+        },
+        plugins:{legend:{position:'top',labels:{boxWidth:12,padding:8}}}
+      }
+    });
+  } catch(e) { console.error(e); }
+}
+
+// ── Market Snapshots ──
+async function loadMarket() {
+  try {
+    const res = await fetch(`/api/market_snapshots?date=${currentDate}&type=${marketType}&limit=3000`);
+    marketData = await res.json();
+    $('#mktCount').textContent = marketData.length;
+
+    if (charts.market) charts.market.destroy();
+    if (charts.spread) charts.spread.destroy();
+
+    if (!marketData.length) return;
+
+    const labels = marketData.map(r => r.timestamp);
+
+    // Market price chart
+    charts.market = new Chart($('#marketChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {label:'UP Bid', data: marketData.map(r=>r.up_bid), borderColor:'#22c55e', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'UP Ask', data: marketData.map(r=>r.up_ask), borderColor:'#86efac', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'DOWN Bid', data: marketData.map(r=>r.down_bid), borderColor:'#ef4444', borderWidth:1.2, pointRadius:0, tension:0.1},
+          {label:'DOWN Ask', data: marketData.map(r=>r.down_ask), borderColor:'#fca5a5', borderWidth:1.2, pointRadius:0, tension:0.1}
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:false,
+        interaction:{mode:'index',intersect:false},
+        scales:{
+          x:{type:'time',time:{tooltipFormat:'HH:mm:ss'},ticks:{maxTicksLimit:10}},
+          y:{min:0,max:1,ticks:{callback:v=>v.toFixed(2)}}
+        },
+        plugins:{legend:{position:'top',labels:{boxWidth:10,padding:6}}}
+      }
+    });
+
+    // Spread + lag chart
+    const upSpreads = marketData.map(r => r.up_ask && r.up_bid ? ((r.up_ask - r.up_bid)*100).toFixed(2) : null);
+    const lags = marketData.map(r => r.lag_ms);
+    const tte = marketData.map(r => r.time_to_expiry);
+
+    charts.spread = new Chart($('#spreadChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {label:'UP Spread (¢)', data: upSpreads, borderColor:'#6366f1', borderWidth:1.5, pointRadius:0, yAxisID:'y'},
+          {label:'Lag (ms)', data: lags, borderColor:'#f59e0b', borderWidth:1, pointRadius:0, yAxisID:'y1'},
+          {label:'TTX (s)', data: tte, borderColor:'#8b8fa3', borderWidth:1, pointRadius:0, borderDash:[4,4], yAxisID:'y2'}
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:false,
+        interaction:{mode:'index',intersect:false},
+        scales:{
+          x:{type:'time',time:{tooltipFormat:'HH:mm:ss'},ticks:{maxTicksLimit:10}},
+          y:{position:'left',title:{display:true,text:'Spread ¢'}},
+          y1:{position:'right',grid:{drawOnChartArea:false},title:{display:true,text:'Lag ms'}},
+          y2:{display:false}
+        },
+        plugins:{legend:{position:'top',labels:{boxWidth:10,padding:6}}}
+      }
+    });
+  } catch(e) { console.error(e); }
+}
+
+// ── Order Book ──
+async function loadOrderbook() {
+  try {
+    const res = await fetch(`/api/orderbook?date=${currentDate}&type=${marketType}&limit=1500`);
+    obData = await res.json();
+    $('#obCount').textContent = obData.length;
+
+    // Volume over time chart
+    if (charts.ob) charts.ob.destroy();
+    if (!obData.length) { renderObDepth(null); return; }
+
+    const labels = obData.map(r => r.timestamp);
+    charts.ob = new Chart($('#obChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {label:'UP Bid Vol', data: obData.map(r=>r.up_bid_total), borderColor:'#22c55e', backgroundColor:'#22c55e20', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'UP Ask Vol', data: obData.map(r=>r.up_ask_total), borderColor:'#86efac', backgroundColor:'#86efac20', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'DOWN Bid Vol', data: obData.map(r=>r.down_bid_total), borderColor:'#ef4444', backgroundColor:'#ef444420', borderWidth:1.5, pointRadius:0, fill:true},
+          {label:'DOWN Ask Vol', data: obData.map(r=>r.down_ask_total), borderColor:'#fca5a5', backgroundColor:'#fca5a520', borderWidth:1.5, pointRadius:0, fill:true}
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:false,
+        interaction:{mode:'index',intersect:false},
+        scales:{
+          x:{type:'time',time:{tooltipFormat:'HH:mm:ss'},ticks:{maxTicksLimit:10}},
+          y:{title:{display:true,text:'Volume'}}
+        },
+        plugins:{legend:{position:'top',labels:{boxWidth:10,padding:6}}}
+      }
+    });
+  } catch(e) { console.error(e); }
+}
+
+function renderObDepth(ob) {
+  const el = $('#obContent');
+  if (!ob) { el.innerHTML = '<div class="empty">No order book data</div>'; return; }
+
+  function renderSide(title, bids, asks, bidColor, askColor) {
+    const allSizes = [...(bids||[]), ...(asks||[])].map(l => l.size);
+    const maxSize = Math.max(...allSizes, 1);
+
+    let html = `<div class="ob-side"><h3>${title}</h3>`;
+
+    // Asks (reversed, highest first)
+    const sortedAsks = [...(asks||[])].sort((a,b) => b.price - a.price).slice(0, 10);
+    for (const lvl of sortedAsks) {
+      const w = (lvl.size / maxSize * 100).toFixed(1);
+      html += `<div class="ob-bar-wrap"><span class="ob-price">${lvl.price.toFixed(2)}</span><div class="ob-bar" style="width:${w}%;background:${askColor}40;border-left:3px solid ${askColor}"></div><span class="ob-size">${lvl.size.toFixed(1)}</span></div>`;
+    }
+
+    // Divider
+    html += '<div style="border-top:1px solid var(--border);margin:4px 0"></div>';
+
+    // Bids (highest first)
+    const sortedBids = [...(bids||[])].sort((a,b) => b.price - a.price).slice(0, 10);
+    for (const lvl of sortedBids) {
+      const w = (lvl.size / maxSize * 100).toFixed(1);
+      html += `<div class="ob-bar-wrap"><span class="ob-price">${lvl.price.toFixed(2)}</span><div class="ob-bar" style="width:${w}%;background:${bidColor}40;border-left:3px solid ${bidColor}"></div><span class="ob-size">${lvl.size.toFixed(1)}</span></div>`;
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  el.innerHTML = renderSide('UP (Yes)', ob.up_bids, ob.up_asks, '#22c55e', '#ef4444')
+               + renderSide('DOWN (No)', ob.down_bids, ob.down_asks, '#22c55e', '#ef4444');
+}
+
+// ── System Events ──
+async function loadEvents() {
+  try {
+    const res = await fetch(`/api/system_events?date=${currentDate}`);
+    const data = await res.json();
+    $('#evtCount').textContent = data.length;
+    const tbody = $('#eventsBody');
+    if (!data.length) { tbody.innerHTML = '<tr><td colspan="3" class="empty">No events</td></tr>'; return; }
+
+    const tagClass = t => ({market_switch:'tag-switch',market_skip:'tag-skip',market_outcome:'tag-outcome',system:'tag-system',health:'tag-health'})[t] || 'tag-system';
+
+    tbody.innerHTML = data.slice().reverse().map(e => {
+      const time = timeLabel(e.timestamp);
+      return `<tr><td style="white-space:nowrap;color:var(--muted)">${esc(time)}</td><td><span class="tag ${tagClass(e.event_type)}">${esc(e.event_type)}</span></td><td>${esc(e.message||'')}</td></tr>`;
+    }).join('');
+  } catch(e) { console.error(e); }
+}
+
+// Init
+loadDates();
+</script>
+</body>
+</html>
