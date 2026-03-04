@@ -40,6 +40,15 @@ button.active{background:var(--accent);border-color:var(--accent)}
 .tag-health{background:#f59e0b20;color:var(--orange)}
 .ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:700px){.ob-grid{grid-template-columns:1fr}}
+.ob-controls{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.ob-slider{flex:1;min-width:120px;-webkit-appearance:none;appearance:none;height:6px;background:var(--border);border-radius:3px;outline:none;cursor:pointer}
+.ob-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
+.ob-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--card)}
+.ob-time{font-size:12px;color:var(--accent);font-weight:600;min-width:70px;text-align:center;font-variant-numeric:tabular-nums}
+.ob-idx{font-size:11px;color:var(--muted);min-width:60px;text-align:center}
+.ob-play{background:var(--bg);color:var(--text);border:1px solid var(--border);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;padding:0;flex-shrink:0}
+.ob-play:hover{border-color:var(--accent);color:var(--accent)}
+.ob-play.playing{background:var(--accent);border-color:var(--accent);color:#fff}
 .ob-side h3{font-size:12px;font-weight:600;margin-bottom:8px}
 .ob-bar-wrap{margin-bottom:3px;display:flex;align-items:center;gap:6px;font-size:11px}
 .ob-bar{height:18px;border-radius:3px;min-width:2px;transition:width .3s}
@@ -87,7 +96,13 @@ button.active{background:var(--accent);border-color:var(--accent)}
   </div>
 
   <div class="card">
-    <h2>Order Book Depth (Latest)</h2>
+    <h2>Order Book Depth <span class="badge" id="obDepthCount">-</span></h2>
+    <div class="ob-controls" id="obControls" style="display:none">
+      <button class="ob-play" id="obPlay" title="Play/Pause" aria-label="Play order book snapshots">▶</button>
+      <input type="range" class="ob-slider" id="obSlider" min="0" max="0" value="0" aria-label="Order book snapshot timeline">
+      <span class="ob-time" id="obTime">--:--:--</span>
+      <span class="ob-idx" id="obIdx">0 / 0</span>
+    </div>
     <div class="ob-grid" id="obContent">
       <div class="empty">No order book data</div>
     </div>
@@ -116,6 +131,8 @@ const $$ = s => document.querySelectorAll(s);
 let currentDate = '';
 let marketType = '15m';
 let charts = {};
+let obData = [];       // all orderbook snapshots
+let obPlayTimer = null; // play interval
 
 // Chart defaults
 Chart.defaults.color = '#8b8fa3';
@@ -309,9 +326,23 @@ async function loadOrderbook() {
     const res = await fetch(`/api/orderbook?date=${currentDate}&type=${marketType}&limit=1500`);
     const data = await res.json();
     $('#obCount').textContent = data.length;
+    obData = data;
+    stopObPlay();
 
-    // Latest order book visualization
-    renderObDepth(data.length ? data[data.length - 1] : null);
+    // Slider setup
+    const controls = $('#obControls');
+    const slider = $('#obSlider');
+    if (data.length > 0) {
+      controls.style.display = 'flex';
+      slider.max = data.length - 1;
+      slider.value = data.length - 1;
+      $('#obDepthCount').textContent = data.length;
+      renderObAt(data.length - 1);
+    } else {
+      controls.style.display = 'none';
+      $('#obDepthCount').textContent = '-';
+      renderObDepth(null);
+    }
 
     // Volume over time chart
     if (charts.ob) charts.ob.destroy();
@@ -341,6 +372,43 @@ async function loadOrderbook() {
     });
   } catch(e) { console.error(e); }
 }
+
+function renderObAt(idx) {
+  if (idx < 0 || idx >= obData.length) return;
+  const ob = obData[idx];
+  $('#obTime').textContent = timeLabel(ob.timestamp);
+  $('#obIdx').textContent = `${idx + 1} / ${obData.length}`;
+  renderObDepth(ob);
+}
+
+// Slider events
+$('#obSlider').addEventListener('input', e => {
+  renderObAt(parseInt(e.target.value));
+});
+
+// Play/Pause
+function stopObPlay() {
+  if (obPlayTimer) { clearInterval(obPlayTimer); obPlayTimer = null; }
+  $('#obPlay').classList.remove('playing');
+  $('#obPlay').textContent = '▶';
+}
+
+$('#obPlay').addEventListener('click', () => {
+  if (obPlayTimer) {
+    stopObPlay();
+  } else {
+    const slider = $('#obSlider');
+    if (parseInt(slider.value) >= obData.length - 1) slider.value = 0;
+    $('#obPlay').classList.add('playing');
+    $('#obPlay').textContent = '⏸';
+    obPlayTimer = setInterval(() => {
+      const v = parseInt(slider.value);
+      if (v >= obData.length - 1) { stopObPlay(); return; }
+      slider.value = v + 1;
+      renderObAt(v + 1);
+    }, 250);
+  }
+});
 
 function renderObDepth(ob) {
   const el = $('#obContent');
