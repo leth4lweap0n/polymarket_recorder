@@ -180,6 +180,16 @@ class DataRecorder:
             self.orderbook_15m = orderbook
         if self.current_market_5m and market_slug == self.current_market_5m['slug']:
             self.orderbook_5m = orderbook
+
+    @staticmethod
+    def _orderbook_totals(ob: Dict) -> Dict:
+        """Calculate volume totals for an order book snapshot"""
+        return {
+            "up_bid_total": round(sum(l["size"] for l in ob.get("up_bids", [])), 2),
+            "up_ask_total": round(sum(l["size"] for l in ob.get("up_asks", [])), 2),
+            "down_bid_total": round(sum(l["size"] for l in ob.get("down_bids", [])), 2),
+            "down_ask_total": round(sum(l["size"] for l in ob.get("down_asks", [])), 2)
+        }
             
     def on_rtds_update(self, oracle_price: float):
         self.oracle_price = oracle_price
@@ -341,18 +351,16 @@ class DataRecorder:
         if self.current_market and self.orderbook_15m:
             try:
                 ob = self.orderbook_15m
-                self.json_writer.add("orderbook_15m", {
+                record = {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market['slug'],
                     "up_bids": ob.get("up_bids", []),
                     "up_asks": ob.get("up_asks", []),
                     "down_bids": ob.get("down_bids", []),
                     "down_asks": ob.get("down_asks", []),
-                    "up_bid_total": round(sum(l["size"] for l in ob.get("up_bids", [])), 2),
-                    "up_ask_total": round(sum(l["size"] for l in ob.get("up_asks", [])), 2),
-                    "down_bid_total": round(sum(l["size"] for l in ob.get("down_bids", [])), 2),
-                    "down_ask_total": round(sum(l["size"] for l in ob.get("down_asks", [])), 2)
-                })
+                }
+                record.update(self._orderbook_totals(ob))
+                self.json_writer.add("orderbook_15m", record)
             except Exception as e:
                 self.errors.append(f"15m Orderbook Error: {e}")
 
@@ -381,18 +389,16 @@ class DataRecorder:
         if self.current_market_5m and self.orderbook_5m:
             try:
                 ob = self.orderbook_5m
-                self.json_writer.add("orderbook_5m", {
+                record = {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market_5m['slug'],
                     "up_bids": ob.get("up_bids", []),
                     "up_asks": ob.get("up_asks", []),
                     "down_bids": ob.get("down_bids", []),
                     "down_asks": ob.get("down_asks", []),
-                    "up_bid_total": round(sum(l["size"] for l in ob.get("up_bids", [])), 2),
-                    "up_ask_total": round(sum(l["size"] for l in ob.get("up_asks", [])), 2),
-                    "down_bid_total": round(sum(l["size"] for l in ob.get("down_bids", [])), 2),
-                    "down_ask_total": round(sum(l["size"] for l in ob.get("down_asks", [])), 2)
-                })
+                }
+                record.update(self._orderbook_totals(ob))
+                self.json_writer.add("orderbook_5m", record)
             except Exception as e:
                 self.errors.append(f"5m Orderbook Error: {e}")
 
@@ -423,10 +429,8 @@ class DataRecorder:
         # 15m order book depth
         ob15_str = ""
         if self.orderbook_15m:
-            ob = self.orderbook_15m
-            ub = sum(l["size"] for l in ob.get("up_bids", []))
-            ua = sum(l["size"] for l in ob.get("up_asks", []))
-            ob15_str = f" OB[B:{ub:.0f}/A:{ua:.0f}]"
+            totals = self._orderbook_totals(self.orderbook_15m)
+            ob15_str = f" OB[B:{totals['up_bid_total']:.0f}/A:{totals['up_ask_total']:.0f}]"
         
         # 5m market info
         up5_str = f"U:{self.up_prices_5m['bid']:.3f}/{self.up_prices_5m['ask']:.3f}" if self.up_prices_5m else "U:---"
@@ -436,10 +440,8 @@ class DataRecorder:
         # 5m order book depth
         ob5_str = ""
         if self.orderbook_5m:
-            ob = self.orderbook_5m
-            ub = sum(l["size"] for l in ob.get("up_bids", []))
-            ua = sum(l["size"] for l in ob.get("up_asks", []))
-            ob5_str = f" OB[B:{ub:.0f}/A:{ua:.0f}]"
+            totals = self._orderbook_totals(self.orderbook_5m)
+            ob5_str = f" OB[B:{totals['up_bid_total']:.0f}/A:{totals['up_ask_total']:.0f}]"
         
         status_line = (
             f"[{curr_time}] {hours}h{minutes}m | "

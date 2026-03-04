@@ -342,8 +342,8 @@ class CLOBClient:
                 })
             
             if not price_updated:
-                best_bid = float(bids[-1]['price']) if bids and isinstance(bids[-1], dict) else (float(bids[-1][0]) if bids else None)
-                best_ask = float(asks[-1]['price']) if asks and isinstance(asks[-1], dict) else (float(asks[-1][0]) if asks else None)
+                best_bid = norm_bids[-1]['price'] if norm_bids else None
+                best_ask = norm_asks[-1]['price'] if norm_asks else None
                 
                 if best_bid or best_ask:
                     if asset_id == m_data['tokens'][0]:
