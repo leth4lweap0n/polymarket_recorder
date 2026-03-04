@@ -197,8 +197,8 @@ class TestReadDB(unittest.TestCase):
         self.assertAlmostEqual(rows[-1]["binance_price"], 50099.0)
 
     def test_read_nonexistent_table(self):
-        rows = read_db(self.tmpdir, self.date, "nonexistent_table")
-        self.assertEqual(rows, [])
+        with self.assertRaises(ValueError):
+            read_db(self.tmpdir, self.date, "nonexistent_table")
 
     def test_read_nonexistent_date(self):
         rows = read_db(self.tmpdir, "1999-01-01", "btc_prices")

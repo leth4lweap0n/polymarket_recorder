@@ -106,7 +106,17 @@ _SCHEMAS = {
 # Columns that store JSON arrays (orderbook bid/ask lists)
 _JSON_COLUMNS = {"up_bids", "up_asks", "down_bids", "down_asks"}
 
+# Valid table names (whitelist)
+_VALID_TABLES = frozenset(_SCHEMAS.keys())
+
 DB_FILENAME = "data.db"
+
+
+def _validate_table(table_name: str) -> str:
+    """Validate *table_name* against known schemas to prevent SQL injection."""
+    if table_name not in _VALID_TABLES:
+        raise ValueError(f"Unknown table: {table_name}")
+    return table_name
 
 
 # ---------------------------------------------------------------------------
@@ -169,10 +179,8 @@ class DBWriter(threading.Thread):
 
     def _ensure_table(self, table_name: str):
         if table_name not in self._tables_created:
-            schema = _SCHEMAS.get(table_name)
-            if schema is None:
-                raise ValueError(f"Unknown table: {table_name}")
-            self._conn.execute(schema)
+            _validate_table(table_name)
+            self._conn.execute(_SCHEMAS[table_name])
             self._conn.commit()
             self._tables_created.add(table_name)
 
@@ -221,6 +229,8 @@ def read_db(snapshots_dir: str, date: str, table_name: str, limit: int | None = 
 
     If *limit* is given the result is evenly down-sampled (first & last kept).
     """
+    _validate_table(table_name)
+
     db_path = _db_path_for_date(snapshots_dir, date)
     if not os.path.exists(db_path):
         return []
@@ -297,7 +307,7 @@ def get_summary_stats(snapshots_dir: str, date: str) -> dict:
 
         # Market snapshot counts
         for mt in ("15m", "5m"):
-            table = f"market_snapshots_{mt}"
+            table = _validate_table(f"market_snapshots_{mt}")
             try:
                 cnt = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
                 slugs = conn.execute(f"SELECT COUNT(DISTINCT market_slug) FROM {table}").fetchone()[0]
