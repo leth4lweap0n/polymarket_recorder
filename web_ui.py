@@ -14,7 +14,7 @@ import argparse
 from pathlib import Path
 from flask import Flask, render_template, jsonify, request
 
-from db import read_db, get_summary_stats, list_dates, DB_FILENAME
+from db import read_db, get_summary_stats, list_dates, get_time_range, get_market_slugs, DB_FILENAME
 
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -54,11 +54,15 @@ def _has_db(date: str) -> bool:
     return os.path.exists(os.path.join(SNAPSHOTS_DIR, date, DB_FILENAME))
 
 
-def _read(date: str, table: str, limit: int | None = None) -> list[dict]:
+def _read(date: str, table: str, limit: int | None = None,
+          start_time: str | None = None, end_time: str | None = None,
+          market_slug: str | None = None) -> list[dict]:
     """Read from SQLite if available, otherwise fall back to JSONL."""
     if _has_db(date):
-        return read_db(SNAPSHOTS_DIR, date, table, limit=limit)
-    # Legacy fallback
+        return read_db(SNAPSHOTS_DIR, date, table, limit=limit,
+                       start_time=start_time, end_time=end_time,
+                       market_slug=market_slug)
+    # Legacy fallback (no server-side filtering)
     filepath = os.path.join(SNAPSHOTS_DIR, date, f"{table}.jsonl")
     return read_jsonl(filepath, limit=limit)
 
@@ -81,7 +85,9 @@ def api_btc_prices():
     if not date:
         return jsonify({"error": "date parameter required"}), 400
     limit = request.args.get('limit', 5000, type=int)
-    data = _read(date, "btc_prices", limit=limit)
+    start = request.args.get('start')
+    end = request.args.get('end')
+    data = _read(date, "btc_prices", limit=limit, start_time=start, end_time=end)
     return jsonify(data)
 
 
@@ -95,7 +101,11 @@ def api_market_snapshots():
     if market_type not in ('15m', '5m'):
         return jsonify({"error": "type must be 15m or 5m"}), 400
     limit = request.args.get('limit', 5000, type=int)
-    data = _read(date, f"market_snapshots_{market_type}", limit=limit)
+    start = request.args.get('start')
+    end = request.args.get('end')
+    slug = request.args.get('market_slug')
+    data = _read(date, f"market_snapshots_{market_type}", limit=limit,
+                 start_time=start, end_time=end, market_slug=slug)
     return jsonify(data)
 
 
@@ -109,7 +119,11 @@ def api_orderbook():
     if market_type not in ('15m', '5m'):
         return jsonify({"error": "type must be 15m or 5m"}), 400
     limit = request.args.get('limit', 2000, type=int)
-    data = _read(date, f"orderbook_{market_type}", limit=limit)
+    start = request.args.get('start')
+    end = request.args.get('end')
+    slug = request.args.get('market_slug')
+    data = _read(date, f"orderbook_{market_type}", limit=limit,
+                 start_time=start, end_time=end, market_slug=slug)
     return jsonify(data)
 
 
@@ -119,8 +133,33 @@ def api_system_events():
     date = request.args.get('date')
     if not date:
         return jsonify({"error": "date parameter required"}), 400
-    data = _read(date, "system_events")
+    start = request.args.get('start')
+    end = request.args.get('end')
+    data = _read(date, "system_events", start_time=start, end_time=end)
     return jsonify(data)
+
+
+@app.route('/api/time_range')
+def api_time_range():
+    """Return min/max timestamps for a given date"""
+    date = request.args.get('date')
+    if not date:
+        return jsonify({"error": "date parameter required"}), 400
+    tr = get_time_range(SNAPSHOTS_DIR, date)
+    return jsonify(tr)
+
+
+@app.route('/api/market_slugs')
+def api_market_slugs():
+    """Return unique market slugs for a given date and market type"""
+    date = request.args.get('date')
+    market_type = request.args.get('type', '15m')
+    if not date:
+        return jsonify({"error": "date parameter required"}), 400
+    if market_type not in ('15m', '5m'):
+        return jsonify({"error": "type must be 15m or 5m"}), 400
+    slugs = get_market_slugs(SNAPSHOTS_DIR, date, market_type)
+    return jsonify(slugs)
 
 
 @app.route('/api/summary')

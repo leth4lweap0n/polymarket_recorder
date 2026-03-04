@@ -8,7 +8,7 @@ import tempfile
 import time
 import unittest
 
-from db import DBWriter, DB_FILENAME, read_db, get_summary_stats, list_dates
+from db import DBWriter, DB_FILENAME, read_db, get_summary_stats, list_dates, get_time_range, get_market_slugs
 
 
 class TestDBWriter(unittest.TestCase):
@@ -316,6 +316,177 @@ class TestListDates(unittest.TestCase):
         self.assertEqual(dates, [])
         import shutil
         shutil.rmtree(empty, ignore_errors=True)
+
+
+class TestReadDBFilters(unittest.TestCase):
+    """Test read_db time-range and market_slug filtering."""
+
+    def setUp(self):
+        self.tmpdir = tempfile.mkdtemp()
+        self.date = "2025-04-01"
+        self.date_dir = os.path.join(self.tmpdir, self.date)
+        os.makedirs(self.date_dir)
+        self.db_path = os.path.join(self.date_dir, DB_FILENAME)
+
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("""
+            CREATE TABLE btc_prices (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT, binance_price REAL, oracle_price REAL, lag_ms INTEGER
+            )
+        """)
+        # Insert records at 10:00, 10:30, 11:00, 11:30, 12:00
+        for h, m, price in [
+            (10, 0, 50000), (10, 30, 50100), (11, 0, 50200),
+            (11, 30, 50300), (12, 0, 50400),
+        ]:
+            conn.execute(
+                "INSERT INTO btc_prices (timestamp, binance_price, oracle_price, lag_ms) VALUES (?,?,?,?)",
+                (f"2025-04-01T{h:02d}:{m:02d}:00+00:00", float(price), float(price - 1), 100),
+            )
+
+        conn.execute("""
+            CREATE TABLE market_snapshots_15m (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT, market_slug TEXT, oracle_price REAL, binance_price REAL,
+                up_bid REAL, up_ask REAL, up_mid REAL,
+                down_bid REAL, down_ask REAL, down_mid REAL,
+                time_to_expiry INTEGER, target_price REAL, lag_ms INTEGER
+            )
+        """)
+        for slug, ts in [
+            ("slug-a", "2025-04-01T10:00:00+00:00"),
+            ("slug-a", "2025-04-01T10:15:00+00:00"),
+            ("slug-b", "2025-04-01T11:00:00+00:00"),
+            ("slug-b", "2025-04-01T11:15:00+00:00"),
+        ]:
+            conn.execute(
+                "INSERT INTO market_snapshots_15m VALUES (NULL,?,?,50000,50001,0.6,0.61,0.605,0.39,0.4,0.395,300,50500,100)",
+                (ts, slug),
+            )
+
+        conn.commit()
+        conn.close()
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmpdir, ignore_errors=True)
+
+    def test_filter_by_start_time(self):
+        rows = read_db(self.tmpdir, self.date, "btc_prices",
+                       start_time="2025-04-01T11:00:00+00:00")
+        self.assertEqual(len(rows), 3)  # 11:00, 11:30, 12:00
+        self.assertAlmostEqual(rows[0]["binance_price"], 50200.0)
+
+    def test_filter_by_end_time(self):
+        rows = read_db(self.tmpdir, self.date, "btc_prices",
+                       end_time="2025-04-01T10:30:00+00:00")
+        self.assertEqual(len(rows), 2)  # 10:00, 10:30
+
+    def test_filter_by_time_range(self):
+        rows = read_db(self.tmpdir, self.date, "btc_prices",
+                       start_time="2025-04-01T10:30:00+00:00",
+                       end_time="2025-04-01T11:30:00+00:00")
+        self.assertEqual(len(rows), 3)  # 10:30, 11:00, 11:30
+
+    def test_filter_by_market_slug(self):
+        rows = read_db(self.tmpdir, self.date, "market_snapshots_15m",
+                       market_slug="slug-a")
+        self.assertEqual(len(rows), 2)
+        self.assertTrue(all(r["market_slug"] == "slug-a" for r in rows))
+
+    def test_filter_by_slug_and_time(self):
+        rows = read_db(self.tmpdir, self.date, "market_snapshots_15m",
+                       start_time="2025-04-01T10:10:00+00:00",
+                       market_slug="slug-a")
+        self.assertEqual(len(rows), 1)  # only slug-a at 10:15
+
+    def test_no_filter_returns_all(self):
+        rows = read_db(self.tmpdir, self.date, "btc_prices")
+        self.assertEqual(len(rows), 5)
+
+    def test_filter_with_limit(self):
+        rows = read_db(self.tmpdir, self.date, "btc_prices",
+                       start_time="2025-04-01T10:00:00+00:00", limit=2)
+        self.assertEqual(len(rows), 2)
+        # Last element should be the last matching record
+        self.assertAlmostEqual(rows[-1]["binance_price"], 50400.0)
+
+
+class TestGetTimeRange(unittest.TestCase):
+    """Test get_time_range helper."""
+
+    def setUp(self):
+        self.tmpdir = tempfile.mkdtemp()
+        self.date = "2025-05-01"
+        self.date_dir = os.path.join(self.tmpdir, self.date)
+        os.makedirs(self.date_dir)
+        self.db_path = os.path.join(self.date_dir, DB_FILENAME)
+
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("""
+            CREATE TABLE btc_prices (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT, binance_price REAL, oracle_price REAL, lag_ms INTEGER
+            )
+        """)
+        conn.execute("INSERT INTO btc_prices VALUES (NULL, '2025-05-01T08:00:00+00:00', 50000, 49999, 100)")
+        conn.execute("INSERT INTO btc_prices VALUES (NULL, '2025-05-01T20:00:00+00:00', 51000, 50999, 200)")
+        conn.commit()
+        conn.close()
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmpdir, ignore_errors=True)
+
+    def test_returns_min_max(self):
+        tr = get_time_range(self.tmpdir, self.date)
+        self.assertEqual(tr["min"], "2025-05-01T08:00:00+00:00")
+        self.assertEqual(tr["max"], "2025-05-01T20:00:00+00:00")
+
+    def test_nonexistent_date(self):
+        tr = get_time_range(self.tmpdir, "1999-01-01")
+        self.assertEqual(tr, {})
+
+
+class TestGetMarketSlugs(unittest.TestCase):
+    """Test get_market_slugs helper."""
+
+    def setUp(self):
+        self.tmpdir = tempfile.mkdtemp()
+        self.date = "2025-06-01"
+        self.date_dir = os.path.join(self.tmpdir, self.date)
+        os.makedirs(self.date_dir)
+        self.db_path = os.path.join(self.date_dir, DB_FILENAME)
+
+        conn = sqlite3.connect(self.db_path)
+        conn.execute("""
+            CREATE TABLE market_snapshots_15m (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT, market_slug TEXT, oracle_price REAL, binance_price REAL,
+                up_bid REAL, up_ask REAL, up_mid REAL,
+                down_bid REAL, down_ask REAL, down_mid REAL,
+                time_to_expiry INTEGER, target_price REAL, lag_ms INTEGER
+            )
+        """)
+        conn.execute("INSERT INTO market_snapshots_15m VALUES (NULL, '2025-06-01T10:00:00', 'slug-c', 50000, 50001, 0.6, 0.61, 0.605, 0.39, 0.4, 0.395, 300, 50500, 100)")
+        conn.execute("INSERT INTO market_snapshots_15m VALUES (NULL, '2025-06-01T10:15:00', 'slug-a', 50000, 50001, 0.6, 0.61, 0.605, 0.39, 0.4, 0.395, 300, 50500, 100)")
+        conn.execute("INSERT INTO market_snapshots_15m VALUES (NULL, '2025-06-01T10:30:00', 'slug-b', 50000, 50001, 0.6, 0.61, 0.605, 0.39, 0.4, 0.395, 300, 50500, 100)")
+        conn.execute("INSERT INTO market_snapshots_15m VALUES (NULL, '2025-06-01T10:45:00', 'slug-a', 50000, 50001, 0.6, 0.61, 0.605, 0.39, 0.4, 0.395, 300, 50500, 100)")
+        conn.commit()
+        conn.close()
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.tmpdir, ignore_errors=True)
+
+    def test_returns_unique_sorted(self):
+        slugs = get_market_slugs(self.tmpdir, self.date, "15m")
+        self.assertEqual(slugs, ["slug-a", "slug-b", "slug-c"])
+
+    def test_nonexistent_date(self):
+        slugs = get_market_slugs(self.tmpdir, "1999-01-01", "15m")
+        self.assertEqual(slugs, [])
 
 
 if __name__ == "__main__":

@@ -223,9 +223,23 @@ def _db_path_for_date(snapshots_dir: str, date: str) -> str:
     return os.path.join(snapshots_dir, date, DB_FILENAME)
 
 
-def read_db(snapshots_dir: str, date: str, table_name: str, limit: int | None = None) -> list[dict]:
-    """Read all rows from *table_name* for a given *date*, returned as
-    a list of dicts identical to the old JSONL format.
+def read_db(
+    snapshots_dir: str,
+    date: str,
+    table_name: str,
+    limit: int | None = None,
+    start_time: str | None = None,
+    end_time: str | None = None,
+    market_slug: str | None = None,
+) -> list[dict]:
+    """Read rows from *table_name* for a given *date*, returned as a list of
+    dicts identical to the old JSONL format.
+
+    Optional filters:
+    - *start_time* / *end_time*: ISO-8601 timestamp strings for time-range
+      filtering (inclusive on both ends).
+    - *market_slug*: filter rows by ``market_slug`` column (only applicable to
+      tables that contain this column).
 
     If *limit* is given the result is evenly down-sampled (first & last kept).
     """
@@ -238,8 +252,25 @@ def read_db(snapshots_dir: str, date: str, table_name: str, limit: int | None = 
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     try:
+        # Build query with optional WHERE clauses
+        conditions: list[str] = []
+        params: list[str] = []
+
+        if start_time:
+            conditions.append("timestamp >= ?")
+            params.append(start_time)
+        if end_time:
+            conditions.append("timestamp <= ?")
+            params.append(end_time)
+        if market_slug:
+            conditions.append("market_slug = ?")
+            params.append(market_slug)
+
+        where = (" WHERE " + " AND ".join(conditions)) if conditions else ""
+        query = f"SELECT * FROM {table_name}{where} ORDER BY id"
+
         try:
-            rows = conn.execute(f"SELECT * FROM {table_name} ORDER BY id").fetchall()
+            rows = conn.execute(query, params).fetchall()
         except sqlite3.OperationalError:
             # Table doesn't exist
             return []
@@ -366,3 +397,57 @@ def list_dates(snapshots_dir: str) -> list[dict]:
             dates.append({"date": name, "files": all_sources})
 
     return dates
+
+
+def get_time_range(snapshots_dir: str, date: str) -> dict:
+    """Return the earliest and latest timestamps across key tables for *date*.
+
+    Returns ``{"min": "<iso>", "max": "<iso>"}`` or ``{}`` when no data exists.
+    """
+    db_path = _db_path_for_date(snapshots_dir, date)
+    if not os.path.exists(db_path):
+        return {}
+
+    conn = sqlite3.connect(db_path)
+    min_ts = None
+    max_ts = None
+    try:
+        for table in ("btc_prices", "market_snapshots_15m", "market_snapshots_5m"):
+            try:
+                row = conn.execute(
+                    f"SELECT MIN(timestamp), MAX(timestamp) FROM {table}"
+                ).fetchone()
+                if row and row[0]:
+                    if min_ts is None or row[0] < min_ts:
+                        min_ts = row[0]
+                    if max_ts is None or row[1] > max_ts:
+                        max_ts = row[1]
+            except sqlite3.OperationalError:
+                continue
+    finally:
+        conn.close()
+
+    if min_ts and max_ts:
+        return {"min": min_ts, "max": max_ts}
+    return {}
+
+
+def get_market_slugs(snapshots_dir: str, date: str, market_type: str = "15m") -> list[str]:
+    """Return sorted list of unique market slugs for the given *date* and
+    *market_type* (``"15m"`` or ``"5m"``)."""
+    table = _validate_table(f"market_snapshots_{market_type}")
+    db_path = _db_path_for_date(snapshots_dir, date)
+    if not os.path.exists(db_path):
+        return []
+
+    conn = sqlite3.connect(db_path)
+    try:
+        try:
+            rows = conn.execute(
+                f"SELECT DISTINCT market_slug FROM {table} ORDER BY market_slug"
+            ).fetchall()
+            return [r[0] for r in rows if r[0]]
+        except sqlite3.OperationalError:
+            return []
+    finally:
+        conn.close()
