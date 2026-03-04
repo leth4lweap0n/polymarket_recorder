@@ -7,11 +7,8 @@ Analog of the paper trading system but without strategy execution.
 import asyncio
 import sys
 import os
-import json
 import ctypes
 import time
-import threading
-import queue
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Optional, List
 from pathlib import Path
@@ -22,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from data.clients import BinanceClient, CLOBClient, RTDSClient, MarketDiscovery, MarketDiscovery5m
 from data.polymarket_target_api import PolymarketTargetPriceAPI
+from db import DBWriter
 
 import builtins
 
@@ -51,61 +49,6 @@ def disable_quick_edit():
         except Exception:
             pass
 
-class JSONWriter(threading.Thread):
-    """Background thread for non-blocking JSON Lines file writes"""
-    def __init__(self):
-        super().__init__(daemon=True)
-        self.queue = queue.Queue()
-        self.running = True
-        self._data_dir = None
-        self._files = {}
-
-    def set_data_dir(self, data_dir: str):
-        """Set/change output directory (closes old files)"""
-        self._close_files()
-        self._data_dir = data_dir
-        Path(data_dir).mkdir(parents=True, exist_ok=True)
-
-    def _get_file(self, name: str):
-        if name not in self._files:
-            path = os.path.join(self._data_dir, f"{name}.jsonl")
-            self._files[name] = open(path, 'a', encoding='utf-8')
-        return self._files[name]
-
-    def _write_record(self, file_name: str, record: dict):
-        f = self._get_file(file_name)
-        f.write(json.dumps(record, ensure_ascii=False) + '\n')
-        f.flush()
-
-    def _close_files(self):
-        for f in self._files.values():
-            try:
-                f.close()
-            except OSError:
-                pass
-        self._files.clear()
-
-    def run(self):
-        while self.running or not self.queue.empty():
-            try:
-                task = self.queue.get(timeout=1)
-                file_name, record = task
-                if self._data_dir:
-                    self._write_record(file_name, record)
-                self.queue.task_done()
-            except queue.Empty:
-                continue
-            except Exception as e:
-                sys.stderr.write(f"\n[JSON_WRITER_ERROR] {e}\n")
-
-    def add(self, file_name: str, record: dict):
-        self.queue.put((file_name, record))
-
-    def stop(self):
-        self.running = False
-        self.join(timeout=5)
-        self._close_files()
-
 class DataRecorder:
     def __init__(self):
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -117,7 +60,7 @@ class DataRecorder:
         self.running = False
         self.start_time = datetime.now(timezone.utc)
         self.current_date = None
-        self.json_writer = JSONWriter()
+        self.db_writer = DBWriter()
         
         # Market Data - 15m
         self.current_market = None
@@ -256,7 +199,7 @@ class DataRecorder:
     def log_event(self, event_type: str, message: str):
         if self.current_date:
             try:
-                self.json_writer.add("system_events", {
+                self.db_writer.add("system_events", {
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                     "event_type": event_type,
                     "message": message
@@ -275,7 +218,7 @@ class DataRecorder:
         if now_date != self.current_date:
             self.current_date = now_date
             data_dir = os.path.join(self.snapshots_dir, now_date)
-            self.json_writer.set_data_dir(data_dir)
+            self.db_writer.set_data_dir(data_dir)
             self.log_event("system", f"Started new data directory: {now_date}")
 
     async def update_market_discovery(self):
@@ -360,7 +303,7 @@ class DataRecorder:
 
         # Record BTC prices (~3Hz, shared for both market types)
         if now_ts - self.last_btc_record_ts >= 0.3 and (self.binance_price or self.oracle_price):
-            self.json_writer.add("btc_prices", {
+            self.db_writer.add("btc_prices", {
                 "timestamp": ts_iso,
                 "binance_price": self.binance_price,
                 "oracle_price": self.oracle_price,
@@ -371,7 +314,7 @@ class DataRecorder:
         # Record 15m market snapshot
         if self.current_market and not self.skipped_market_15m:
             try:
-                self.json_writer.add("market_snapshots_15m", {
+                self.db_writer.add("market_snapshots_15m", {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market['slug'],
                     "oracle_price": self.oracle_price,
@@ -402,14 +345,14 @@ class DataRecorder:
                     "down_asks": ob.get("down_asks", []),
                 }
                 record.update(self._orderbook_totals(ob))
-                self.json_writer.add("orderbook_15m", record)
+                self.db_writer.add("orderbook_15m", record)
             except Exception as e:
                 self.errors.append(f"15m Orderbook Error: {e}")
 
         # Record 5m market snapshot
         if self.current_market_5m and not self.skipped_market_5m:
             try:
-                self.json_writer.add("market_snapshots_5m", {
+                self.db_writer.add("market_snapshots_5m", {
                     "timestamp": ts_iso,
                     "market_slug": self.current_market_5m['slug'],
                     "oracle_price": self.oracle_price,
@@ -440,7 +383,7 @@ class DataRecorder:
                     "down_asks": ob.get("down_asks", []),
                 }
                 record.update(self._orderbook_totals(ob))
-                self.json_writer.add("orderbook_5m", record)
+                self.db_writer.add("orderbook_5m", record)
             except Exception as e:
                 self.errors.append(f"5m Orderbook Error: {e}")
 
@@ -533,8 +476,8 @@ class DataRecorder:
         self.running = True
         print("Starting Data Recorder (15m + 5m markets)...")
         
-        # Start JSON writer thread
-        self.json_writer.start()
+        # Start DB writer thread
+        self.db_writer.start()
         
         # Start clients
         asyncio.create_task(self.binance_client.start())
@@ -579,8 +522,8 @@ class DataRecorder:
             print("\nStopping...")
         finally:
             self.running = False
-            print("\nWaiting for JSON writer to finish...")
-            self.json_writer.stop()
+            print("\nWaiting for DB writer to finish...")
+            self.db_writer.stop()
             print("Shutdown complete.")
 
 if __name__ == "__main__":

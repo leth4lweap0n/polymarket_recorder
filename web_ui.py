@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Web UI - Dashboard for analyzing recorded Polymarket data.
-Reads JSONL files from snapshots/ and serves them via a web interface.
+Reads from SQLite databases in snapshots/ and serves them via a web interface.
+Falls back to legacy JSONL files when no database is found.
 
 Usage:
     python web_ui.py [--port 5050] [--host 0.0.0.0]
@@ -13,10 +14,16 @@ import argparse
 from pathlib import Path
 from flask import Flask, render_template, jsonify, request
 
+from db import read_db, get_summary_stats, list_dates, DB_FILENAME
+
 app = Flask(__name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SNAPSHOTS_DIR = os.path.join(BASE_DIR, "snapshots")
 
+
+# ---------------------------------------------------------------------------
+# Legacy JSONL reader – kept for backward compatibility with old data
+# ---------------------------------------------------------------------------
 
 def read_jsonl(filepath, limit=None):
     """Read a JSONL file and return list of dicts"""
@@ -35,12 +42,25 @@ def read_jsonl(filepath, limit=None):
     except OSError:
         pass
     if limit and len(records) > limit:
-        # Downsample evenly for large datasets, always include last element
         step = (len(records) - 1) / (limit - 1) if limit > 1 else 1
         sampled = [records[int(i * step)] for i in range(limit - 1)]
         sampled.append(records[-1])
         records = sampled
     return records
+
+
+def _has_db(date: str) -> bool:
+    """Check whether a SQLite database exists for the given date."""
+    return os.path.exists(os.path.join(SNAPSHOTS_DIR, date, DB_FILENAME))
+
+
+def _read(date: str, table: str, limit: int | None = None) -> list[dict]:
+    """Read from SQLite if available, otherwise fall back to JSONL."""
+    if _has_db(date):
+        return read_db(SNAPSHOTS_DIR, date, table, limit=limit)
+    # Legacy fallback
+    filepath = os.path.join(SNAPSHOTS_DIR, date, f"{table}.jsonl")
+    return read_jsonl(filepath, limit=limit)
 
 
 @app.route('/')
@@ -51,15 +71,7 @@ def index():
 @app.route('/api/dates')
 def api_dates():
     """List available snapshot dates"""
-    dates = []
-    if os.path.exists(SNAPSHOTS_DIR):
-        for name in sorted(os.listdir(SNAPSHOTS_DIR), reverse=True):
-            full = os.path.join(SNAPSHOTS_DIR, name)
-            if os.path.isdir(full):
-                # List what files exist in this date folder
-                files = [f for f in os.listdir(full) if f.endswith('.jsonl')]
-                dates.append({"date": name, "files": files})
-    return jsonify(dates)
+    return jsonify(list_dates(SNAPSHOTS_DIR))
 
 
 @app.route('/api/btc_prices')
@@ -69,8 +81,7 @@ def api_btc_prices():
     if not date:
         return jsonify({"error": "date parameter required"}), 400
     limit = request.args.get('limit', 5000, type=int)
-    filepath = os.path.join(SNAPSHOTS_DIR, date, 'btc_prices.jsonl')
-    data = read_jsonl(filepath, limit=limit)
+    data = _read(date, "btc_prices", limit=limit)
     return jsonify(data)
 
 
@@ -84,8 +95,7 @@ def api_market_snapshots():
     if market_type not in ('15m', '5m'):
         return jsonify({"error": "type must be 15m or 5m"}), 400
     limit = request.args.get('limit', 5000, type=int)
-    filepath = os.path.join(SNAPSHOTS_DIR, date, f'market_snapshots_{market_type}.jsonl')
-    data = read_jsonl(filepath, limit=limit)
+    data = _read(date, f"market_snapshots_{market_type}", limit=limit)
     return jsonify(data)
 
 
@@ -99,8 +109,7 @@ def api_orderbook():
     if market_type not in ('15m', '5m'):
         return jsonify({"error": "type must be 15m or 5m"}), 400
     limit = request.args.get('limit', 2000, type=int)
-    filepath = os.path.join(SNAPSHOTS_DIR, date, f'orderbook_{market_type}.jsonl')
-    data = read_jsonl(filepath, limit=limit)
+    data = _read(date, f"orderbook_{market_type}", limit=limit)
     return jsonify(data)
 
 
@@ -110,8 +119,7 @@ def api_system_events():
     date = request.args.get('date')
     if not date:
         return jsonify({"error": "date parameter required"}), 400
-    filepath = os.path.join(SNAPSHOTS_DIR, date, 'system_events.jsonl')
-    data = read_jsonl(filepath)
+    data = _read(date, "system_events")
     return jsonify(data)
 
 
@@ -126,9 +134,14 @@ def api_summary():
     if not os.path.isdir(date_dir):
         return jsonify({"error": "date not found"}), 404
 
+    # Use efficient SQL aggregation when a database exists
+    if _has_db(date):
+        summary = get_summary_stats(SNAPSHOTS_DIR, date)
+        return jsonify(summary)
+
+    # Legacy JSONL fallback
     summary = {"date": date}
 
-    # BTC price stats
     btc = read_jsonl(os.path.join(date_dir, 'btc_prices.jsonl'))
     if btc:
         prices = [r['binance_price'] for r in btc if r.get('binance_price')]
@@ -142,7 +155,6 @@ def api_summary():
             'avg_lag_ms': round(sum(lags) / len(lags)) if lags else None
         }
 
-    # Market snapshot counts
     for mt in ['15m', '5m']:
         snaps = read_jsonl(os.path.join(date_dir, f'market_snapshots_{mt}.jsonl'))
         if snaps:
@@ -152,7 +164,6 @@ def api_summary():
                 'unique_markets': len(slugs)
             }
 
-    # System events
     events = read_jsonl(os.path.join(date_dir, 'system_events.jsonl'))
     if events:
         summary['events'] = len(events)
