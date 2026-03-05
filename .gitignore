@@ -1,5 +1,7 @@
 __pycache__/
 *.jsonl
+*.db
+snapshots/
 recorder_heartbeat.txt
 .env
 .vscode/

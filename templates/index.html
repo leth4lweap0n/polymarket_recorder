@@ -72,6 +72,20 @@ button.active{background:var(--accent);border-color:var(--accent)}
 .tabs{display:flex;gap:4px;margin-bottom:12px}
 .tabs button{background:transparent;border:1px solid var(--border);padding:4px 12px;border-radius:4px;font-size:12px;color:var(--muted)}
 .tabs button.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ── Filter Bar ── */
+.filter-bar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.filter-group{display:flex;align-items:center;gap:6px}
+.filter-label{font-size:12px;color:var(--muted);white-space:nowrap}
+.filter-sep{color:var(--muted);font-size:13px}
+.filter-bar input[type="time"]{background:var(--bg);color:var(--text);border:1px solid var(--border);padding:5px 8px;border-radius:6px;font-size:12px;font-family:inherit;width:110px}
+.filter-bar input[type="time"]:focus{border-color:var(--accent);outline:none}
+.filter-bar select{max-width:240px;font-size:12px}
+.filter-btn{background:var(--accent);color:#fff;border:1px solid var(--accent);padding:5px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600}
+.filter-btn:hover{opacity:.85}
+.filter-btn-reset{background:transparent;color:var(--muted);border-color:var(--border)}
+.filter-btn-reset:hover{color:var(--text);border-color:var(--text)}
+.filter-hint{font-size:11px;color:var(--accent);font-weight:500}
 </style>
 </head>
 <body>
@@ -85,6 +99,23 @@ button.active{background:var(--accent);border-color:var(--accent)}
       <button data-type="5m">5m Markets</button>
     </div>
   </div>
+</div>
+
+<!-- Filter Bar: time range + market slug -->
+<div class="filter-bar" id="filterBar">
+  <div class="filter-group">
+    <label class="filter-label">⏰ Time Range</label>
+    <input type="time" id="filterStart" step="1" title="Start time">
+    <span class="filter-sep">–</span>
+    <input type="time" id="filterEnd" step="1" title="End time">
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">🏷️ Market</label>
+    <select id="filterSlug"><option value="">All markets</option></select>
+  </div>
+  <button id="filterApply" class="filter-btn" title="Apply filter">Apply</button>
+  <button id="filterReset" class="filter-btn filter-btn-reset" title="Reset filters">Reset</button>
+  <span class="filter-hint" id="filterHint"></span>
 </div>
 
 <!-- Global Time Slider -->
@@ -156,6 +187,11 @@ const $$ = s => document.querySelectorAll(s);
 let currentDate = '';
 let marketType = '15m';
 let charts = {};
+
+// Filter state
+let filterStart = '';
+let filterEnd = '';
+let filterSlug = '';
 
 // Global data stores
 let btcData = [];
@@ -357,6 +393,7 @@ async function loadDates() {
 $('#dateSelect').addEventListener('change', e => {
   currentDate = e.target.value;
   stopPlay();
+  resetFilters();
   if (currentDate) loadAll();
 });
 
@@ -366,17 +403,83 @@ $$('#marketTabs button').forEach(btn => {
     btn.classList.add('active');
     marketType = btn.dataset.type;
     stopPlay();
-    await Promise.all([loadMarket(), loadOrderbook()]);
+    filterSlug = '';
+    $('#filterSlug').value = '';
+    await Promise.all([loadMarket(), loadOrderbook(), loadMarketSlugs()]);
     buildTimeline();
   });
 });
 
-async function loadAll() {
-  loadSummary();
-  // Load all data, then build timeline
+// ── Filter helpers ──
+function buildFilterParams() {
+  const p = new URLSearchParams();
+  if (filterStart && currentDate) p.set('start', currentDate + 'T' + filterStart);
+  if (filterEnd && currentDate) p.set('end', currentDate + 'T' + filterEnd);
+  return p;
+}
+
+function buildMarketFilterParams() {
+  const p = buildFilterParams();
+  if (filterSlug) p.set('market_slug', filterSlug);
+  return p;
+}
+
+function resetFilters() {
+  filterStart = ''; filterEnd = ''; filterSlug = '';
+  $('#filterStart').value = '';
+  $('#filterEnd').value = '';
+  $('#filterSlug').value = '';
+  $('#filterHint').textContent = '';
+}
+
+async function loadMarketSlugs() {
+  try {
+    const res = await fetch(`/api/market_slugs?date=${currentDate}&type=${marketType}`);
+    const slugs = await res.json();
+    const sel = $('#filterSlug');
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">All markets</option>';
+    slugs.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s;
+      // Show a shorter label: last 20 chars
+      opt.textContent = s.length > 25 ? '…' + s.slice(-25) : s;
+      opt.title = s;
+      sel.appendChild(opt);
+    });
+    sel.value = prev || '';
+  } catch(e) { console.error(e); }
+}
+
+$('#filterApply').addEventListener('click', () => {
+  filterStart = $('#filterStart').value;
+  filterEnd = $('#filterEnd').value;
+  filterSlug = $('#filterSlug').value;
+  const parts = [];
+  if (filterStart || filterEnd) parts.push(`${filterStart || '00:00'} – ${filterEnd || '23:59'}`);
+  if (filterSlug) parts.push(filterSlug.length > 20 ? '…' + filterSlug.slice(-20) : filterSlug);
+  $('#filterHint').textContent = parts.length ? '🔍 ' + parts.join(' · ') : '';
+  stopPlay();
+  loadAllData();
+});
+
+$('#filterReset').addEventListener('click', () => {
+  resetFilters();
+  stopPlay();
+  loadAllData();
+});
+
+async function loadAllData() {
   await Promise.all([loadBTC(), loadMarket(), loadOrderbook()]);
   buildTimeline();
   loadEvents();
+}
+
+async function loadAll() {
+  loadSummary();
+  resetFilters();
+  await loadMarketSlugs();
+  await loadAllData();
 }
 
 // ── Summary ──
@@ -406,7 +509,9 @@ async function loadSummary() {
 // ── BTC Price Chart ──
 async function loadBTC() {
   try {
-    const res = await fetch(`/api/btc_prices?date=${currentDate}&limit=3000`);
+    const fp = buildFilterParams();
+    fp.set('date', currentDate); fp.set('limit', '3000');
+    const res = await fetch(`/api/btc_prices?${fp}`);
     btcData = await res.json();
     $('#btcCount').textContent = btcData.length;
 
@@ -439,7 +544,9 @@ async function loadBTC() {
 // ── Market Snapshots ──
 async function loadMarket() {
   try {
-    const res = await fetch(`/api/market_snapshots?date=${currentDate}&type=${marketType}&limit=3000`);
+    const fp = buildMarketFilterParams();
+    fp.set('date', currentDate); fp.set('type', marketType); fp.set('limit', '3000');
+    const res = await fetch(`/api/market_snapshots?${fp}`);
     marketData = await res.json();
     $('#mktCount').textContent = marketData.length;
 
@@ -506,7 +613,9 @@ async function loadMarket() {
 // ── Order Book ──
 async function loadOrderbook() {
   try {
-    const res = await fetch(`/api/orderbook?date=${currentDate}&type=${marketType}&limit=1500`);
+    const fp = buildMarketFilterParams();
+    fp.set('date', currentDate); fp.set('type', marketType); fp.set('limit', '1500');
+    const res = await fetch(`/api/orderbook?${fp}`);
     obData = await res.json();
     $('#obCount').textContent = obData.length;
 
@@ -577,7 +686,9 @@ function renderObDepth(ob) {
 // ── System Events ──
 async function loadEvents() {
   try {
-    const res = await fetch(`/api/system_events?date=${currentDate}`);
+    const fp = buildFilterParams();
+    fp.set('date', currentDate);
+    const res = await fetch(`/api/system_events?${fp}`);
     const data = await res.json();
     $('#evtCount').textContent = data.length;
     const tbody = $('#eventsBody');
